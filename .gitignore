@@ -1,0 +1,6 @@
+# Ignore files created by venv to support the virtual environment
+[Bb]in
+[Ii]nclude
+[Ll]ib
+[Ll]ib64
+pyvenv.cfg
