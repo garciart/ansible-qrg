@@ -1,0 +1,39 @@
+# code: language=ansible
+---
+- name: Use multiline formatting
+  hosts: local_node
+  gather_facts: false
+  tasks:
+    - name: Display default behavior for a multiline string
+      ansible.builtin.debug:
+        msg: "States that start with 'A' include:
+          Alabama
+          Alaska
+          Arizona"
+
+    - name: >
+        Collapse a multiline string into a single line (folded block scalar)
+      ansible.builtin.debug:
+        msg: >
+          States that start with 'A' include:
+          Alabama
+          Alaska
+          Arizona
+
+    - name: Preserve newlines in a multiline string (literal block scalar)
+      ansible.builtin.debug:
+        msg: |
+          States that start with 'A' include:
+          Alabama
+          Alaska
+          Arizona
+
+    - name: >-
+        Explicitly chomp the final newline from a multiline string
+        (same as the default behavior)
+      ansible.builtin.debug:
+        msg: >-
+          States that start with 'A' include:
+          Alabama
+          Alaska
+          Arizona
