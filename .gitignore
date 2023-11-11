@@ -4,3 +4,5 @@
 [Ll]ib
 [Ll]ib64
 pyvenv.cfg
+
+.scratch*

@@ -1,15 +1,14 @@
 # code: language=yaml
-# The line above is a modeline that provides instructions for editors
-# It must be the first line in the file
-
+# vi: tabstop=2 shiftwidth=2 softtabstop=2 expandtab:
 ---
-# This is a YAML document separator (---),
-# indicating the start of a new YAML document
-
-# This simple inventory consists of one group (target_nodes)
-# with one node (local_node),
-# configured to run playbooks locally
-target_nodes:
+all:
   hosts:
     local_node:
       ansible_connection: local
+  children:
+    control_node:
+      hosts:
+        local_node:
+    managed_nodes:
+      hosts:
+        local_node:
