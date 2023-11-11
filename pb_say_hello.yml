@@ -1,23 +1,10 @@
 # code: language=ansible
-# The line above is a modeline that provides instructions for editors
-# It must be the first line in the file
-
 ---
-# This is a YAML document separator (---),
-# indicating the start of a new YAML document
-
-# This is a user-friendly name and description of the play
 - name: Say Hello
-  # This is a list of nodes targeted by the play
   hosts: local_node
-  # Collecting the target node's info takes time
-  # and should only be done when necessary
   gather_facts: false
-  # This is the list of tasks that will be performed on the target node
   tasks:
-    # This is a user-friendly name and description of the task
     - name: Say Hello using Ansible's built-in debug module
-      # This is executable module that will perform the task
       ansible.builtin.debug:
-        # This is a parameter for the module
-        msg: "Hello, World!"
+        msg:
+          - "Hello, World!"
