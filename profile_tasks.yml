@@ -1,0 +1,16 @@
+---
+# Use this playbook to demonstrate how to profile tasks
+# Usage: ansible-playbook profile_tasks.yml
+- name: Profile tasks
+  hosts: local_node
+  gather_facts: false
+  tasks:
+    - name: This is a fast task
+      ansible.builtin.debug:
+        msg: 'This is a fast task.'
+
+    - name: This is a slower task
+      ansible.builtin.pause:
+        seconds: '3'
+        prompt: 'This is a slower task.'
+...

@@ -1,0 +1,32 @@
+---
+# This playbook demonstrates how to organize tasks using blocks
+# Usage: ansible-playbook organize_tasks.yml
+- name: Organize tasks using blocks
+  hosts: local_node
+  gather_facts: false
+  tasks:
+    - name: Foo tasks
+      tags:
+        - foo
+      block:
+        - name: Foo task
+          ansible.builtin.debug:
+            msg: 'This is a foo task.'
+
+        - name: Another foo task
+          ansible.builtin.debug:
+            msg: 'This is another foo task.'
+
+
+    - name: Bar tasks
+      tags:
+        - bar
+      block:
+        - name: Bar task
+          ansible.builtin.debug:
+            msg: 'This is a bar task.'
+
+        - name: Another bar task
+          ansible.builtin.debug:
+            msg: 'This is another bar task.'
+...

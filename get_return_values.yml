@@ -1,0 +1,20 @@
+---
+# This playbook demonstrates how to capture the return values of a task
+# Usage: ansible-playbook get_return_values.yml
+- name: Get the return values of a task
+  hosts: local_node
+  gather_facts: false
+  tasks:
+    - name: Say Hello
+      ansible.builtin.debug:
+        msg: 'Hello, World!'
+      register: result
+
+    - name: Display the return values of the previous task
+      ansible.builtin.debug:
+        var: result
+
+    - name: Display a single return value
+      ansible.builtin.debug:
+        var: result['failed']
+...

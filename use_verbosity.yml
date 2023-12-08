@@ -1,0 +1,27 @@
+---
+# Use this playbook to demonstrate how to use verbosity to limit debug info
+# Usage: ansible-playbook use_verbosity.yml -vvv
+- name: Use verbosity to limit debug info
+  hosts: local_node
+  gather_facts: false
+  tasks:
+    - name: Say Hello
+      ansible.builtin.debug:
+        msg: 'Hello, World!'
+      register: result
+
+    - name: Display the changed value at verbosity level 1
+      ansible.builtin.debug:
+        var: result['changed']
+        verbosity: 1
+
+    - name: Display the failed value at verbosity level 2
+      ansible.builtin.debug:
+        var: result['failed']
+        verbosity: 2
+
+    - name: Display all the return values at verbosity level 3
+      ansible.builtin.debug:
+        var: result
+        verbosity: 3
+...

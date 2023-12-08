@@ -1,0 +1,20 @@
+---
+# Use this playbook to demonstrate how to log output
+# Usage: ansible-playbook log_output.yml
+- name: Log output
+  hosts: local_node
+  gather_facts: false
+  tasks:
+    - name: This is the first task
+      ansible.builtin.debug:
+        msg: 'This is the first task.'
+
+    - name: This is a secret task
+      ansible.builtin.debug:
+        msg: "The super-secret squirrel password is 'password!'"
+      no_log: true
+
+    - name: This is the last task
+      ansible.builtin.debug:
+        msg: 'This is the last task.'
+...

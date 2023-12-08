@@ -1,0 +1,10 @@
+---
+# This playbook has intentional errors and styling issues
+# Usage: ansible-playbook perform_linting.yml
+- name: a bad play
+  hosts: local_node
+  gather_facts: maybe
+  tasks:
+    - debug:
+        msg: 'Hello, World!'
+...
