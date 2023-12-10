@@ -15,13 +15,13 @@ state_dino: null
 
 # Use Jinja2 templating to populate the value of a variable
 # from another variable
-f_string_1: "The name of the state is {{ state_name }}."
-f_string_2: "The state dinosaur is {{ state_dino }}."
+f_string_1: 'The name of the state is {{ state_name }}.'
+f_string_2: 'The state dinosaur is {{ state_dino }}.'
 
 # Use nesting and indentation to denote hierarchy and scope
 parent_node:
   child_node: 'I belong to the parent node.'
-f_string_3: "The child node says, '{{ parent_node['child_node'] }}'."
+f_string_3: "The child node says, '{{ parent_node['child_node'] }}'"
 
 # Two different ways to style a list
 flow_list: [1, 2, 3]

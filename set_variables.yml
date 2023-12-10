@@ -24,7 +24,7 @@
         # Use true/false instead of yes/no or on/off
         bool_var: false
         # Use null instead of a tilde (~) for readability
-        # BTW, YAML uses "null" not "none", even though null is a NoneType
+        # BTW, YAML uses 'null' not 'none', even though null is a NoneType
         null_var: null
       ansible.builtin.debug:
         msg:
