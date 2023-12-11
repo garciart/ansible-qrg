@@ -1,31 +1,32 @@
 ---
-# Use this playbook to demonstrate how to run or skip tasks
+# This playbook demonstrates how to selectively run or skip tasks
 # Usage:
 #   - ansible-playbook run_or_skip_tasks.yml --step
-#   - ansible-playbook run_or_skip_tasks.yml --start-at-task "This is a third task"
+#   - ansible-playbook run_or_skip_tasks.yml --start-at-task "Run a third task"
+#   - ansible-playbook run_or_skip_tasks.yml --tags odd
 - name: Run or skip tasks
   hosts: local_node
   gather_facts: false
   tasks:
-    - name: This is the first task
+    - name: Run the first task
       ansible.builtin.debug:
         msg: "This is the first task."
       tags:
         - odd
 
-    - name: This is a second task
+    - name: Run a second task
       ansible.builtin.debug:
         msg: "This is a second task."
       tags:
         - even
 
-    - name: This is a third task
+    - name: Run a third task
       ansible.builtin.debug:
         msg: "This is a third task."
       tags:
         - odd
 
-    - name: This is a fourth task
+    - name: Run a fourth task
       ansible.builtin.debug:
         msg: "This is a fourth task."
       tags:

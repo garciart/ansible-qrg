@@ -1,6 +1,5 @@
 ---
-# This playbook demonstrates how to run multiple tasks
-# and display multiple messages
+# This playbook demonstrates how to run multiple tasks and display multiple messages
 # Usage: ansible-playbook run_multiple_tasks.yml
 - name: Run multiple tasks in a play
   hosts: local_node

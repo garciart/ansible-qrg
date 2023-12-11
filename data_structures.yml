@@ -1,18 +1,17 @@
 ---
-# Create different data structures
+# This file demonstrates the different data structures used in playbooks
 # Usage:
 #   - ansible localhost --module-name ansible.builtin.debug --args "var=f_string_1" --extra-vars "@data_structures.yml"
 #   - ansible localhost -m debug -a "var=[f_string_2,f_string_3]" -e "@data_structures.yml"
 
-# Instantiate different types of simple variables
+# Instantiate different types of scalar types
 state_name: "Alabama"
 state_num: 22
 pct_water: 3.39
 landlocked: false
 state_dino: null
 
-# Use Jinja2 templating to populate the value of a variable
-# from another variable
+# Use Jinja2 templating to populate the value of a variable in a string
 f_string_1: "The name of the state is {{ state_name }}."
 f_string_2: "The state dinosaur is {{ state_dino }}."
 
@@ -35,12 +34,19 @@ block_dict:
   bar: 2
   baz: 3
 
-# Mixed collections
+# A mixed collection of lists and dictionaries
 list_of_lists_and_dicts:
+  # List using flow styling
   - ["Alaska", 49, 13.77]
+
+  # Dictionary using flow styling
+  - { state_name: "Arizona", state_num: 48, pct_water: 0.3 }
+
+  # List using block styling
   - - false
     - null
-  - { state_name: "Arizona", state_num: 48, pct_water: 0.3 }
+
+  # Dictionary using block styling
   - landlocked: true
     state_dino: "Sonorasaurus"
 ...

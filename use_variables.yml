@@ -1,0 +1,42 @@
+---
+# This playbook demonstrates how to set and use different types of variables
+# Usage: ansible-playbook use_variables.yml
+- name: Set and use different types of variables
+  hosts: local_node
+  gather_facts: false
+  tasks:
+    - name: Set and display a string variable
+      vars:
+        # Use quotation marks to explicitly declare strings
+        str_var_1: "Alabama"
+      ansible.builtin.debug:
+        # Display the value and type of the string
+        var: str_var_1, str_var_1 | type_debug
+
+    - name: Set and display other types of variables
+      vars:
+        str_var_1: "Alabama"
+        str_var_2: "Montgomery"
+        int_var: 22
+        int_octal_var: 026  # noqa yaml[octal-values]
+        int_hex_var: 0x16
+        float_var: 3.39
+        # Use true/false instead of yes/no or on/off
+        bool_var: false
+        # Use null instead of a tilde (~) for readability
+        # BTW, YAML uses "null" not "None", even though null is a NoneType
+        null_var: null
+      ansible.builtin.debug:
+        msg:
+          - "{{ str_var_1 }} is an {{ str_var_2 | type_debug }} type."
+          - "{{ str_var_2 }} is an {{ str_var_2 | type_debug }} type."
+          - "{{ int_var }} is an {{ int_var | type_debug }}."
+          - "{{ int_octal_var }} (octal) is also an {{ int_octal_var | type_debug }}."
+          - "{{ int_hex_var }} (hexadecimal) is an {{ int_hex_var | type_debug }} as well."
+          - "{{ float_var }} is a {{ float_var | type_debug }}."
+          - "{{ bool_var }} is a {{ bool_var | type_debug }}."
+          - "{{ null_var }} is a {{ null_var | type_debug }}."
+          - >-
+            {{ str_var_1 }} is {{ float_var }} percent water
+            and its capitol is {{ str_var_2 }}.
+...

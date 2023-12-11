@@ -1,6 +1,7 @@
 # code: language=yaml
 # vi: tabstop=2 shiftwidth=2 softtabstop=2 expandtab:
 ---
+# Ansible inventory using YAML format
 all:
   hosts:
     local_node:
