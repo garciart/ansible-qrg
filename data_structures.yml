@@ -1,8 +1,10 @@
 ---
 # This file demonstrates the different data structures used in playbooks
 # Usage:
-#   - ansible localhost --module-name ansible.builtin.debug --args "var=f_string_1" --extra-vars "@data_structures.yml"
-#   - ansible localhost -m debug -a "var=[f_string_2,f_string_3]" -e "@data_structures.yml"
+#   - ansible localhost --module-name ansible.builtin.debug --args
+#       "var=f_string_1" --extra-vars "@data_structures.yml"
+#   - ansible localhost -m debug -a "var=[f_string_2,f_string_3]" -e
+#       "@data_structures.yml"
 
 # Instantiate different types of scalar types
 state_name: "Alabama"
@@ -40,7 +42,7 @@ list_of_lists_and_dicts:
   - ["Alaska", 49, 13.77]
 
   # Dictionary using flow styling
-  - { state_name: "Arizona", state_num: 48, pct_water: 0.3 }
+  - {state_name: "Arizona", state_num: 48, pct_water: 0.3}
 
   # List using block styling
   - - false
