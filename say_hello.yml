@@ -1,12 +1,11 @@
-# code: language=ansible
 ---
-# This playbook demonstrates how to display a message in Ansible
+# Say Hello
 # Usage: ansible-playbook say_hello.yml
-- name: A play that says Hello
+- name: Say Hello
   hosts: local_node
   gather_facts: false
   tasks:
-    - name: A task that says Hello
+    - name: Say Hello
       ansible.builtin.debug:
-        msg: 'Hello, World!'
+        msg: "Hello, World!"
 ...

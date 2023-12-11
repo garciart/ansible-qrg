@@ -1,13 +1,11 @@
-# code: language=yaml
 ---
-# This is a simple document, written in YAML and Jinja,
-# that contains examples of the data structures used by Ansible
+# Create different data structures
 # Usage:
-#   - ansible localhost --module-name ansible.builtin.debug --args 'var=f_string_1' --extra-vars '@data_structures.yml'
-#   - ansible localhost -m debug -a 'var=f_string_2,f_string_3' -e '@data_structures.yml'
+#   - ansible localhost --module-name ansible.builtin.debug --args "var=f_string_1" --extra-vars "@data_structures.yml"
+#   - ansible localhost -m debug -a "var=[f_string_2,f_string_3]" -e "@data_structures.yml"
 
-# Instantiate different types of variables
-state_name: 'Alabama'
+# Instantiate different types of simple variables
+state_name: "Alabama"
 state_num: 22
 pct_water: 3.39
 landlocked: false
@@ -15,12 +13,12 @@ state_dino: null
 
 # Use Jinja2 templating to populate the value of a variable
 # from another variable
-f_string_1: 'The name of the state is {{ state_name }}.'
-f_string_2: 'The state dinosaur is {{ state_dino }}.'
+f_string_1: "The name of the state is {{ state_name }}."
+f_string_2: "The state dinosaur is {{ state_dino }}."
 
 # Use nesting and indentation to denote hierarchy and scope
 parent_node:
-  child_node: 'I belong to the parent node.'
+  child_node: "I belong to the parent node."
 f_string_3: "The child node says, '{{ parent_node['child_node'] }}'"
 
 # Two different ways to style a list
@@ -39,10 +37,10 @@ block_dict:
 
 # Mixed collections
 list_of_lists_and_dicts:
-  - ['Alaska', 49, 13.77]
+  - ["Alaska", 49, 13.77]
   - - false
     - null
-  - { state_name: 'Arizona', state_num: 48, pct_water: 0.3 }
+  - { state_name: "Arizona", state_num: 48, pct_water: 0.3 }
   - landlocked: true
-    state_dino: 'Sonorasaurus'
+    state_dino: "Sonorasaurus"
 ...

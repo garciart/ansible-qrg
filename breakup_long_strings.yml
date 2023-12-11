@@ -1,5 +1,5 @@
 ---
-# This playbook demonstrates how to break up long strings of code for readability
+# Break up long strings of code to improve readability
 # Usage: ansible-playbook breakup_long_strings.yml
 - name: Break up long strings
   hosts: local_node
@@ -7,7 +7,7 @@
   tasks:
     - name: Use flow styling to display output (default)
       ansible.builtin.debug:
-        msg: 'Happy Birthday to You, Happy Birthday to You, Happy Birthday, Happy Birthday, Happy Birthday to You!'
+        msg: "Happy Birthday to You, Happy Birthday to You, Happy Birthday, Happy Birthday, Happy Birthday to You!"
 
     - name: Use literal block scalar styling to preserve newlines in a multiline string
       ansible.builtin.debug:

@@ -8,11 +8,11 @@
   tasks:
     - name: Run a task
       ansible.builtin.debug:
-        msg: 'This is the first task.'
+        msg: "This is the first task."
 
     - name: Run another task
       ansible.builtin.debug:
         msg:
-          - 'This is the second task.'
-          - 'This task displays two messages.'
+          - "This is the second task."
+          - "This task displays two messages."
 ...

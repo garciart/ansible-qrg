@@ -1,5 +1,5 @@
 ---
-# This playbook demonstrates how to perform error handling
+# Perform error handling
 # Usage: ansible-playbook error_handling.yml
 - name: Perform error handling using blocks
   hosts: local_node
@@ -9,21 +9,21 @@
       block:
         - name: Perform a task that passes
           ansible.builtin.debug:
-            msg: 'I passed!'
+            msg: "I passed!"
 
         - name: Perform a tasks that fails
           ansible.builtin.fail:
-            msg: 'I failed.'
+            msg: "I failed."
 
         - name: Create a task that will not run
           ansible.builtin.debug:
-            msg: 'I will not run, since the previous task failed.'
+            msg: "I will not run, since the previous task failed."
       rescue:
         - name: Display an error message
           ansible.builtin.debug:
-            msg: 'I run if a task in the block fails.'
+            msg: "I run if a task in the block fails."
       always:
         - name: Perform a task whether the previous tasks passed or failed
           ansible.builtin.debug:
-            msg: 'I always run.'
+            msg: "I always run."
 ...

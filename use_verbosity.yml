@@ -7,7 +7,7 @@
   tasks:
     - name: Say Hello
       ansible.builtin.debug:
-        msg: 'Hello, World!'
+        msg: "Hello, World!"
       register: result
 
     - name: Display the changed value at verbosity level 1

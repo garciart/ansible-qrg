@@ -6,5 +6,5 @@
   gather_facts: maybe
   tasks:
     - debug:
-        msg: 'Hello, World!'
+        msg: "Hello, World!"
 ...
