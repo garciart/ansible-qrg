@@ -1,0 +1,563 @@
+[a4puser@l5 ~]$ cd ~/a4p
+[a4puser@l5 a4p]$ source bin/activate
+(a4p) [a4puser@l5 a4p]$ ansible localhost --module-name ansible.builtin.debug --args "var=f_string_1" --extra-vars "@data_structures.yml"
+localhost | SUCCESS => {
+    "f_string_1": "The name of the state is Alabama."
+}
+(a4p) [a4puser@l5 a4p]$ ansible localhost -m debug -a "var=[f_string_2,f_string_3]" -e "@data_structures.yml"
+localhost | SUCCESS => {
+    "[f_string_2,f_string_3]": [
+        "The state dinosaur is .",
+        "The child node says, 'I belong to the parent node.'"
+    ]
+}
+(a4p) [a4puser@l5 a4p]$ ansible-playbook say_hello.yml
+
+PLAY [Say Hello] **************************************************************************************************************************************************************************************************
+
+TASK [Say Hello] **************************************************************************************************************************************************************************************************
+ok: [local_node] => {
+    "msg": "Hello, World!"
+}
+
+PLAY RECAP ********************************************************************************************************************************************************************************************************
+local_node                 : ok=1    changed=0    unreachable=0    failed=0    skipped=0    rescued=0    ignored=0   
+
+(a4p) [a4puser@l5 a4p]$ ansible-lint perform_linting.yml
+WARNING  Listing 1 violation(s) that are fatal
+syntax-check[specific]: the field 'gather_facts' has an invalid value (maybe), and could not be converted to an bool.The error was: The value 'maybe' is not a valid boolean.  Valid booleans include: 0, 1, 'n', 'false', '1', 'yes', 'true', 'off', 'y', '0', 't', 'no', 'on', 'f'
+perform_linting.yml:4:3
+
+
+                  Rule Violation Summary                   
+ count tag                    profile rule associated tags 
+     1 syntax-check[specific] min     core, unskippable    
+
+Failed: 1 failure(s), 0 warning(s) on 1 files.
+(a4p) [a4puser@l5 a4p]$ ansible-lint perform_linting.yml
+WARNING  Listing 4 violation(s) that are fatal
+name[casing]: All names should start with an uppercase letter.
+perform_linting.yml:4
+
+yaml[truthy]: Truthy value should be one of [false, true]
+perform_linting.yml:6
+
+fqcn[action-core]: Use FQCN for builtin module actions (debug).
+perform_linting.yml:8 Use `ansible.builtin.debug` or `ansible.legacy.debug` instead.
+
+name[missing]: All tasks should be named.
+perform_linting.yml:8 Task/Handler: debug msg=Hello, World!
+
+Read documentation for instructions on how to ignore specific rule violations.
+
+                 Rule Violation Summary                  
+ count tag               profile    rule associated tags 
+     1 name[missing]     basic      idiom                
+     1 yaml[truthy]      basic      formatting, yaml     
+     1 name[casing]      moderate   idiom                
+     1 fqcn[action-core] production formatting           
+
+Failed: 4 failure(s), 0 warning(s) on 1 files. Last profile that met the validation criteria was 'min'.
+(a4p) [a4puser@l5 a4p]$ ansible-lint perform_linting.yml
+WARNING  Listing 2 violation(s) that are fatal
+name[casing]: All names should start with an uppercase letter.
+perform_linting.yml:4
+
+fqcn[action-core]: Use FQCN for builtin module actions (debug).
+perform_linting.yml:8 Use `ansible.builtin.debug` or `ansible.legacy.debug` instead.
+
+Read documentation for instructions on how to ignore specific rule violations.
+
+                 Rule Violation Summary                  
+ count tag               profile    rule associated tags 
+     1 name[casing]      moderate   idiom                
+     1 fqcn[action-core] production formatting           
+
+Failed: 2 failure(s), 0 warning(s) on 1 files. Last profile that met the validation criteria was 'basic'. Rating: 1/5 star
+(a4p) [a4puser@l5 a4p]$ ansible-lint perform_linting.yml
+WARNING  Listing 1 violation(s) that are fatal
+fqcn[action-core]: Use FQCN for builtin module actions (debug).
+perform_linting.yml:8 Use `ansible.builtin.debug` or `ansible.legacy.debug` instead.
+
+Read documentation for instructions on how to ignore specific rule violations.
+
+                 Rule Violation Summary                  
+ count tag               profile    rule associated tags 
+     1 fqcn[action-core] production formatting           
+
+Failed: 1 failure(s), 0 warning(s) on 1 files. Last profile that met the validation criteria was 'shared'. Rating: 4/5 star
+(a4p) [a4puser@l5 a4p]$ ansible-lint perform_linting.yml
+
+Passed: 0 failure(s), 0 warning(s) on 1 files. Last profile that met the validation criteria was 'production'.
+(a4p) [a4puser@l5 a4p]$ ansible-playbook perform_linting.yml
+
+PLAY [Run a good play] ********************************************************************************************************************************************************************************************
+
+TASK [Say Hello] **************************************************************************************************************************************************************************************************
+ok: [local_node] => {
+    "msg": "Hello, World!"
+}
+
+PLAY RECAP ********************************************************************************************************************************************************************************************************
+local_node                 : ok=1    changed=0    unreachable=0    failed=0    skipped=0    rescued=0    ignored=0   
+
+(a4p) [a4puser@l5 a4p]$ ansible-playbook run_multiple_tasks.yml
+
+PLAY [Run multiple tasks in a play] *******************************************************************************************************************************************************************************
+
+TASK [Run a task] *************************************************************************************************************************************************************************************************
+ok: [local_node] => {
+    "msg": "This is the first task."
+}
+
+TASK [Run another task] *******************************************************************************************************************************************************************************************
+ok: [local_node] => {
+    "msg": [
+        "This is the second task.",
+        "This task displays two messages."
+    ]
+}
+
+PLAY RECAP ********************************************************************************************************************************************************************************************************
+local_node                 : ok=2    changed=0    unreachable=0    failed=0    skipped=0    rescued=0    ignored=0   
+
+(a4p) [a4puser@l5 a4p]$ ansible-playbook get_return_values.yml
+
+PLAY [Capture the return values of a task] ************************************************************************************************************************************************************************
+
+TASK [Say Hello] **************************************************************************************************************************************************************************************************
+ok: [local_node] => {
+    "msg": "Hello, World!"
+}
+
+TASK [Display the return values of the previous task] *************************************************************************************************************************************************************
+ok: [local_node] => {
+    "result": {
+        "changed": false,
+        "failed": false,
+        "msg": "Hello, World!"
+    }
+}
+
+TASK [Display a single return value] ******************************************************************************************************************************************************************************
+ok: [local_node] => {
+    "result['failed']": false
+}
+
+PLAY RECAP ********************************************************************************************************************************************************************************************************
+local_node                 : ok=3    changed=0    unreachable=0    failed=0    skipped=0    rescued=0    ignored=0   
+
+(a4p) [a4puser@l5 a4p]$ ansible-playbook use_verbosity.yml
+
+PLAY [Use verbosity to limit debug info] **************************************************************************************************************************************************************************
+
+TASK [Say Hello] **************************************************************************************************************************************************************************************************
+ok: [local_node] => {
+    "msg": "Hello, World!"
+}
+
+TASK [Display the changed value at verbosity level 1] *************************************************************************************************************************************************************
+skipping: [local_node]
+
+TASK [Display the failed value at verbosity level 2] **************************************************************************************************************************************************************
+skipping: [local_node]
+
+TASK [Display all the return values at verbosity level 3] *********************************************************************************************************************************************************
+skipping: [local_node]
+
+PLAY RECAP ********************************************************************************************************************************************************************************************************
+local_node                 : ok=1    changed=0    unreachable=0    failed=0    skipped=3    rescued=0    ignored=0   
+
+(a4p) [a4puser@l5 a4p]$ ansible-playbook use_verbosity.yml -v
+Using /home/a4puser/a4p/ansible.cfg as config file
+
+PLAY [Use verbosity to limit debug info] **************************************************************************************************************************************************************************
+
+TASK [Say Hello] **************************************************************************************************************************************************************************************************
+ok: [local_node] => {
+    "msg": "Hello, World!"
+}
+
+TASK [Display the changed value at verbosity level 1] *************************************************************************************************************************************************************
+ok: [local_node] => {
+    "result['changed']": false
+}
+
+TASK [Display the failed value at verbosity level 2] **************************************************************************************************************************************************************
+skipping: [local_node] => {"skipped_reason": "Verbosity threshold not met."}
+
+TASK [Display all the return values at verbosity level 3] *********************************************************************************************************************************************************
+skipping: [local_node] => {"skipped_reason": "Verbosity threshold not met."}
+
+PLAY RECAP ********************************************************************************************************************************************************************************************************
+local_node                 : ok=2    changed=0    unreachable=0    failed=0    skipped=2    rescued=0    ignored=0   
+
+(a4p) [a4puser@l5 a4p]$ ansible-playbook use_verbosity.yml -vv
+ansible-playbook [core 2.15.6]
+  config file = /home/a4puser/a4p/ansible.cfg
+  configured module search path = ['/home/a4puser/.ansible/plugins/modules', '/usr/share/ansible/plugins/modules']
+  ansible python module location = /home/a4puser/a4p/lib64/python3.11/site-packages/ansible
+  ansible collection location = /home/a4puser/.ansible/collections:/usr/share/ansible/collections
+  executable location = /home/a4puser/a4p/bin/ansible-playbook
+  python version = 3.11.5 (main, Sep 22 2023, 15:34:29) [GCC 8.5.0 20210514 (Red Hat 8.5.0-20)] (/home/a4puser/a4p/bin/python3)
+  jinja version = 3.1.2
+  libyaml = True
+Using /home/a4puser/a4p/ansible.cfg as config file
+Skipping callback 'default', as we already have a stdout callback.
+Skipping callback 'minimal', as we already have a stdout callback.
+Skipping callback 'oneline', as we already have a stdout callback.
+
+PLAYBOOK: use_verbosity.yml ***************************************************************************************************************************************************************************************
+1 plays in use_verbosity.yml
+
+PLAY [Use verbosity to limit debug info] **************************************************************************************************************************************************************************
+
+TASK [Say Hello] **************************************************************************************************************************************************************************************************
+task path: /home/a4puser/a4p/use_verbosity.yml:12
+ok: [local_node] => {
+    "msg": "Hello, World!"
+}
+
+TASK [Display the changed value at verbosity level 1] *************************************************************************************************************************************************************
+task path: /home/a4puser/a4p/use_verbosity.yml:17
+ok: [local_node] => {
+    "result['changed']": false
+}
+
+TASK [Display the failed value at verbosity level 2] **************************************************************************************************************************************************************
+task path: /home/a4puser/a4p/use_verbosity.yml:22
+ok: [local_node] => {
+    "result['failed']": false
+}
+
+TASK [Display all the return values at verbosity level 3] *********************************************************************************************************************************************************
+task path: /home/a4puser/a4p/use_verbosity.yml:27
+skipping: [local_node] => {"skipped_reason": "Verbosity threshold not met."}
+
+PLAY RECAP ********************************************************************************************************************************************************************************************************
+local_node                 : ok=3    changed=0    unreachable=0    failed=0    skipped=1    rescued=0    ignored=0   
+
+(a4p) [a4puser@l5 a4p]$ ansible-playbook use_verbosity.yml -vvv
+ansible-playbook [core 2.15.6]
+  config file = /home/a4puser/a4p/ansible.cfg
+  configured module search path = ['/home/a4puser/.ansible/plugins/modules', '/usr/share/ansible/plugins/modules']
+  ansible python module location = /home/a4puser/a4p/lib64/python3.11/site-packages/ansible
+  ansible collection location = /home/a4puser/.ansible/collections:/usr/share/ansible/collections
+  executable location = /home/a4puser/a4p/bin/ansible-playbook
+  python version = 3.11.5 (main, Sep 22 2023, 15:34:29) [GCC 8.5.0 20210514 (Red Hat 8.5.0-20)] (/home/a4puser/a4p/bin/python3)
+  jinja version = 3.1.2
+  libyaml = True
+Using /home/a4puser/a4p/ansible.cfg as config file
+host_list declined parsing /home/a4puser/a4p/inventory.yml as it did not pass its verify_file() method
+script declined parsing /home/a4puser/a4p/inventory.yml as it did not pass its verify_file() method
+Parsed /home/a4puser/a4p/inventory.yml inventory source with yaml plugin
+Skipping callback 'default', as we already have a stdout callback.
+Skipping callback 'minimal', as we already have a stdout callback.
+Skipping callback 'oneline', as we already have a stdout callback.
+
+PLAYBOOK: use_verbosity.yml ***************************************************************************************************************************************************************************************
+1 plays in use_verbosity.yml
+
+PLAY [Use verbosity to limit debug info] **************************************************************************************************************************************************************************
+
+TASK [Say Hello] **************************************************************************************************************************************************************************************************
+task path: /home/a4puser/a4p/use_verbosity.yml:12
+ok: [local_node] => {
+    "msg": "Hello, World!"
+}
+
+TASK [Display the changed value at verbosity level 1] *************************************************************************************************************************************************************
+task path: /home/a4puser/a4p/use_verbosity.yml:17
+ok: [local_node] => {
+    "result['changed']": false
+}
+
+TASK [Display the failed value at verbosity level 2] **************************************************************************************************************************************************************
+task path: /home/a4puser/a4p/use_verbosity.yml:22
+ok: [local_node] => {
+    "result['failed']": false
+}
+
+TASK [Display all the return values at verbosity level 3] *********************************************************************************************************************************************************
+task path: /home/a4puser/a4p/use_verbosity.yml:27
+ok: [local_node] => {
+    "result": {
+        "changed": false,
+        "failed": false,
+        "msg": "Hello, World!"
+    }
+}
+
+PLAY RECAP ********************************************************************************************************************************************************************************************************
+local_node                 : ok=4    changed=0    unreachable=0    failed=0    skipped=0    rescued=0    ignored=0   
+
+(a4p) [a4puser@l5 a4p]$ ansible-playbook run_or_skip_tasks.yml --step
+
+PLAY [Run or skip tasks] ******************************************************************************************************************************************************************************************
+Perform task: TASK: Run the first task (N)o/(y)es/(c)ontinue: N
+
+Perform task: TASK: Run the first task (N)o/(y)es/(c)ontinue: *****************************************************************************************************************************************************
+Perform task: TASK: Run a second task (N)o/(y)es/(c)ontinue: y
+
+Perform task: TASK: Run a second task (N)o/(y)es/(c)ontinue: ******************************************************************************************************************************************************
+
+TASK [Run a second task] ******************************************************************************************************************************************************************************************
+ok: [local_node] => {
+    "msg": "This is a second task."
+}
+Perform task: TASK: Run a third task (N)o/(y)es/(c)ontinue: c
+
+Perform task: TASK: Run a third task (N)o/(y)es/(c)ontinue: *******************************************************************************************************************************************************
+
+TASK [Run a third task] *******************************************************************************************************************************************************************************************
+ok: [local_node] => {
+    "msg": "This is a third task."
+}
+
+TASK [Run a fourth task] ******************************************************************************************************************************************************************************************
+ok: [local_node] => {
+    "msg": "This is a fourth task."
+}
+
+PLAY RECAP ********************************************************************************************************************************************************************************************************
+local_node                 : ok=3    changed=0    unreachable=0    failed=0    skipped=0    rescued=0    ignored=0   
+
+(a4p) [a4puser@l5 a4p]$ ansible-playbook run_or_skip_tasks.yml --start-at-task "Run a third task"
+
+PLAY [Run or skip tasks] ******************************************************************************************************************************************************************************************
+
+TASK [Run a third task] *******************************************************************************************************************************************************************************************
+ok: [local_node] => {
+    "msg": "This is a third task."
+}
+
+TASK [Run a fourth task] ******************************************************************************************************************************************************************************************
+ok: [local_node] => {
+    "msg": "This is a fourth task."
+}
+
+PLAY RECAP ********************************************************************************************************************************************************************************************************
+local_node                 : ok=2    changed=0    unreachable=0    failed=0    skipped=0    rescued=0    ignored=0   
+
+(a4p) [a4puser@l5 a4p]$ ansible-playbook run_or_skip_tasks.yml --tags odd
+
+PLAY [Run or skip tasks] ******************************************************************************************************************************************************************************************
+
+TASK [Run the first task] *****************************************************************************************************************************************************************************************
+ok: [local_node] => {
+    "msg": "This is the first task."
+}
+
+TASK [Run a third task] *******************************************************************************************************************************************************************************************
+ok: [local_node] => {
+    "msg": "This is a third task."
+}
+
+PLAY RECAP ********************************************************************************************************************************************************************************************************
+local_node                 : ok=2    changed=0    unreachable=0    failed=0    skipped=0    rescued=0    ignored=0   
+
+(a4p) [a4puser@l5 a4p]$ ansible-playbook organize_tasks.yml
+
+PLAY [Organize tasks using blocks] ********************************************************************************************************************************************************************************
+
+TASK [Run a foo task] *********************************************************************************************************************************************************************************************
+ok: [local_node] => {
+    "msg": "This is a foo task."
+}
+
+TASK [Run another foo task] ***************************************************************************************************************************************************************************************
+ok: [local_node] => {
+    "msg": "This is another foo task."
+}
+
+TASK [Run a bar task] *********************************************************************************************************************************************************************************************
+ok: [local_node] => {
+    "msg": "This is a bar task."
+}
+
+TASK [Run another bar task] ***************************************************************************************************************************************************************************************
+ok: [local_node] => {
+    "msg": "This is another bar task."
+}
+
+PLAY RECAP ********************************************************************************************************************************************************************************************************
+local_node                 : ok=4    changed=0    unreachable=0    failed=0    skipped=0    rescued=0    ignored=0   
+
+(a4p) [a4puser@l5 a4p]$ ansible-playbook error_handling.yml
+
+PLAY [Perform error handling] *************************************************************************************************************************************************************************************
+
+TASK [Perform a task that passes] *********************************************************************************************************************************************************************************
+ok: [local_node] => {
+    "msg": "I passed!"
+}
+
+TASK [Perform a tasks that fails] *********************************************************************************************************************************************************************************
+fatal: [local_node]: FAILED! => {"changed": false, "msg": "I failed."}
+
+TASK [Display an error message] ***********************************************************************************************************************************************************************************
+ok: [local_node] => {
+    "msg": "I run if a task in the block fails."
+}
+
+TASK [Perform a task whether the previous tasks passed or failed] *************************************************************************************************************************************************
+ok: [local_node] => {
+    "msg": "I always run."
+}
+
+PLAY RECAP ********************************************************************************************************************************************************************************************************
+local_node                 : ok=3    changed=0    unreachable=0    failed=0    skipped=0    rescued=1    ignored=0   
+
+(a4p) [a4puser@l5 a4p]$ ansible-playbook profile_tasks.yml 
+
+PLAY [Profile tasks] **********************************************************************************************************************************************************************************************
+
+TASK [Run a fast task] ********************************************************************************************************************************************************************************************
+Monday 11 December 2023  10:05:25 -0500 (0:00:00.008)       0:00:00.008 ******* 
+ok: [local_node] => {
+    "msg": "This is a fast task."
+}
+
+TASK [Run a slower task] ******************************************************************************************************************************************************************************************
+Monday 11 December 2023  10:05:25 -0500 (0:00:00.018)       0:00:00.027 ******* 
+Pausing for 3 seconds
+(ctrl+C then 'C' = continue early, ctrl+C then 'A' = abort)
+[Run a slower task]
+This is a slower task.:
+ok: [local_node]
+
+PLAY RECAP ********************************************************************************************************************************************************************************************************
+local_node                 : ok=2    changed=0    unreachable=0    failed=0    skipped=0    rescued=0    ignored=0   
+
+Monday 11 December 2023  10:05:28 -0500 (0:00:03.033)       0:00:03.060 ******* 
+=============================================================================== 
+Run a slower task ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ 3.03s
+Run a fast task -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- 0.02s
+(a4p) [a4puser@l5 a4p]$ ansible-playbook log_output.yml
+
+PLAY [Log output] *************************************************************************************************************************************************************************************************
+
+TASK [Run the first task] *****************************************************************************************************************************************************************************************
+ok: [local_node] => {
+    "msg": "This is the first task."
+}
+
+TASK [Run a secret task] ******************************************************************************************************************************************************************************************
+ok: [local_node]
+
+TASK [Run the last task] ******************************************************************************************************************************************************************************************
+ok: [local_node] => {
+    "msg": "This is the last task."
+}
+
+PLAY RECAP ********************************************************************************************************************************************************************************************************
+local_node                 : ok=3    changed=0    unreachable=0    failed=0    skipped=0    rescued=0    ignored=0   
+
+(a4p) [a4puser@l5 a4p]$ ansible-playbook log_output.yml -v
+Using /home/a4puser/a4p/ansible.cfg as config file
+
+PLAY [Log output] *************************************************************************************************************************************************************************************************
+
+TASK [Run the first task] *****************************************************************************************************************************************************************************************
+ok: [local_node] => {
+    "msg": "This is the first task."
+}
+
+TASK [Run a secret task] ******************************************************************************************************************************************************************************************
+ok: [local_node] => {"censored": "the output has been hidden due to the fact that 'no_log: true' was specified for this result"}
+
+TASK [Run the last task] ******************************************************************************************************************************************************************************************
+ok: [local_node] => {
+    "msg": "This is the last task."
+}
+
+PLAY RECAP ********************************************************************************************************************************************************************************************************
+local_node                 : ok=3    changed=0    unreachable=0    failed=0    skipped=0    rescued=0    ignored=0   
+
+(a4p) [a4puser@l5 a4p]$ cat a4p.log
+2023-12-11 10:08:19,465 p=27955 u=a4puser n=ansible | PLAY [Log output] *************************************************************************************************************************************************************************************************
+2023-12-11 10:08:19,473 p=27955 u=a4puser n=ansible | TASK [Run the first task] *****************************************************************************************************************************************************************************************
+2023-12-11 10:08:19,488 p=27955 u=a4puser n=ansible | ok: [local_node] => {
+    "msg": "This is the first task."
+}
+2023-12-11 10:08:19,490 p=27955 u=a4puser n=ansible | TASK [Run a secret task] ******************************************************************************************************************************************************************************************
+2023-12-11 10:08:19,502 p=27955 u=a4puser n=ansible | ok: [local_node]
+2023-12-11 10:08:19,506 p=27955 u=a4puser n=ansible | TASK [Run the last task] ******************************************************************************************************************************************************************************************
+2023-12-11 10:08:19,521 p=27955 u=a4puser n=ansible | ok: [local_node] => {
+    "msg": "This is the last task."
+}
+2023-12-11 10:08:19,537 p=27955 u=a4puser n=ansible | PLAY RECAP ********************************************************************************************************************************************************************************************************
+2023-12-11 10:08:19,537 p=27955 u=a4puser n=ansible | local_node                 : ok=3    changed=0    unreachable=0    failed=0    skipped=0    rescued=0    ignored=0   
+2023-12-11 10:08:30,813 p=27987 u=a4puser n=ansible | Using /home/a4puser/a4p/ansible.cfg as config file
+2023-12-11 10:08:30,969 p=27987 u=a4puser n=ansible | PLAY [Log output] *************************************************************************************************************************************************************************************************
+2023-12-11 10:08:30,977 p=27987 u=a4puser n=ansible | TASK [Run the first task] *****************************************************************************************************************************************************************************************
+2023-12-11 10:08:30,992 p=27987 u=a4puser n=ansible | ok: [local_node] => {
+    "msg": "This is the first task."
+}
+2023-12-11 10:08:30,996 p=27987 u=a4puser n=ansible | TASK [Run a secret task] ******************************************************************************************************************************************************************************************
+2023-12-11 10:08:31,010 p=27987 u=a4puser n=ansible | ok: [local_node] => {"censored": "the output has been hidden due to the fact that 'no_log: true' was specified for this result"}
+2023-12-11 10:08:31,012 p=27987 u=a4puser n=ansible | TASK [Run the last task] ******************************************************************************************************************************************************************************************
+2023-12-11 10:08:31,025 p=27987 u=a4puser n=ansible | ok: [local_node] => {
+    "msg": "This is the last task."
+}
+2023-12-11 10:08:31,038 p=27987 u=a4puser n=ansible | PLAY RECAP ********************************************************************************************************************************************************************************************************
+2023-12-11 10:08:31,038 p=27987 u=a4puser n=ansible | local_node                 : ok=3    changed=0    unreachable=0    failed=0    skipped=0    rescued=0    ignored=0   
+
+(a4p) [a4puser@l5 a4p]$ ansible-playbook breakup_long_strings.yml
+
+PLAY [Break up long strings] **************************************************************************************************************************************************************************************
+
+TASK [Use flow styling to display output (default)] ***************************************************************************************************************************************************************
+ok: [local_node] => {
+    "msg": "Happy Birthday to You, Happy Birthday to You, Happy Birthday, Happy Birthday, Happy Birthday to You!"
+}
+
+TASK [Use a literal block scalar (|) to preserve newlines in a multiline string] **********************************************************************************************************************************
+ok: [local_node] => {
+    "msg": "Happy Birthday to You,\nHappy Birthday to You,\nHappy Birthday, Happy Birthday,\nHappy Birthday to You!\n"
+}
+
+TASK [Use a folded block scalar (>) to collapse a multiline string into a single line] ****************************************************************************************************************************
+ok: [local_node] => {
+    "msg": "Happy Birthday to You, Happy Birthday to You, Happy Birthday, Happy Birthday, Happy Birthday to You!\n"
+}
+
+TASK [Use a literal block scalar (|-), but explicitly chomp the final newline] ************************************************************************************************************************************
+ok: [local_node] => {
+    "msg": "Happy Birthday to You,\nHappy Birthday to You,\nHappy Birthday, Happy Birthday,\nHappy Birthday to You!"
+}
+
+TASK [Use a folded block scalar (>-) with chomping (same as the default behavior)] ********************************************************************************************************************************
+ok: [local_node] => {
+    "msg": "Happy Birthday to You, Happy Birthday to You, Happy Birthday, Happy Birthday, Happy Birthday to You!"
+}
+
+PLAY RECAP ********************************************************************************************************************************************************************************************************
+local_node                 : ok=5    changed=0    unreachable=0    failed=0    skipped=0    rescued=0    ignored=0   
+
+(a4p) [a4puser@l5 a4p]$ ansible-playbook use_variables.yml
+
+PLAY [Set and use different types of variables] *******************************************************************************************************************************************************************
+
+TASK [Set and display a string variable] **************************************************************************************************************************************************************************
+ok: [local_node] => {
+    "str_var_1, str_var_1 | type_debug": "('Alabama', 'AnsibleUnicode')"
+}
+
+TASK [Set and display other types of variables] *******************************************************************************************************************************************************************
+ok: [local_node] => {
+    "msg": [
+        "Alabama is an AnsibleUnicode type.",
+        "Montgomery is an AnsibleUnicode type.",
+        "22 is an int.",
+        "22 (octal) is also an int.",
+        "22 (hexadecimal) is an int as well.",
+        "3.39 is a float.",
+        "False is a bool.",
+        " is a NoneType.",
+        "Alabama is 3.39 percent water and its capitol is Montgomery."
+    ]
+}
+
+PLAY RECAP ********************************************************************************************************************************************************************************************************
+local_node                 : ok=2    changed=0    unreachable=0    failed=0    skipped=0    rescued=0    ignored=0   
