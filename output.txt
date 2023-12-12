@@ -1,10 +1,10 @@
 [a4puser@l5 ~]$ cd ~/a4p
 [a4puser@l5 a4p]$ source bin/activate
-(a4p) [a4puser@l5 a4p]$ ansible localhost --module-name ansible.builtin.debug --args "var=f_string_1" --extra-vars "@data_structures.yml"
+(a4p) [a4puser@l5 a4p]$ ansible localhost --module-name ansible.builtin.debug --args "var=f_string_1" --extra-vars "@vars.yml"
 localhost | SUCCESS => {
     "f_string_1": "The name of the state is Alabama."
 }
-(a4p) [a4puser@l5 a4p]$ ansible localhost -m debug -a "var=[f_string_2,f_string_3]" -e "@data_structures.yml"
+(a4p) [a4puser@l5 a4p]$ ansible localhost -m debug -a "var=[f_string_2,f_string_3]" -e "@vars.yml"
 localhost | SUCCESS => {
     "[f_string_2,f_string_3]": [
         "The state dinosaur is .",

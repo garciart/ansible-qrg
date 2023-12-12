@@ -6,10 +6,12 @@ all:
   hosts:
     local_node:
       ansible_connection: local
+
   children:
     control_node:
       hosts:
         local_node:
+
     managed_nodes:
       hosts:
         local_node:

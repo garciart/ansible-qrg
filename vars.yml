@@ -2,9 +2,9 @@
 # This file demonstrates the different data structures used in playbooks
 # Usage:
 #   - ansible localhost --module-name ansible.builtin.debug --args
-#       "var=f_string_1" --extra-vars "@data_structures.yml"
+#       "var=f_string_1" --extra-vars "@vars.yml"
 #   - ansible localhost -m debug -a "var=[f_string_2,f_string_3]" -e
-#       "@data_structures.yml"
+#       "@vars.yml"
 
 # Instantiate different types of scalar types
 state_name: "Alabama"
