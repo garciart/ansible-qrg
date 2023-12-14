@@ -1,5 +1,5 @@
 ---
-# This playbook demostrates how to capture and display the return values of a task
+# This playbook captures and displays the return values of a task
 # Usage: ansible-playbook get_return_values.yml
 - name: Capture the return values of a task
   hosts: local_node

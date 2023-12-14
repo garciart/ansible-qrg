@@ -1,5 +1,5 @@
 ---
-# This playbook demonstrates how to organize tasks using blocks and tags
+# This playbook organizes tasks using blocks and tags
 # Usage: ansible-playbook organize_tasks.yml
 - name: Organize tasks using blocks
   hosts: local_node

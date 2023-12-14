@@ -1,5 +1,5 @@
 ---
-# This playbook demonstrates how to display a message to the screen
+# This playbook displays a greeting to the screen
 # Usage: ansible-playbook say_hello.yml
 - name: Say Hello
   hosts: local_node
