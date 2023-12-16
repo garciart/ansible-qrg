@@ -1,6 +1,6 @@
 # A4P
 
-Source code repository for a4p code.
+Repository for a4p source code.
 
 Playbook order:
 

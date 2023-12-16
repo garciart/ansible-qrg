@@ -1,5 +1,5 @@
 ---
-# This file demonstrates the different types of data structures used in Ansible
+# This file contains examples of the data structures used in Ansible
 # Usage:
 #   - ansible localhost --module-name ansible.builtin.debug --args
 #       "var=f_string_1" --extra-vars "@vars.yml"

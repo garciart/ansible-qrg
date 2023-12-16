@@ -1,5 +1,5 @@
 ---
-# This playbook demonstrates how to perform error handling
+# This playbook performs error handling using a block
 # Usage: ansible-playbook error_handling.yml
 - name: Perform error handling
   hosts: local_node
