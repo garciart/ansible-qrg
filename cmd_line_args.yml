@@ -1,0 +1,13 @@
+---
+# This playbook gets and uses command-line arguments
+# Usage: ansible-playbook cmd_line_args.yml --extra-vars="state_name='Alabama' state_number=22"
+- name: Get and use command line arguments
+  hosts: local_node
+  gather_facts: false
+  tasks:
+    - name: Display the values of command line arguments
+      ansible.builtin.debug:
+        msg:
+          - "{{ state_name }} is a {{ state_name | type_debug }}."
+          - "{{ state_number }} is a {{ state_number | type_debug }}."
+          - "{{ state_name }} is state number {{ state_number }}."

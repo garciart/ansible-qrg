@@ -17,3 +17,6 @@ Playbook order:
 11. log_output.yml
 12. breakup_long_strings.yml
 13. use_variables.yml
+14. cmd_line_args.yml
+15. demo_var_scope.yml
+16. demo_var_precedence.yml

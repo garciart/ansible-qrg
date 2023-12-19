@@ -21,21 +21,23 @@
         state_number_octal: 026  # noqa yaml[octal-values]
         state_number_hex: 0x16
         percent_water: 3.39
-        # Use true/false instead of yes/no or on/off
+        # Use 'true/false' instead of 'yes/no' or 'on/off'
         land_locked: false
-        # Use null instead of a tilde (~) for readability
-        # BTW, YAML uses "null" not "None", even though null is a NoneType
-        state_dinosaur: null
+        # Leave blank or use 'null' for NoneType
+        state_foo:
+        state_bar: null
       ansible.builtin.debug:
         msg:
           - "{{ state_name }} is an {{ state_name | type_debug }} type."
           - "{{ state_capitol }} is an {{ state_capitol | type_debug }} type."
           - "{{ state_number }} is an {{ state_number | type_debug }}."
           - "{{ state_number_octal }} (octal) is also an {{ state_number_octal | type_debug }}."
-          - "{{ state_number_hex }} (hexadecimal) is an {{ state_number_hex | type_debug }} as well."
+          - >-
+            {{ state_number_hex }} (hexadecimal) is an {{ state_number_hex | type_debug }} as well.
           - "{{ percent_water }} is a {{ percent_water | type_debug }}."
           - "{{ land_locked }} is a {{ land_locked | type_debug }}."
-          - "{{ state_dinosaur }} is a {{ state_dinosaur | type_debug }}."
+          - "{{ state_foo }} is a {{ state_foo | type_debug }}."
+          - "{{ state_bar }} is a {{ state_bar | type_debug }}."
           - >-
             {{ state_name }} is {{ percent_water }} percent water
             and its capitol is {{ state_capitol }}.

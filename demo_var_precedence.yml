@@ -1,0 +1,39 @@
+---
+# This playbook demonstrates variable precedence
+# Usage: ansible-playbook demo_var_precedence.yml
+- name: Demonstrate variable precedence
+  hosts: local_node
+  gather_facts: false
+  vars:
+    my_var: "I am a play-level variable."
+  tasks:
+    - name: Display the value of a play-level variable
+      ansible.builtin.debug:
+        msg: "{{ my_var }}"
+
+    - name: Display the value of a block-level variable
+      vars:
+        my_var: "Block-level variables override play-level variables with the same name within the block."
+      block:
+        - name: Display the value of a block-level variable
+          ansible.builtin.debug:
+            msg: "{{ my_var }}"
+
+        - name: Display the value of a task-level variable
+          vars:
+            my_var: "Task-level variables override block-level variables with the same name within the task."
+          ansible.builtin.debug:
+            msg: "{{ my_var }}"
+
+    - name: Display the value of the variable at the play level again
+      ansible.builtin.debug:
+        msg: "{{ my_var }}"
+
+    - name: Change a variable using set_fact
+      ansible.builtin.set_fact:
+        my_var: "The set_fact module overrides play, block, and task static assignments."
+
+    - name: Display the new value of the variable
+      ansible.builtin.debug:
+        msg: "{{ my_var }}"
+...
