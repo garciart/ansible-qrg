@@ -1,0 +1,50 @@
+---
+# This playbook demonstrates variable scope
+# Usage: ansible-playbook demo_var_scope.yml
+- name: First play to demonstrate variable scope
+  hosts: local_node
+  gather_facts: false
+  vars:
+    play_level_var: "I am a play level variable, and I can be used anywhere within this play."
+  tasks:
+    - name: Display the value of a play level variable
+      ansible.builtin.debug:
+        var: play_level_var
+
+    - name: Display the value of a block level variable
+      vars:
+        block_level_var: "I am a block level variable, and I can be used anywhere within this block."
+      block:
+        - name: Display the value of a play and block level variable
+          ansible.builtin.debug:
+            msg:
+              - "{{ play_level_var }}"
+              - "{{ block_level_var }}"
+
+        - name: Display the value of a play, block, and task level variable
+          vars:
+            task_level_var: "I am a task level variable, and I can be used anywhere within this block."
+          ansible.builtin.debug:
+            msg:
+              - "{{ play_level_var }}"
+              - "{{ block_level_var }}"
+              - "{{ task_level_var }}"
+
+        - name: Attempt to display a task level variable outside its scope
+          ansible.builtin.debug:
+            msg: "{{ task_level_var }}"
+          ignore_errors: true  # noqa ignore-errors
+
+    - name: Attempt to display a block level variable outside its scope
+      ansible.builtin.debug:
+        msg: "{{ block_level_var }}"
+      ignore_errors: true  # noqa ignore-errors
+
+- name: Second play to demonstrate variable scope
+  hosts: local_node
+  gather_facts: false
+  tasks:
+    - name: Attempt to display the value of a play level variable outside its scope
+      ansible.builtin.debug:
+        msg: "{{ play_level_var }}"
+      ignore_errors: true  # noqa ignore-errors

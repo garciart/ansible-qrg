@@ -5,27 +5,27 @@
   hosts: local_node
   gather_facts: false
   vars:
-    my_var: "I am a play-level variable."
+    my_var: "I am a play level variable."
   tasks:
-    - name: Display the value of a play-level variable
+    - name: Display the value of my_var at the play level
       ansible.builtin.debug:
         msg: "{{ my_var }}"
 
-    - name: Display the value of a block-level variable
+    - name: Display the value of a block level variable
       vars:
-        my_var: "Block-level variables override play-level variables with the same name within the block."
+        my_var: "Block level variables override play level variables with the same name within the block."
       block:
-        - name: Display the value of a block-level variable
+        - name: Display the value of my_var at the block level
           ansible.builtin.debug:
             msg: "{{ my_var }}"
 
-        - name: Display the value of a task-level variable
+        - name: Display the value of my_var at the task level
           vars:
-            my_var: "Task-level variables override block-level variables with the same name within the task."
+            my_var: "Task level variables override block level variables with the same name within the task."
           ansible.builtin.debug:
             msg: "{{ my_var }}"
 
-    - name: Display the value of the variable at the play level again
+    - name: Display the value of my_var at the play level again
       ansible.builtin.debug:
         msg: "{{ my_var }}"
 
@@ -33,7 +33,7 @@
       ansible.builtin.set_fact:
         my_var: "The set_fact module overrides play, block, and task static assignments."
 
-    - name: Display the new value of the variable
+    - name: Display the new value of my_var at the play level
       ansible.builtin.debug:
         msg: "{{ my_var }}"
 ...
