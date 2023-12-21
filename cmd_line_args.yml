@@ -11,3 +11,4 @@
           - "{{ state_name }} is a {{ state_name | type_debug }}."
           - "{{ state_number }} is a {{ state_number | type_debug }}."
           - "{{ state_name }} is state number {{ state_number }}."
+...

@@ -1,0 +1,19 @@
+---
+# This playbook demonstrates variable scope
+# Usage: ansible-playbook run_two_plays.yml
+- name: Run a play
+  hosts: local_node
+  gather_facts: false
+  tasks:
+    - name: Display a message in the first play
+      ansible.builtin.debug:
+        msg: "This is the first play."
+
+- name: Run another play in the same playbook
+  hosts: local_node
+  gather_facts: false
+  tasks:
+    - name: Display a message in the second play
+      ansible.builtin.debug:
+        msg: "This is the second play."
+...
