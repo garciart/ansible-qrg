@@ -1,0 +1,30 @@
+---
+# This playbook gets user input
+# Usage: ansible-playbook get_user_input.yml
+- name: Get user input
+  hosts: local_node
+  gather_facts: false
+  tasks:
+    - name: Get the user name
+      ansible.builtin.pause:
+        prompt: "What is your name"
+      register: user_name
+
+    - name: See the results
+      ansible.builtin.debug:
+        var: user_name
+
+    - name: Say hello
+      ansible.builtin.debug:
+        msg: "Hello, {{ user_name.user_input }}!"
+
+    - name: Get a secret
+      ansible.builtin.pause:
+        prompt: "What is the password?"
+        echo: false
+      register: password
+
+    - name: See the results again
+      ansible.builtin.debug:
+        var: password
+...

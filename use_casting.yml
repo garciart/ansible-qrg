@@ -1,0 +1,51 @@
+---
+# This playbook casts variable to other types temporarily and permanently
+# Usage: ansible-playbook use_casting.yml
+- name: Cast a variable to another type
+  hosts: local_node
+  gather_facts: false
+  tasks:
+    - name: Cast a variable temporarily
+      vars:
+        integer_value: 0
+        float_value: 1.0
+        boolean_value: false
+      ansible.builtin.debug:
+        msg:
+          - >-
+            You can cast an integer ({{ integer_value }}) to be a float ({{ integer_value | float }})
+            or a boolean ({{ integer_value | bool }}).
+          - >-
+            You can cast a float ({{ float_value }}) to be a integer ({{ float_value | int }})
+            or a boolean ({{ float_value | bool }}).
+          - >-
+            You can cast a boolean ({{ boolean_value }}) to be a integer ({{ boolean_value | int }})
+            or a float ({{ boolean_value | float }}).
+
+    - name: Use casting to set other variables
+      vars:
+        integer_value: 1
+        float_value: "{{ integer_value | float }}"
+        boolean_value: "{{ integer_value | bool }}"
+      ansible.builtin.debug:
+        msg:
+          - "{{ integer_value }}, {{ float_value }}, and {{ boolean_value }} can all equal {{ integer_value }}."
+
+    - name: Recast a variable
+      block:
+        - name: Set a variable
+          ansible.builtin.set_fact:
+            my_variable: 1.0
+
+        - name: Display the value of the variable
+          ansible.builtin.debug:
+            var: my_variable
+
+        - name: Recast the variable
+          ansible.builtin.set_fact:
+            my_variable: "{{ my_variable | bool }}"
+
+        - name: Display the recast variable
+          ansible.builtin.debug:
+            var: my_variable
+...

@@ -37,7 +37,7 @@
           - "{{ percent_water }} is a {{ percent_water | type_debug }}."
           - "{{ land_locked }} is a {{ land_locked | type_debug }}."
           - "{{ state_foo }} is a {{ state_foo | type_debug }}."
-          - "{{ state_bar }} is a {{ state_bar | type_debug }}."
+          - "{{ state_bar }} is also a {{ state_bar | type_debug }}."
           - >-
             {{ state_name }} is {{ percent_water }} percent water
             and its capitol is {{ state_capitol }}.

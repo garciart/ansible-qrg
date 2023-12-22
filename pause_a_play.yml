@@ -1,0 +1,26 @@
+---
+# This playbook pauses for time and input
+# Usage: ansible-playbook pause_a_play.yml
+- name: Pause a play
+  hosts: local_node
+  gather_facts: true
+  tasks:
+    - name: Run a task
+      ansible.builtin.debug:
+        msg: "This is the first task."
+
+    - name: Pause for three seconds
+      ansible.builtin.pause:
+        seconds: 3
+
+    - name: Run another task
+      ansible.builtin.debug:
+        msg: "This is another task."
+
+    - name: Pause for input
+      ansible.builtin.pause:
+
+    - name: Run the last task
+      ansible.builtin.debug:
+        msg: "This is the last task."
+...

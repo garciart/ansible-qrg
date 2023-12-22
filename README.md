@@ -21,3 +21,6 @@ Playbook order:
 15. [cmd_line_args.yml](cmd_line_args.yml)
 16. [demo_var_scope.yml](demo_var_scope.yml)
 17. [demo_var_precedence.yml](demo_var_precedence.yml)
+18. [use_casting.yml](use_casting.yml)
+19. [pause_a_play.yml](pause_a_play.yml)
+20. [get_user_input.yml](get_user_input.yml)
