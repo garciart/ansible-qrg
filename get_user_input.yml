@@ -16,7 +16,7 @@
 
     - name: Say hello
       ansible.builtin.debug:
-        msg: "Hello, {{ user_name.user_input }}!"
+        msg: "Hello, {{ user_name['user_input'] }}!"
 
     - name: Get a secret
       ansible.builtin.pause:

@@ -1,0 +1,31 @@
+---
+# This playbook evaluates multiple conditionals before displaying a message or running a task
+# Usage: ansible-playbook combine_conditionals.yml
+- name: Combine conditionals
+  hosts: local_node
+  gather_facts: false
+  tasks:
+    - name: Display a message if all conditions are met using Jinja
+      ansible.builtin.debug:
+        msg:
+          - "{{ 'Hello!' if 8 == 8 and 1 == 1 }}"
+          - "{{ 'Hello again!' if 8 == 3 and 1 == 1 }}"
+
+    - name: Display a message if any condition is met using Jinja
+      ansible.builtin.debug:
+        msg:
+          - "{{ 'Hello!' if 8 == 8 or 1 == 1 }}"
+          - "{{ 'Hello again!' if 8 == 3 or 1 == 1 }}"
+
+    - name: Perform a task if all conditions are met using the 'when' keyword
+      ansible.builtin.debug:
+        msg:
+          - "Hello!"
+      when: 8 == 8 and 1 == 1
+
+    - name: Perform a task if any condition is met using the 'when' keyword
+      ansible.builtin.debug:
+        msg:
+          - "Hello again!"
+      when: 8 == 3 or 1 == 1
+...

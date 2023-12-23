@@ -1,0 +1,41 @@
+---
+# This playbook checks if values are equal
+# Usage: ansible-playbook check_equality.yml
+- name: Check if values are equal
+  hosts: local_node
+  vars:
+    one: 1
+  gather_facts: false
+  tasks:
+    - name: Check if constants or variables are equal
+      ansible.builtin.debug:
+        msg:
+          - "1 == 1: {{ 1 == 1 }}"
+          - "1 == 0: {{ one == 0 }}"
+          - "1 == 1.0: {{ 1 == 1.0 }}"
+          - "1 == 0.0: {{ one == 0.0 }}"
+          - "1 == true: {{ 1 == true }}"
+          - "1 == false: {{ one == false }}"
+
+    - name: Check if constants or variables are not equal
+      ansible.builtin.debug:
+        msg:
+          - "1 != 1: {{ 1 != 1 }}"
+          - "1 != 0: {{ one != 0 }}"
+          - "1 != 1.0: {{ 1 != 1.0 }}"
+          - "1 != 0.0: {{ one != 0.0 }}"
+          - "1 != true: {{ 1 != true }}"
+          - "1 != false: {{ one != false }}"
+
+    - name: Check other relationships
+      ansible.builtin.debug:
+        msg:
+          - "1 > 1: {{ 1 > 1 }}"
+          - "1 > 0: {{ one > 0 }}"
+          - "1 < 1: {{ 1 < 1 }}"
+          - "1 < 0: {{ one < 0 }}"
+          - "1 >= 1: {{ 1 >= 1 }}"
+          - "1 >= 0: {{ one >= 0 }}"
+          - "1 <= 1: {{ 1 <= 1 }}"
+          - "1 <= 0: {{ one <= 0 }}"
+...

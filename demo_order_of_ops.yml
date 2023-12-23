@@ -1,0 +1,19 @@
+---
+# This playbook demonstrates the order of operations in Ansible
+# Usage: ansible-playbook demo_order_of_ops.yml
+- name: Demonstrate the order of operations
+  hosts: local_node
+  gather_facts: false
+  tasks:
+    - name: Demonstrate the order of operations using constants and variables
+      vars:
+        two: 2
+        three: 3
+        eight: 8
+      ansible.builtin.debug:
+        msg:
+          - "2 * 8 + 3 = {{ 2 * 8 + 3 }}"
+          - "2 + 8 * 3 equals {{ two + eight * three }}, not 19."
+          - "(2 + 8) * 3 equals {{ (2 + 8) * 3 }}, not 26."
+          - "2 + (8 * 3) equals {{ two + (eight * three) }}, not 30."
+...

@@ -1,0 +1,31 @@
+---
+# This playbook uses conditionals to display a message or run a task
+# Usage: ansible-playbook use_conditionals.yml
+- name: Use conditionals
+  hosts: local_node
+  gather_facts: false
+  tasks:
+    - name: Display messages based on a condition using Jinja
+      ansible.builtin.debug:
+        msg:
+          - "{{ '8 equals 8' if 8 == 8 }}"
+          - "{{ '8 equals 3' if 8 == 3 }}"
+
+    - name: Display an alternate message based on a condition using Jinja
+      ansible.builtin.debug:
+        msg:
+          - "{{ '8 equals 8' if 8 == 8 else '8 does not equal 8' }}"
+          - "{{ '8 equals 3' if 8 == 3 else '8 does not equal 3' }}"
+
+    - name: Perform a task if a condition is met
+      ansible.builtin.debug:
+        msg:
+          - "{{ '8 equals 8' }}"
+      when: 8 == 8
+
+    - name: Skip a task if a condition is not met
+      ansible.builtin.debug:
+        msg:
+          - "{{ '8 equals 3' }}"
+      when: 8 == 3
+...

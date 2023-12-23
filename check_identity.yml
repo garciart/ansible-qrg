@@ -1,0 +1,25 @@
+---
+# This playbook checks if values are identical
+# Usage: ansible-playbook check_identity.yml
+- name: Check if values are identical
+  hosts: local_node
+  gather_facts: false
+  tasks:
+    - name: Check if values are identical
+      ansible.builtin.debug:
+        msg:
+          # 1 is an integer, not a boolean, so this is false
+          - "1 is true: {{ 1 is true }}"
+          # 'is' has a higher precedence than '==' (i.e., 1 == (1 is true)),
+          # so '1 is true', which is 'false', is not an integer or '1'
+          - "1 == 1 is true: {{ 1 == 1 is true }}"
+          # Parenthesis have a higher precedence than 'is'
+          - "(1 == 1) is true: {{ (1 == 1) is true }}"
+
+    - name: Check if values are not identical
+      ansible.builtin.debug:
+        msg:
+          - "1 is not true: {{ 1 is not true }}"
+          - "1 == 1 is not true: {{ 1 == 1 is not true }}"
+          - "(1 == 1) is not true: {{ (1 == 1) is not true }}"
+...
