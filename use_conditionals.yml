@@ -5,17 +5,23 @@
   hosts: local_node
   gather_facts: false
   tasks:
-    - name: Display messages based on a condition using Jinja
+    - name: Display messages based on a condition using Jinja expressions
       ansible.builtin.debug:
         msg:
           - "{{ '8 equals 8' if 8 == 8 }}"
           - "{{ '8 equals 3' if 8 == 3 }}"
 
-    - name: Display an alternate message based on a condition using Jinja
+    - name: Display an alternate message based on a condition using Jinja expressions
       ansible.builtin.debug:
         msg:
           - "{{ '8 equals 8' if 8 == 8 else '8 does not equal 8' }}"
           - "{{ '8 equals 3' if 8 == 3 else '8 does not equal 3' }}"
+
+    - name: Display an alternate message based on a condition using Jinja filters
+      ansible.builtin.debug:
+        msg:
+          - "{{ (8 == 8) is true | ternary('8 equals 8', '8 does not equal 8') }}"
+          - "{{ (8 == 3) is true | ternary('8 equals 3', '8 does not equal 3') }}"
 
     - name: Perform a task if a condition is met
       ansible.builtin.debug:
