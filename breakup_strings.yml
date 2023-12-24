@@ -1,6 +1,6 @@
 ---
 # This playbook breaks up long strings of code to improve readability
-# Usage: ansible-playbook breakup_long_strings.yml
+# Usage: ansible-playbook breakup_strings.yml
 - name: Break up long strings
   hosts: local_node
   gather_facts: false

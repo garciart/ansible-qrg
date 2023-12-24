@@ -1,6 +1,6 @@
 ---
 # This playbook performs error handling using a block
-# Usage: ansible-playbook error_handling.yml
+# Usage: ansible-playbook handle_errors.yml
 - name: Perform error handling
   hosts: local_node
   gather_facts: false
