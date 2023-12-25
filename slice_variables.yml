@@ -1,0 +1,21 @@
+---
+# This playbook displays parts of a string variable using slicing
+# Usage: ansible-playbook slice_variables.yml
+- name: Set and use different types of variables
+  hosts: local_node
+  gather_facts: false
+  vars:
+    state_name: "Alabama"
+  tasks:
+    - name: Slice a string variable
+      ansible.builtin.debug:
+        msg:
+          - "The string is '{{ state_name }}'."
+          - "The first letter of the string, using an index, is '{{ state_name[0] }}'."
+          - "The first letter of the string, using a filter, is '{{ state_name | first }}'."
+          - "The first two letters of the string are '{{ state_name[:2] }}'."
+          - "The remaining letters of the string are '{{ state_name[2:] }}'."
+          - "The third and fourth letters of the string are '{{ state_name[2:4] }}'."
+          - "The last letter of the string, using an index, is '{{ state_name[-1] }}'."
+          - "The last letter of the string, using a filter, is '{{ state_name | last }}'."
+...

@@ -1,0 +1,18 @@
+---
+# This playbook joins variables
+# Usage: ansible-playbook concat_variables.yml
+- name: Set and use different types of variables
+  hosts: local_node
+  gather_facts: false
+  tasks:
+    - name: Concatenate a string variable
+      vars:
+        state_name: "Alabama"
+        description: " is a state."
+        concated_string_1: "{{ state_name + description }}"
+        concated_string_2: "{{ [state_name, description] | join }}"
+      ansible.builtin.debug:
+        msg:
+          - "Using the plus (+) operator to concatenate a string: {{ concated_string_1 }}"
+          - "Using the join filter to concatenate a string: {{ concated_string_2 }}"
+...

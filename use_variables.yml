@@ -10,8 +10,8 @@
         # Use quotation marks to explicitly declare strings
         state_name: "Alabama"
       ansible.builtin.debug:
-        # Display the value and type of the string
-        var: state_name, state_name | type_debug
+        # Display the value of the string
+        var: state_name
 
     - name: Set and display other types of variables
       vars:
@@ -28,17 +28,11 @@
         state_bar: null
       ansible.builtin.debug:
         msg:
-          - "{{ state_name }} is an {{ state_name | type_debug }} type."
-          - "{{ state_capitol }} is an {{ state_capitol | type_debug }} type."
-          - "{{ state_number }} is an {{ state_number | type_debug }}."
-          - "{{ state_number_octal }} (octal) is also an {{ state_number_octal | type_debug }}."
-          - >-
-            {{ state_number_hex }} (hexadecimal) is an {{ state_number_hex | type_debug }} as well.
-          - "{{ percent_water }} is a {{ percent_water | type_debug }}."
-          - "{{ land_locked }} is a {{ land_locked | type_debug }}."
-          - "{{ state_foo }} is a {{ state_foo | type_debug }}."
-          - "{{ state_bar }} is also a {{ state_bar | type_debug }}."
-          - >-
-            {{ state_name }} is {{ percent_water }} percent water
-            and its capitol is {{ state_capitol }}.
+          - "The state name is {{ state_name }}."
+          - "The state capitol is {{ state_capitol }}."
+          - "The state admission number is {{ state_number }}."
+          - "026 (octal) = {{ state_number_octal }} and 0x16 (hex) = {{ state_number_hex }}."
+          - "{{ state_name }} is {{ percent_water }} percent water."
+          - "Is {{ state_name }} landlocked: {{ land_locked }}."
+          - "The state 'foo' is '{{ state_foo }}' and the state 'bar' is '{{ state_bar }}'."
 ...

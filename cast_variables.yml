@@ -1,6 +1,6 @@
 ---
 # This playbook casts variable to other types temporarily and permanently
-# Usage: ansible-playbook use_casting.yml
+# Usage: ansible-playbook cast_variables.yml
 - name: Cast a variable to another type
   hosts: local_node
   gather_facts: false

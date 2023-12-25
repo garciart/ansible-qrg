@@ -1,9 +1,10 @@
 ---
 # This file contains examples of the data structures used in Ansible
 # Usage:
-#   - ansible localhost --module-name ansible.builtin.debug --args "var=state_name" --extra-vars "@vars.yml"
-#   - ansible localhost -m debug -a "var=[state_number,percent_water]" -e "@vars.yml"
-#   - ansible localhost -m debug -a "var=parent_node['child_node']" -e "@vars.yml"
+#   - ansible localhost --module-name ansible.builtin.debug --args
+#       "var=f_string_1" --extra-vars "@vars.yml"
+#   - ansible localhost -m debug -a "var=[f_string_2,f_string_3]" -e
+#       "@vars.yml"
 
 # Instantiate different types of scalar types
 state_name: "Alabama"
@@ -12,9 +13,14 @@ percent_water: 3.39
 landlocked: false
 state_dog: null
 
+# Use Jinja2 templating to populate the value of a variable in a string
+f_string_1: "The name of the state is {{ state_name }}."
+f_string_2: "The state dog is {{ state_dog }}."
+
 # Use nesting and indentation to denote hierarchy and scope
 parent_node:
-  child_node: "I am a member of the parent node."
+  child_node: "I belong to the parent node."
+f_string_3: "The child node says, '{{ parent_node['child_node'] }}'"
 
 # Two different ways to style a list
 flow_list: [1, 2, 3]
