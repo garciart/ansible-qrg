@@ -10,7 +10,6 @@
         # Use quotation marks to explicitly declare strings
         state_name: "Alabama"
       ansible.builtin.debug:
-        # Display the value of the string
         var: state_name
 
     - name: Set and display other types of variables
