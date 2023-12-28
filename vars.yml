@@ -6,25 +6,25 @@
 #   - ansible localhost -m debug -a "var=parent_node['child_node']" -e "@vars.yml"
 
 # Instantiate different types of scalar types
-state_name: "Alabama"
-state_number: 22
-percent_water: 3.39
-landlocked: false
-state_dog: null
+state_name: !!str "Alabama"
+state_number: !!int 22
+percent_water: !!float 3.39
+landlocked: !!bool false
+state_dog: !!null null
 
 # Use nesting and indentation to denote hierarchy and scope
 parent_node:
   child_node: "I am a member of the parent node."
 
 # Two different ways to style a list
-flow_list: [1, 2, 3]
+flow_list: !!seq [1, 2, 3]
 block_list:
   - 1
   - 2
   - 3
 
 # Two different ways to style a dictionary
-flow_dict: {foo: 1, bar: 2, baz: 3}
+flow_dict: !!map {foo: 1, bar: 2, baz: 3}
 block_dict:
   foo: 1
   bar: 2
