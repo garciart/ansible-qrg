@@ -18,3 +18,5 @@
       ansible.builtin.debug:
         var: "result['failed']"
 ...
+# code: language=ansible
+# vi: set noai nu ts=2 sw=2 sts=2 sta et:

@@ -15,4 +15,4 @@ all:
         local_node:
 ...
 # code: language=yaml
-# vi: tabstop=2 shiftwidth=2 softtabstop=2 expandtab:
+# vi: set noai nu ts=2 sw=2 sts=2 sta et:
