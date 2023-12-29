@@ -34,3 +34,4 @@ Playbook order:
 28. [format_variables.yml](format_variables.yml)
 29. [use_conditionals.yml](use_conditionals.yml)
 30. [combine_conditionals.yml](combine_conditionals.yml)
+31. [check_null_or_empty.yml](check_null_or_empty.yml)

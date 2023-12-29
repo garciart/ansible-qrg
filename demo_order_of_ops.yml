@@ -17,3 +17,5 @@
           - "(2 + 8) * 3 equals {{ (2 + 8) * 3 }}, not 26."
           - "2 + (8 * 3) equals {{ two + (eight * three) }}, not 30."
 ...
+# code: language=ansible
+# vi: set noai nu ts=2 sw=2 sts=2 sta et:

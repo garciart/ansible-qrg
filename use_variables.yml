@@ -35,3 +35,5 @@
           - "Is {{ state_name }} landlocked: {{ land_locked }}."
           - "The state 'foo' is '{{ state_foo }}' and the state 'bar' is '{{ state_bar }}'."
 ...
+# code: language=ansible
+# vi: set noai nu ts=2 sw=2 sts=2 sta et:

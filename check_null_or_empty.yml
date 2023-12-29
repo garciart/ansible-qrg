@@ -1,0 +1,53 @@
+---
+# This playbook check if a variable is undefined, null, or empty
+# Usage: ansible-playbook check_null_or_empty.yml
+- name: Check if a variable is null, empty, or undefined
+  hosts: local_node
+  gather_facts: false
+  vars:
+    null_var: null
+    empty_var: "   "
+  tasks:
+    - name: Check if a variable is undefined
+      ansible.builtin.assert:
+        that:
+          - "{{ undef_var is undefined }}"
+
+    - name: Check if a variable is null
+      ansible.builtin.assert:
+        that:
+          - "{{ null_var == None }}"
+        success_msg: "null_var is null."
+
+    - name: Check if a variable is empty or not (Method 1)
+      ansible.builtin.assert:
+        that:
+          # Trim before checking and do not compare to an empty string
+          # See https://ansible.readthedocs.io/projects/lint/rules/empty-string-compare/
+          - "{{ empty_var | trim | length == 0 }}"
+        success_msg: "empty_var is empty."
+        fail_msg: "empty_var is not empty."
+      # See https://ansible.readthedocs.io/projects/lint/rules/ignore-errors/
+      ignore_errors: true  # noqa ignore-errors
+
+    - name: Check if a variable is empty or not (Method 2)
+      ansible.builtin.assert:
+        that:
+          # An empty list evaluates to False
+          - "{{ not empty_var | trim }}"
+        success_msg: "empty_var is empty."
+        fail_msg: "empty_var is not empty."
+      ignore_errors: true  # noqa ignore-errors
+
+    - name: Display a default value if a variable is undefined
+      ansible.builtin.debug:
+        msg: "This variable is undefined; using a default value of {{ undef_var | default(8) }}."
+
+    - name: Run a task only if a variable is undefined, null, or empty
+      ansible.builtin.debug:
+        msg: "Hello, World!"
+      # Always check if the variable is defined first
+      when: undef_var is defined and undef_var != None and not undef_var | trim
+...
+# code: language=ansible
+# vi: set noai nu ts=2 sw=2 sts=2 sta et:

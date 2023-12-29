@@ -36,3 +36,5 @@
           - "1 is a float: {{ 1 is float }}"
           - "1 is a boolean: {{ 1 is boolean }}"
 ...
+# code: language=ansible
+# vi: set noai nu ts=2 sw=2 sts=2 sta et:

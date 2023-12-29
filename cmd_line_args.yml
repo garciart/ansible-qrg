@@ -12,3 +12,5 @@
           - "{{ state_number }} is a {{ state_number | type_debug }}."
           - "{{ state_name }} is state number {{ state_number }}."
 ...
+# code: language=ansible
+# vi: set noai nu ts=2 sw=2 sts=2 sta et:

@@ -29,3 +29,5 @@
           - "Hello again!"
       when: 8 == 3 or 1 == 1
 ...
+# code: language=ansible
+# vi: set noai nu ts=2 sw=2 sts=2 sta et:

@@ -53,3 +53,5 @@ list_of_lists_and_dicts:
   - landlocked: true
     state_dog: null
 ...
+# code: language=yaml
+# vi: set noai nu ts=2 sw=2 sts=2 sta et:
