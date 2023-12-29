@@ -1,5 +1,5 @@
 ---
-# This playbook check if a variable is undefined, null, or empty
+# This playbook checks if a variable is undefined, null, or empty
 # Usage: ansible-playbook check_null_or_empty.yml
 - name: Check if a variable is undefined, null, or empty
   hosts: local_node
