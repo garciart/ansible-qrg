@@ -1,7 +1,7 @@
 ---
 # This playbook check if a variable is undefined, null, or empty
 # Usage: ansible-playbook check_null_or_empty.yml
-- name: Check if a variable is null, empty, or undefined
+- name: Check if a variable is undefined, null, or empty
   hosts: local_node
   gather_facts: false
   vars:
@@ -10,21 +10,18 @@
   tasks:
     - name: Check if a variable is undefined
       ansible.builtin.assert:
-        that:
-          - "{{ undef_var is undefined }}"
+        that: "{{ undef_var is undefined }}"
 
     - name: Check if a variable is null
       ansible.builtin.assert:
-        that:
-          - "{{ null_var == None }}"
+        that: "{{ null_var == None }}"
         success_msg: "null_var is null."
 
     - name: Check if a variable is empty or not (Method 1)
       ansible.builtin.assert:
-        that:
-          # Trim before checking and do not compare to an empty string
-          # See https://ansible.readthedocs.io/projects/lint/rules/empty-string-compare/
-          - "{{ empty_var | trim | length == 0 }}"
+        # Trim before checking and do not compare to an empty string
+        # See https://ansible.readthedocs.io/projects/lint/rules/empty-string-compare/
+        that: "{{ empty_var | trim | length == 0 }}"
         success_msg: "empty_var is empty."
         fail_msg: "empty_var is not empty."
       # See https://ansible.readthedocs.io/projects/lint/rules/ignore-errors/
@@ -32,9 +29,8 @@
 
     - name: Check if a variable is empty or not (Method 2)
       ansible.builtin.assert:
-        that:
-          # An empty list evaluates to False
-          - "{{ not empty_var | trim }}"
+        # An empty list evaluates to False
+        that: "{{ not empty_var | trim }}"
         success_msg: "empty_var is empty."
         fail_msg: "empty_var is not empty."
       ignore_errors: true  # noqa ignore-errors
