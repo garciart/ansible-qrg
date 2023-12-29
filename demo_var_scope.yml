@@ -42,12 +42,12 @@
           ansible.builtin.debug:
             msg: "{{ task_level_var }}"
           # See https://ansible.readthedocs.io/projects/lint/rules/ignore-errors/
-          ignore_errors: true  # noqa ignore-errors
+          ignore_errors: true # noqa ignore-errors
 
     - name: Attempt to display a block level variable outside its scope
       ansible.builtin.debug:
         msg: "{{ block_level_var }}"
-      ignore_errors: true  # noqa ignore-errors
+      ignore_errors: true # noqa ignore-errors
 
 - name: Run the second play to demonstrate variable scope
   hosts: local_node
