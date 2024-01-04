@@ -16,7 +16,7 @@
         state_name: "Alabama"
         state_capitol: "Montgomery"
         state_number: 22
-        state_number_octal: 026  # noqa yaml[octal-values]
+        state_number_octal: 026 # noqa yaml[octal-values]
         state_number_hex: 0x16
         percent_water: 3.39
         land_locked: false

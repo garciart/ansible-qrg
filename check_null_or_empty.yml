@@ -1,5 +1,5 @@
 ---
-# This playbook check if a variable is undefined, null, or empty
+# This playbook checks if a variable is undefined, null, or empty
 # Usage: ansible-playbook check_null_or_empty.yml
 - name: Check if a variable is undefined, null, or empty
   hosts: local_node
@@ -25,7 +25,7 @@
         success_msg: "empty_var is empty."
         fail_msg: "empty_var is not empty."
       # See https://ansible.readthedocs.io/projects/lint/rules/ignore-errors/
-      ignore_errors: true  # noqa ignore-errors
+      ignore_errors: true # noqa ignore-errors
 
     - name: Check if a variable is empty (Method 2)
       ansible.builtin.assert:
@@ -33,13 +33,13 @@
         that: "{{ not empty_var | trim }}"
         success_msg: "empty_var is empty."
         fail_msg: "empty_var is not empty."
-      ignore_errors: true  # noqa ignore-errors
+      ignore_errors: true # noqa ignore-errors
 
     - name: Display a default value if a variable is undefined
       ansible.builtin.debug:
         msg: "This variable is undefined; using a default value of {{ undef_var | default(8) }}."
 
-    - name: Run a task only if a variable is undefined, null, or empty
+    - name: Do not run a task if a variable is undefined, null, or empty
       ansible.builtin.debug:
         msg: "Hello, World!"
       # Always check if the variable is defined first
