@@ -1,53 +1,83 @@
 ---
-# This playbook casts variable to other types temporarily and permanently
+# This playbook casts variable to other types
 # Usage: ansible-playbook cast_variables.yml
 - name: Cast a variable to another type
   hosts: local_node
   gather_facts: false
   tasks:
-    - name: Cast a variable temporarily
+    - name: Cast a variable at the point of use (this always works)
       vars:
-        integer_value: 0
+        str_value: "1"
+        int_value: 0
         float_value: 1.0
-        boolean_value: false
+        bool_value: false
       ansible.builtin.debug:
         msg:
           - >-
-            You can cast an integer ({{ integer_value }}) to be a float ({{ integer_value | float }})
-            or a boolean ({{ integer_value | bool }}).
+            You can cast a string ('{{ str_value }}') to be an integer ({{ str_value | int }}),
+            a float ({{ str_value | float }}) or a boolean ({{ str_value | bool }}).
           - >-
-            You can cast a float ({{ float_value }}) to be a integer ({{ float_value | int }})
-            or a boolean ({{ float_value | bool }}).
+            You can cast an integer ({{ int_value }}) to be a string ('{{ int_value | string }}'),
+            a float ({{ int_value | float }}) or a boolean ({{ int_value | bool }}).
           - >-
-            You can cast a boolean ({{ boolean_value }}) to be a integer ({{ boolean_value | int }})
-            or a float ({{ boolean_value | float }}).
+            You can cast a float ({{ float_value }}) to be a string ('{{ float_value | string }}'),
+            an integer ({{ float_value | int }}) or a boolean ({{ float_value | bool }}).
+          - >-
+            You can cast a boolean ({{ bool_value }}) to be a string ('{{ bool_value | string }}'),
+            an integer ({{ bool_value | int }}) or a float ({{ bool_value | float }}).
+      register: result
 
-    - name: Use casting to set other variables
+    - name: Use casting to convert variables (not recommended)
       vars:
-        integer_value: 1
-        float_value: "{{ integer_value | float }}"
-        boolean_value: "{{ integer_value | bool }}"
+        int_value: 1
+        float_from_int: "{{ int_value | float }}"
+        bool_from_int: "{{ int_value | bool }}"
+        str_value_1: "0"
+        str_value_2: "1"
+        int_from_str: "{{ str_value_1 | int }}"
+        float_from_str: "{{ str_value_2 | float }}"
+        bool_from_str_1: "{{ str_value_1 | bool }}"
+        bool_from_str_2: "{{ str_value_2 | bool }}"
       ansible.builtin.debug:
         msg:
-          - "{{ integer_value }}, {{ float_value }}, and {{ boolean_value }} can all equal {{ integer_value }}."
+          # Jinja2 templating returns a string, unless converting to boolean
+          - >-
+            Converting {{ int_value }} to float results in {{ float_from_int }},
+            but it is type {{ float_from_int | type_debug }}, not float.
+          - >-
+            Converting {{ int_value }} to bool works,
+            resulting in {{ bool_from_int }} ({{ bool_from_int | type_debug }}).
+          - >-
+            Converting '{{ str_value_1 }}' to int results in {{ int_from_str }},
+            but it is type {{ int_from_str | type_debug }}, not int.
+          - >-
+            Converting '{{ str_value_1 }}' to float results in {{ float_from_str }},
+            but it is type {{ float_from_str | type_debug }}, not float.
+          - >-
+            Converting '{{ str_value_1 }}' or '{{ str_value_2 }}' to bool works,
+            resulting in {{ bool_from_str_1 }} and {{ bool_from_str_2 }} ({{ bool_from_str_1 | type_debug }}).
 
-    - name: Recast a variable
+    - name: Recast a result to set a fact (not recommended)
       block:
-        - name: Set a variable
-          ansible.builtin.set_fact:
-            my_variable: 1.0
-
-        - name: Display the value of the variable
+        - name: Display an integer
           ansible.builtin.debug:
-            var: my_variable
+            msg: "1"
+          register: result
 
-        - name: Recast the variable
-          ansible.builtin.set_fact:
-            my_variable: "{{ my_variable | bool }}"
-
-        - name: Display the recast variable
+        - name: Display the result
           ansible.builtin.debug:
-            var: my_variable
+            var: result
+
+        - name: Use casting to set a fact (not recommended)
+          ansible.builtin.set_fact:
+            recast_var: "{{ result['msg'] | int }}"
+
+        - name: Display the variables
+          ansible.builtin.debug:
+            msg:
+              # Jinja2 templating returns a string, unless converting to boolean
+              - "result['msg'] ({{ result['msg'] }}) is type {{ result['msg'] | type_debug }}, not int."
+              - "recast_var ({{ recast_var }}) is type {{ recast_var | type_debug }}, not int."
 ...
 # code: language=ansible
 # vi: set noai nu ts=2 sw=2 sts=2 sta et:
