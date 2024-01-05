@@ -43,7 +43,7 @@
       ansible.builtin.debug:
         msg: "Hello, World!"
       # Always check if the variable is defined first
-      when: undef_var is defined and undef_var != None and not undef_var | trim | length == 0
+      when: undef_var is defined and undef_var != None and undef_var | trim | length == 0
 ...
 # code: language=ansible
 # vi: set noai nu ts=2 sw=2 sts=2 sta et:
