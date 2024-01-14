@@ -1,51 +1,40 @@
 ---
 # This file contains examples of the data structures used in Ansible
-# Usage:
-#   - ansible localhost --module-name ansible.builtin.debug --args "var=state_name" --extra-vars "@vars.yml"
-#   - ansible localhost -m debug -a "var=[state_number,percent_water]" -e "@vars.yml"
-#   - ansible localhost -m debug -a "var=parent_node['child_node']" -e "@vars.yml"
+# Usage: ansible localhost --module-name ansible.builtin.debug --args "var=geo_name" --extra-vars "@vars.yml"
 
-# Instantiate different types of scalar types
-state_name: !!str "Alabama"
-state_number: !!int 22
-percent_water: !!float 3.39
-landlocked: !!bool false
-state_dog: !!null null
+# Different types of scalar variables
+geo_name: !!str "Antarctica"
+geo_rank: !!int 5
+geo_pct: !!float 9.5
+connected: !!bool false
+countries: !!null null
 
 # Use nesting and indentation to denote hierarchy and scope
-parent_node:
-  child_node: "I am a member of the parent node."
+continents:
+  antarctica: "Antarctica is a continent."
 
-# Two different ways to style a list
-flow_list: !!seq [1, 2, 3]
+# Two different ways to style a list of values
+flow_list: !!seq ["Antarctica", 5, 9.5]
 block_list:
-  - 1
-  - 2
-  - 3
+  - "Antarctica"
+  - 5
+  - 9.5
 
-# Two different ways to style a dictionary
-flow_dict: !!map {foo: 1, bar: 2, baz: 3}
+# Two different ways to style a dictionary of variables
+flow_dict: !!map { connected: false, countries: null }
 block_dict:
-  foo: 1
-  bar: 2
-  baz: 3
+  connected: false
+  countries: null
 
-# A mixed collection of lists and dictionaries
+# A list of lists and dictionaries
 list_of_lists_and_dicts:
-  # List using flow styling
-  - ["Alaska", 49, 13.77]
-
-  # Dictionary using flow styling
-  - {landlocked: false, state_dog: "Alaskan Malamute"}
-
-  # List using block styling
-  - - "Arizona"
-    - 48
-    - 0.3
-
-  # Dictionary using block styling
-  - landlocked: true
-    state_dog: null
+  - ["Antarctica", 5, 9.5]
+  - { connected: false, countries: null }
+  - - "Antarctica"
+    - 5
+    - 9.5
+  - connected: false
+    countries: null
 ...
 # code: language=yaml
 # vi: set noai nu ts=2 sw=2 sts=2 sta et:
