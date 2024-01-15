@@ -1,13 +1,20 @@
 ---
 # This file contains examples of the data structures used in Ansible
-# Usage: ansible localhost --module-name ansible.builtin.debug --args "var=state_name" --extra-vars "@vars.yml"
+# Usage:
+#   - ansible localhost --module-name ansible.builtin.debug --args "var=state_name" --extra-vars "@vars.yml"
+#   - ansible localhost -m debug -a "var=[f_string_2,f_string_3]" -e
+#       "@vars.yml"
 
-# Instantiate different types of variables
+# Different types of scalar variables
 state_name: !!str "Alabama"
 state_number: !!int 22
 percent_water: !!float 3.39
 landlocked: !!bool false
 state_dog: !!null null
+
+# Use Jinja2 templating to populate the value of a variable in a string
+f_string_1: "The name of the state is {{ state_name }}."
+f_string_2: "The state dog is {{ state_dog | default('not defined') }}."
 
 # Use nesting and indentation to denote hierarchy and scope
 parent_variable:
