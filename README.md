@@ -2,7 +2,7 @@
 
 Repository for a4p source code.
 
-Link to instructions to [Create a Linux Virtual Machine in Windows](/linux-in-windows.md).
+Link to instructions to [create a Linux Virtual Machine in Windows](/linux-in-windows.md).
 
 Link to [reserved keywords list](/reserved_keywords.md).
 
