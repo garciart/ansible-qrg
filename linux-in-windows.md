@@ -1,6 +1,6 @@
 # Create a Linux Virtual Machine in Windows
 
-Here are instructions to create and run a Linux virtual machine in Windows, using the VMware Workstation Player for Windows and CentOS Stream 9. This setup will allow you to write and run the Ansible playbooks in the tutorial. Once again, this is not the only way to use Linux with Windows, but reviewing every method is beyond the scope of this tutorial.
+Here are instructions to create and run a Linux virtual machine in Windows, using the VMware Workstation Player for Windows and CentOS Stream 9. This setup will allow you to write and run the Ansible playbooks in the tutorial. Once again, this is one of many options available to run Linux in Windows.
 
 - [Download CentOS Stream](#download-centos-stream)
 - [Download and Install VMware Workstation Player for Windows](#download-and-install-vmware-workstation-player-for-windows)
@@ -32,7 +32,7 @@ Here are instructions to create and run a Linux virtual machine in Windows, usin
 
     ![Downloads folder](img/install_04.png)
 
-    > **NOTE** - By default, browsers will download the disk image to your **Downloads** folder. However, if you prefer not to store the image in that, you can move the image to another location. Just remember the location, so you can enter it into VirtualBox later on.
+    > **WARNING** - By default, most browsers will download the disk image to your **Downloads** folder. I recommend you move the image to another location so you do not accidentally delete it. I also recommend you do not use a folder linked to a cloud service, like OneDrive, since the image is large and transferring it to and from the cloud can cause delays. Just remember the path to the new location; you will need it later.
 
 -----
 
@@ -66,6 +66,8 @@ The latest version of Workstation Player, version 17, is compatible with Windows
 
    ![Downloads folder](img/install_10.png)
 
+   > **WARNING** - Once again, most browsers will download the disk image to your **Downloads** folder. I recommend you move the image out of your **Downloads** folder to another location that is not linked to a cloud service, like OneDrive. Just remember the path to the new location; you will need it later.
+
 7. If your system's User Account Control asks, ***"Do you want to allow this app to make changes to your device?"***, click on **Yes**:
 
    ![User Account Control](img/install_11.png)
@@ -81,8 +83,8 @@ The latest version of Workstation Player, version 17, is compatible with Windows
 10. When the **Custom Setup** dialog appears, ensure the following options are set, click **Next** to continue:
 
     - **Install to** - This is the location of the VMware executables; the default value should work on your system.
-    - **Enhanced Keyboard Driver** - This feature allows you to use key combinations, such as **[Ctrl]** + **[Alt]** + **[Del]** or **[Win]** + **[L]**, within the virtual machine without being intercepted by the Windows host operating system. It also allows to use additional features on international and non-standard keyboards. However, you will not use any special key combinations or require any special keyboard features in the tutorial, so you can leave this unchecked.
-    - **Add VMware Workstation console tools into system PATH** - This option allows you to run VMware command-line interface (CLI) commands, such as **vmrun**, without having to prepend the path to the VMware executables. You can leave this checked, but you will not be using any console commands in the tutorial.
+    - **Enhanced Keyboard Driver** - This feature allows you to use key combinations, like **[Ctrl]** + **[Alt]** + **[Del]** or **[Win]** + **[L]**, within the virtual machine without being intercepted by the Windows host operating system. It also allows to use additional features on international and non-standard keyboards. However, you will not use any special key combinations or require any special keyboard features in the tutorial, so you can leave this unchecked.
+    - **Add VMware Workstation console tools into system PATH** - This option allows you to run VMware command-line interface (CLI) commands, like **vmrun**, without having to prepend the path to the VMware executables. You can leave this checked, but you will not be using any console commands in the tutorial.
 
     ![Custom Setup](img/install_14.png)
 
@@ -161,11 +163,11 @@ The latest version of Workstation Player, version 17, is compatible with Windows
 
    ![Browse for ISO Image](img/install_31.png)
 
-10. When you return to the **Hardware** dialog, click on **Close**:
+10. When you return to the **Hardware** dialog, click on **Display** and, under **3D graphics**, deselect **Accelerate 3D graphics**:
 
-    ![Hardware - All Set](img/install_32.png)
+    ![Hardware - All Set](img/install_32a.png)
 
-11. When you return to the **Ready to Create Virtual Machine** dialog, make sure the information is correct, then click **Finish**:
+11. Click on **Close**. When you return to the **Ready to Create Virtual Machine** dialog, make sure the information is correct, then click **Finish**:
 
     ![Create Virtual Machine](img/install_33.png)
 
@@ -270,7 +272,7 @@ The latest version of Workstation Player, version 17, is compatible with Windows
    python3 --version
    ```
 
-   > **NOTE** - This action will not affect the Python interpreter used by system applications, such as `dnf` and `yum`. That interpreter is located at `/usr/libexec/platform-python`.
+   > **NOTE** - This action will not affect the Python interpreter used by system applications, like `dnf` and `yum`. That interpreter is located at `/usr/libexec/platform-python`.
 
 That's it! You now have a Linux host that you can use with the tutorial. Good luck!
 
