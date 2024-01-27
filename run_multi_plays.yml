@@ -1,6 +1,6 @@
 ---
-# This playbook demonstrates variable scope
-# Usage: ansible-playbook run_two_plays.yml
+# This playbook runs more than one play
+# Usage: ansible-playbook run_multi_plays.yml
 - name: Run a play
   hosts: local_node
   gather_facts: false

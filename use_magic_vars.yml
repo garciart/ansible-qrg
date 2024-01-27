@@ -1,0 +1,20 @@
+---
+# This playbook displays facts and magic variables
+# Usage: ansible-playbook use_magic_vars.yml
+- name: Display facts and magic variables
+  hosts: local_node, localhost
+  gather_facts: true
+  tasks:
+    - name: Display all facts
+      ansible.builtin.debug:
+        var: ansible_facts
+
+    - name: Display a fact
+      ansible.builtin.debug:
+        var: ansible_hostname
+
+    - name: Display magic variables
+      ansible.builtin.debug:
+        msg:
+          - "{{ inventory_hostname }}"
+          - "{{ hostvars['local_node']['ansible_facts']['user_id'] }}"

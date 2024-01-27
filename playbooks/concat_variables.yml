@@ -9,7 +9,7 @@
       vars:
         state_name: "Alabama"
         description: " is a state."
-        concated_string_1: "{{ state_name + description }}"
+        concated_string_1: "{{ state_name ~ description }}"
         concated_string_2: "{{ [state_name, description] | join }}"
       ansible.builtin.debug:
         msg:
