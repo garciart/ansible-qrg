@@ -260,8 +260,12 @@ The latest version of Workstation Player, version 17, is compatible with Windows
 8. Once the `update` command is complete, enter the following commands at the prompt to check for upgrades and remove any packages that are no longer required.
 
    ```bash
+   # Update installed packages to the latest version available to this distro
    sudo dnf -y upgrade
+   # Remove dependencies not needed by installed packages
    sudo dnf -y autoremove
+   # Remove temporary and cached package files
+   sudo dnf -y clean all
    ```
 
 9. At this time, the default Python interpreter installed in CentOS Stream 9 is Python 3.9. However, the latest version of Python available for CentOS Stream 9 is Python 3.11. Use the following commands to change the default version of Python 3; enter your password when prompted:
