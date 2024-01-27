@@ -2,7 +2,7 @@
 # This playbook runs on two nodes
 # Usage: ansible-playbook target_multi_nodes.yml
 - name: Run a play
-  hosts: local_node, localhost
+  hosts: control_node, managed_nodes
   gather_facts: false
   tasks:
     - name: Run a task
