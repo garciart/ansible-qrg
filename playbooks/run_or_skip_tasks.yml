@@ -1,5 +1,5 @@
 ---
-# Use this playbook to demonstrate how to selectively run or skip tasks
+# Use this playbook to selectively run or skip tasks
 # Usage:
 #   - ansible-playbook run_or_skip_tasks.yml --step
 #   - ansible-playbook run_or_skip_tasks.yml --start-at-task "Run a third task"

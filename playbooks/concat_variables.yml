@@ -1,5 +1,5 @@
 ---
-# This playbook joins variables
+# This playbook concatenates variables
 # Usage: ansible-playbook concat_variables.yml
 - name: Set and use different types of variables
   hosts: local_node

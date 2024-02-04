@@ -1,6 +1,6 @@
 ---
-# This playbook displays facts and magic variables
-# Usage: ansible-playbook use_magic_vars.yml
+# This playbook gets facts and magic variables
+# Usage: ansible-playbook get_magic_vars.yml
 - name: Display facts and magic variables
   hosts: local_node
   gather_facts: true

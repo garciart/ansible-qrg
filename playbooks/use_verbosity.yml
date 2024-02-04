@@ -1,5 +1,5 @@
 ---
-# Use this playbook to demonstrate how to use verbosity to limit debug info
+# Use this playbook to limit output using the verbosity parameter
 # Usage:
 #   - ansible-playbook use_verbosity.yml
 #   - ansible-playbook use_verbosity.yml -v

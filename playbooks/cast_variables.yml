@@ -1,5 +1,5 @@
 ---
-# This playbook casts variable to other types
+# This playbook casts variables to other types
 # Usage: ansible-playbook cast_variables.yml
 - name: Cast a variable to another type
   hosts: local_node

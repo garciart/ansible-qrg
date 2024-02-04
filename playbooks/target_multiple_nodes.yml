@@ -1,25 +1,21 @@
 ---
-# This playbook runs on two nodes
+# This playbook targets multiple nodes
 # Usage: ansible-playbook target_multiple_nodes.yml
 - name: Run a play
-  hosts: control_node, managed_nodes
+  hosts: local_node, localhost
   gather_facts: false
   tasks:
     - name: Run a task
       ansible.builtin.debug:
-        msg: "Hello from the first play."
-
-    - name: Run another task
-      ansible.builtin.debug:
-        msg: "Hello again from the first play."
+        var: inventory_hostname
 
 - name: Run another play
-  hosts: local_node, localhost
+  hosts: control_node, managed_nodes
   gather_facts: false
   tasks:
     - name: Run a task in the second play
       ansible.builtin.debug:
-        msg: "Hello from the second play."
+        var: inventory_hostname
 ...
 # code: language=ansible
 # vi: set noai nu ts=2 sw=2 sts=2 sta et:

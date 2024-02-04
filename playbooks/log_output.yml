@@ -1,5 +1,5 @@
 ---
-# Use this playbook to demonstrate how to log the output of a play
+# Use this playbook to log the output of a play
 # Do not forget to enable logging in ansible.cfg
 # Usage:
 #   - ansible-playbook log_output.yml
