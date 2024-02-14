@@ -2,7 +2,7 @@
 # Use this playbook to test AWX configurations
 # Usage: ansible-playbook playbooks/awx_test.yml
 - name: Test AWX configurations
-  hosts: managed_node_1
+  hosts: all
   gather_facts: false
   tasks:
     - name: Say Hello
