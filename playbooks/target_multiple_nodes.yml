@@ -1,19 +1,19 @@
 ---
 # This playbook targets multiple nodes
 # Usage: ansible-playbook target_multiple_nodes.yml
-- name: Run a play
-  hosts: local_node, localhost
+- name: Target a list of nodes
+  hosts: managed_node_1, managed_node_2
   gather_facts: false
   tasks:
-    - name: Run a task
+    - name: Get the name of each node
       ansible.builtin.debug:
         var: inventory_hostname
 
-- name: Run another play
-  hosts: control_node, managed_nodes
+- name: Target a group of nodes
+  hosts: managed_nodes
   gather_facts: false
   tasks:
-    - name: Run a task in the second play
+    - name: Get the name of each node in the group
       ansible.builtin.debug:
         var: inventory_hostname
 ...

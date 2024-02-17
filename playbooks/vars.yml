@@ -9,11 +9,8 @@ geo_pct: 9.5
 connected: false
 countries: null
 
-# Use nesting and indentation to denote hierarchy and scope
-continents:
-  antarctica: "Antarctica is a continent."
-
 # Two different ways to style a list of values
+# Use nesting and indentation to denote hierarchy and scope
 flow_list: ["Antarctica", 5, 9.5]
 block_list:
   - "Antarctica"

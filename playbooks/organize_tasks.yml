@@ -5,7 +5,7 @@
 #   - ansible-playbook organize_tasks.yml --tags foo
 #   - ansible-playbook organize_tasks.yml --tags bar
 - name: Organize tasks using blocks
-  hosts: local_node
+  hosts: managed_node_1
   gather_facts: false
   tasks:
     - name: Create a block of foo tasks

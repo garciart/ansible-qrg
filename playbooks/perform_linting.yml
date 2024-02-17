@@ -2,7 +2,7 @@
 # This playbook has intentional errors and styling issues
 # Usage: ansible-lint perform_linting.yml
 - name: run a bad play
-  hosts: local_node
+  hosts: managed_node_1
   gather_facts: maybe
   tasks:
     - debug:

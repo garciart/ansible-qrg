@@ -13,6 +13,7 @@ Link to playbooks (in order):
 - [perform_linting.yml](/playbooks/perform_linting.yml)
 - [run_multiple_tasks.yml](/playbooks/run_multiple_tasks.yml)
 - [run_multiple_plays.yml](/playbooks/run_multiple_plays.yml)
+- [target_multiple_nodes.yml](/playbooks/target_multiple_nodes.yml)
 - [organize_tasks.yml](/playbooks/organize_tasks.yml)
 - [handle_errors.yml](/playbooks/handle_errors.yml)
 - [breakup_strings.yml](/playbooks/breakup_strings.yml)

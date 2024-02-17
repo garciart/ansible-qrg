@@ -1,18 +1,30 @@
 ---
 # Ansible inventory using YAML format
+# To view groups and nodes,
+# use ansible-inventory --inventory inventory.yml --graph
+# For an expanded inventory,
+# use ansible-inventory -i inventory.yml --list -yaml
 all:
   hosts:
-    local_node:
+    control_node:
+      # Set a variable for a host
       ansible_connection: local
+    managed_node_1:
+    managed_node_2:
+    orphan_node:
 
   children:
-    control_node:
+    control_nodes:
       hosts:
-        local_node:
+        control_node:
 
     managed_nodes:
+      vars:
+        # Set a variable for a group
+        ansible_connection: local
       hosts:
-        local_node:
+        managed_node_1:
+        managed_node_2:
 ...
 # code: language=yaml
 # vi: set noai nu ts=2 sw=2 sts=2 sta et:
