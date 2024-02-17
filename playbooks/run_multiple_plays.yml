@@ -10,7 +10,7 @@
         msg: "This is the first play."
 
 - name: Run another play in the same playbook
-  hosts: managed_node_2
+  hosts: managed_node_1
   gather_facts: false
   tasks:
     - name: Display a message in the second play

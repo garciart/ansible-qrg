@@ -2,7 +2,7 @@
 # This playbook performs math calculations
 # Usage: ansible-playbook perform_math.yml
 - name: Perform math calculations
-  hosts: local_node
+  hosts: managed_node_1
   gather_facts: false
   tasks:
     - name: Perform math calculations using constants and variables

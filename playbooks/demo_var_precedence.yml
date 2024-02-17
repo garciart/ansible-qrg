@@ -2,7 +2,7 @@
 # This playbook demonstrates variable precedence
 # Usage: ansible-playbook demo_var_precedence.yml
 - name: Demonstrate variable precedence
-  hosts: local_node
+  hosts: managed_node_1
   gather_facts: false
   vars:
     my_var: "I am a play level variable."

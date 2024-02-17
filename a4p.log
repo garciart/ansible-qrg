@@ -1,27 +1,27 @@
 2023-10-21 07:28:31,653 p=31121 u=a4puser n=ansible | PLAY [Log output] *************************************************************************************************************************************************************************
 2023-10-21 07:28:31,668 p=31121 u=a4puser n=ansible | TASK [Run the first task] *****************************************************************************************************************************************************************
-2023-10-21 07:28:31,684 p=31121 u=a4puser n=ansible | ok: [local_node] => {
+2023-10-21 07:28:31,684 p=31121 u=a4puser n=ansible | ok: [managed_node_1] => {
     "msg": "This is the first task."
 }
 2023-10-21 07:28:31,690 p=31121 u=a4puser n=ansible | TASK [Run a secret task] ******************************************************************************************************************************************************************
-2023-10-21 07:28:31,705 p=31121 u=a4puser n=ansible | ok: [local_node]
+2023-10-21 07:28:31,705 p=31121 u=a4puser n=ansible | ok: [managed_node_1]
 2023-10-21 07:28:31,711 p=31121 u=a4puser n=ansible | TASK [Run the last task] ******************************************************************************************************************************************************************
-2023-10-21 07:28:31,726 p=31121 u=a4puser n=ansible | ok: [local_node] => {
+2023-10-21 07:28:31,726 p=31121 u=a4puser n=ansible | ok: [managed_node_1] => {
     "msg": "This is the last task."
 }
 2023-10-21 07:28:31,733 p=31121 u=a4puser n=ansible | PLAY RECAP ********************************************************************************************************************************************************************************
-2023-10-21 07:28:31,734 p=31121 u=a4puser n=ansible | local_node                 : ok=3    changed=0    unreachable=0    failed=0    skipped=0    rescued=0    ignored=0   
+2023-10-21 07:28:31,734 p=31121 u=a4puser n=ansible | managed_node_1                 : ok=3    changed=0    unreachable=0    failed=0    skipped=0    rescued=0    ignored=0   
 2023-10-21 07:28:59,757 p=31167 u=a4puser n=ansible | Using /home/a4puser/a4p/ansible.cfg as config file
 2023-10-21 07:28:59,916 p=31167 u=a4puser n=ansible | PLAY [Log output] *************************************************************************************************************************************************************************
 2023-10-21 07:28:59,924 p=31167 u=a4puser n=ansible | TASK [Run the first task] *****************************************************************************************************************************************************************
-2023-10-21 07:28:59,936 p=31167 u=a4puser n=ansible | ok: [local_node] => {
+2023-10-21 07:28:59,936 p=31167 u=a4puser n=ansible | ok: [managed_node_1] => {
     "msg": "This is the first task."
 }
 2023-10-21 07:28:59,941 p=31167 u=a4puser n=ansible | TASK [Run a secret task] ******************************************************************************************************************************************************************
-2023-10-21 07:28:59,956 p=31167 u=a4puser n=ansible | ok: [local_node] => {"censored": "the output has been hidden due to the fact that 'no_log: true' was specified for this result"}
+2023-10-21 07:28:59,956 p=31167 u=a4puser n=ansible | ok: [managed_node_1] => {"censored": "the output has been hidden due to the fact that 'no_log: true' was specified for this result"}
 2023-10-21 07:28:59,960 p=31167 u=a4puser n=ansible | TASK [Run the last task] ******************************************************************************************************************************************************************
-2023-10-21 07:28:59,975 p=31167 u=a4puser n=ansible | ok: [local_node] => {
+2023-10-21 07:28:59,975 p=31167 u=a4puser n=ansible | ok: [managed_node_1] => {
     "msg": "This is the last task."
 }
 2023-10-21 07:28:59,991 p=31167 u=a4puser n=ansible | PLAY RECAP ********************************************************************************************************************************************************************************
-2023-10-21 07:28:59,991 p=31167 u=a4puser n=ansible | local_node                 : ok=3    changed=0    unreachable=0    failed=0    skipped=0    rescued=0    ignored=0   
+2023-10-21 07:28:59,991 p=31167 u=a4puser n=ansible | managed_node_1                 : ok=3    changed=0    unreachable=0    failed=0    skipped=0    rescued=0    ignored=0   

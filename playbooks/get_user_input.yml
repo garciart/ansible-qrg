@@ -2,7 +2,7 @@
 # This playbook gets user input
 # Usage: ansible-playbook get_user_input.yml
 - name: Get user input
-  hosts: local_node
+  hosts: managed_node_1
   gather_facts: false
   tasks:
     - name: Get the user name

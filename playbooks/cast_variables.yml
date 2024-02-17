@@ -2,7 +2,7 @@
 # This playbook casts variables to other types
 # Usage: ansible-playbook cast_variables.yml
 - name: Cast a variable to another type
-  hosts: local_node
+  hosts: managed_node_1
   gather_facts: false
   tasks:
     - name: Cast a variable at the point of use (this always works)

@@ -2,7 +2,7 @@
 # This playbook concatenates variables
 # Usage: ansible-playbook concat_variables.yml
 - name: Set and use different types of variables
-  hosts: local_node
+  hosts: managed_node_1
   gather_facts: false
   tasks:
     - name: Concatenate a string variable

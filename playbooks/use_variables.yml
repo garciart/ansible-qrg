@@ -2,7 +2,7 @@
 # This playbook sets and uses different types of variables
 # Usage: ansible-playbook use_variables.yml
 - name: Set and use different types of variables
-  hosts: local_node
+  hosts: managed_node_1
   gather_facts: false
   tasks:
     - name: Set and display a string variable

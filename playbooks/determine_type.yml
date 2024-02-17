@@ -2,7 +2,7 @@
 # This playbook determines a variable's type
 # Usage: ansible-playbook determine_type.yml
 - name: Set and use different types of variables
-  hosts: local_node
+  hosts: managed_node_1
   gather_facts: false
   tasks:
     - name: Set and display a string variable

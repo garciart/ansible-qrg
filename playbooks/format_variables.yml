@@ -4,7 +4,7 @@
 # https://jinja.palletsprojects.com/en/3.1.x/templates/#list-of-builtin-filters
 # https://cplusplus.com/reference/cstdio/printf/
 - name: Reformat and transform variables
-  hosts: local_node
+  hosts: managed_node_1
   gather_facts: false
   tasks:
     - name: Format variables using filters
