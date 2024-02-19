@@ -21,17 +21,21 @@
 
     - name: Set and display a mixed list
       vars:
-        venus:
-          - "Venus"
-          - 12104
-          - 2802.0
-          - false
-          - null
+        jupiter:
+          - "Jupiter"
+          - 142984
+          - 9.9
+          - true
       ansible.builtin.debug:
         msg:
-          - "{{ venus }}"
+          - "{{ jupiter }}"
           - >-
-            {{ venus[0] }} is {{ venus[1] }} km in diameter.
+            {{ jupiter[0] }} is {{ jupiter[1] }} km
+            in diameter.
+          - >-
+            One day on {{ jupiter[0] }} is
+            {{ jupiter[2] }} Earth hours.
+          - "Rings: {{ jupiter[3] }}"
 ...
 # code: language=ansible
 # vi: set noai nu ts=2 sw=2 sts=2 sta et:
