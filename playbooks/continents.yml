@@ -1,0 +1,58 @@
+---
+continents:
+  - geo_name: "Africa"
+    geo_rank: 2
+    geo_pct: 20.3
+    crosses_equator: true
+    # countries is a list
+    equatorial_countries:
+      - "Congo-Brazzaville"
+      - "Congo-Kinshasa"
+      - "Gabon"
+      - "Kenya"
+      - "Sao Tome and Principe"
+      - "Somalia"
+      - "Uganda"
+
+  - geo_name: "Antarctica"
+    geo_rank: 5
+    geo_pct: 9.5
+    crosses_equator: false
+    equatorial_countries: null
+
+  - geo_name: "Asia"
+    geo_rank: 1
+    geo_pct: 29.8
+    crosses_equator: true
+    equatorial_countries:
+      - "Indonesia"
+
+  - geo_name: "Australia"
+    geo_rank: 7
+    geo_pct: 5.7
+    crosses_equator: false
+    equatorial_countries: null
+
+  - geo_name: "Europe"
+    geo_rank: 6
+    geo_pct: 6.7
+    crosses_equator: false
+    equatorial_countries: null
+
+  - geo_name: "North America"
+    geo_rank: 3
+    geo_pct: 16.2
+    crosses_equator: false
+    equatorial_countries: null
+
+  - geo_name: "South America"
+    geo_rank: 4
+    geo_pct: 11.9
+    crosses_equator: true
+    equatorial_countries:
+      - "Brazil"
+      - "Columbia"
+      - "Ecuador"
+...
+# code: language=yaml
+# vi: set noai nu ts=2 sw=2 sts=2 sta et:

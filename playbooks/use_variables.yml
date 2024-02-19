@@ -8,13 +8,19 @@
     - name: Set and display a string variable
       vars:
         # Use quotation marks to explicitly declare strings
-        state_name: "Alabama"
+        continent_name: "Africa"
       ansible.builtin.debug:
-        var: state_name
+        var: continent_name
 
     - name: Set and display other types of variables
       vars:
-        state_name: "Alabama"
+        continent_name: "Africa"
+        geo_rank: 5
+        geo_rank_oct: 05 # noqa yaml[octal-values]
+        geo_rank_hex: 0x5
+        geo_pct: 9.5
+        connected: true
+        countries: null
         state_capitol: "Montgomery"
         state_number: 22
         state_number_octal: 026 # noqa yaml[octal-values]

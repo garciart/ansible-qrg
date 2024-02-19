@@ -1,0 +1,177 @@
+# This playbook runs the plays and tasks in the playbooks
+# Usage: ansible-playbook playbooks/x_all_plays.yml
+---
+# Usage: ansible-playbook say_hello.yml
+- name: Say Hello
+  hosts: managed_node_1
+  gather_facts: false
+  tasks:
+    - name: Say Hello
+      ansible.builtin.debug:
+        msg: "Hello, World!"
+
+# Usage: ansible-playbook run_multiple_tasks.yml
+- name: Run multiple tasks in a play
+  hosts: managed_node_1
+  gather_facts: false
+  tasks:
+    - name: Run a task
+      ansible.builtin.debug:
+        msg: "This is the first task."
+
+    - name: Run another task
+      ansible.builtin.debug:
+        msg: "This is the second task."
+
+# Usage: ansible-playbook run_multiple_plays.yml
+- name: Run a play
+  hosts: managed_node_1
+  gather_facts: false
+  tasks:
+    - name: Display a message in the first play
+      ansible.builtin.debug:
+        msg: "This is the first play."
+
+- name: Run another play in the same playbook
+  hosts: managed_node_1
+  gather_facts: false
+  tasks:
+    - name: Display a message in the second play
+      ansible.builtin.debug:
+        msg: "This is the second play."
+
+# Usage: ansible-playbook breakup_strings.yml
+- name: Break up long strings
+  hosts: managed_node_1
+  gather_facts: false
+  tasks:
+    - name: Use flow styling to display output (default)
+      ansible.builtin.debug:
+        msg: "Happy Birthday to You, Happy Birthday to You, Happy Birthday, Happy Birthday, Happy Birthday to You!"
+
+    - name: Use a literal block scalar (|) to preserve newlines in a multiline string
+      ansible.builtin.debug:
+        msg: |
+          Happy Birthday to You,
+          Happy Birthday to You,
+          Happy Birthday, Happy Birthday,
+          Happy Birthday to You!
+
+    - name: Use a folded block scalar (>) to collapse a multiline string into a single line
+      ansible.builtin.debug:
+        msg: >
+          Happy Birthday to You,
+          Happy Birthday to You,
+          Happy Birthday, Happy Birthday,
+          Happy Birthday to You!
+
+    - name: Use a literal block scalar (|-), but explicitly chomp the final newline
+      ansible.builtin.debug:
+        msg: |-
+          Happy Birthday to You,
+          Happy Birthday to You,
+          Happy Birthday, Happy Birthday,
+          Happy Birthday to You!
+
+    - name: Use a folded block scalar (>-) with chomping (same as the default result)
+      ansible.builtin.debug:
+        msg: >-
+          Happy Birthday to You,
+          Happy Birthday to You,
+          Happy Birthday, Happy Birthday,
+          Happy Birthday to You!
+
+# Usage:
+# - ansible-playbook run_or_skip_tasks.yml --step
+# - ansible-playbook run_or_skip_tasks.yml --start-at-task "Run a third task"
+# - ansible-playbook run_or_skip_tasks.yml --tags odd
+# - ansible-playbook run_or_skip_tasks.yml --skip-tags odd
+- name: Run or skip tasks
+  hosts: managed_node_1
+  gather_facts: false
+  tasks:
+    - name: Run the first task
+      ansible.builtin.debug:
+        msg: "This is the first task."
+      tags:
+        - odd
+
+    - name: Run a second task
+      ansible.builtin.debug:
+        msg: "This is a second task."
+      tags:
+        - even
+
+    - name: Run a third task
+      ansible.builtin.debug:
+        msg: "This is a third task."
+      tags:
+        - odd
+
+    - name: Run a fourth task
+      ansible.builtin.debug:
+        msg: "This is a fourth task."
+      tags:
+        - even
+
+# Usage:
+# - ansible-playbook organize_tasks.yml
+# - ansible-playbook organize_tasks.yml --tags foo
+# - ansible-playbook organize_tasks.yml --skip-tags foo
+- name: Organize tasks using blocks
+  hosts: managed_node_1
+  gather_facts: false
+  tasks:
+    - name: Create a block of foo tasks
+      tags:
+        - foo
+      block:
+        - name: Run a foo task
+          ansible.builtin.debug:
+            msg: "This is a foo task."
+
+        - name: Run another foo task
+          ansible.builtin.debug:
+            msg: "This is another foo task."
+
+    - name: Create a block of bar tasks
+      tags:
+        - bar
+      block:
+        - name: Run a bar task
+          ansible.builtin.debug:
+            msg: "This is a bar task."
+
+        - name: Run another bar task
+          ansible.builtin.debug:
+            msg: "This is another bar task."
+
+# Usage: ansible-playbook handle_errors.yml
+- name: Perform error handling
+  hosts: managed_node_1
+  gather_facts: false
+  tasks:
+    - name: Perform error handling
+      block:
+        - name: Perform a task that passes
+          ansible.builtin.debug:
+            msg: "I passed!"
+
+        - name: Perform a tasks that fails
+          ansible.builtin.fail:
+            msg: "I failed."
+
+        - name: Create a task that will not run
+          ansible.builtin.debug:
+            msg: "I will not run, since the previous task failed."
+      rescue:
+        - name: Display an error message
+          ansible.builtin.debug:
+            msg: "I run if a task in the block fails."
+      always:
+        - name: Perform a task whether the previous tasks passed or failed
+          ansible.builtin.debug:
+            msg: "I always run."
+...
+# code: language=ansible
+# vi: set noai nu ts=2 sw=2 sts=2 sta et:

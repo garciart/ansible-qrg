@@ -4,6 +4,7 @@
 # - ansible-playbook run_or_skip_tasks.yml --step
 # - ansible-playbook run_or_skip_tasks.yml --start-at-task "Run a third task"
 # - ansible-playbook run_or_skip_tasks.yml --tags odd
+# - ansible-playbook run_or_skip_tasks.yml --skip-tags odd
 - name: Run or skip tasks
   hosts: managed_node_1
   gather_facts: false

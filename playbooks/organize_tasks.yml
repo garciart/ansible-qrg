@@ -3,7 +3,7 @@
 # Usage:
 # - ansible-playbook organize_tasks.yml
 # - ansible-playbook organize_tasks.yml --tags foo
-# - ansible-playbook organize_tasks.yml --tags bar
+# - ansible-playbook organize_tasks.yml --skip-tags foo
 - name: Organize tasks using blocks
   hosts: managed_node_1
   gather_facts: false
@@ -19,7 +19,6 @@
         - name: Run another foo task
           ansible.builtin.debug:
             msg: "This is another foo task."
-
 
     - name: Create a block of bar tasks
       tags:
