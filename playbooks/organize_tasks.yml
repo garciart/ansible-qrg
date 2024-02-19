@@ -1,9 +1,9 @@
 ---
 # This playbook organizes tasks using blocks and tags
 # Usage:
-#   - ansible-playbook organize_tasks.yml
-#   - ansible-playbook organize_tasks.yml --tags foo
-#   - ansible-playbook organize_tasks.yml --tags bar
+# - ansible-playbook organize_tasks.yml
+# - ansible-playbook organize_tasks.yml --tags foo
+# - ansible-playbook organize_tasks.yml --tags bar
 - name: Organize tasks using blocks
   hosts: managed_node_1
   gather_facts: false
