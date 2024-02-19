@@ -91,28 +91,28 @@
   gather_facts: false
   tasks:
     - name: Run the first task
+      tags:
+        - odd
       ansible.builtin.debug:
         msg: "This is the first task."
-      tags:
-        - odd
 
     - name: Run a second task
+      tags:
+        - even
       ansible.builtin.debug:
         msg: "This is a second task."
-      tags:
-        - even
 
     - name: Run a third task
-      ansible.builtin.debug:
-        msg: "This is a third task."
       tags:
         - odd
+      ansible.builtin.debug:
+        msg: "This is a third task."
 
     - name: Run a fourth task
-      ansible.builtin.debug:
-        msg: "This is a fourth task."
       tags:
         - even
+      ansible.builtin.debug:
+        msg: "This is a fourth task."
 
 # Usage:
 # - ansible-playbook organize_tasks.yml
@@ -172,6 +172,97 @@
         - name: Perform a task whether the previous tasks passed or failed
           ansible.builtin.debug:
             msg: "I always run."
+
+    # Usage: ansible-playbook use_variables.yml
+    - name: Use different types of scalar variables
+      hosts: managed_node_1
+      gather_facts: false
+      tasks:
+        - name: Set and display a string variable
+          vars:
+            # Use quotation marks to explicitly declare strings
+            planet_name: "Mercury"
+          ansible.builtin.debug:
+            var: planet_name
+
+        - name: Set and display other scalar variables
+          vars:
+            planet_name: "Mercury"
+            diameter_dec: 4879
+            diameter_hex: 0x130F
+            diameter_oct: 011417 # noqa yaml[octal-values]
+            hours_per_day: 4222.6
+            # Use 'true/false' instead of 'yes/no' or 'on/off'
+            rings: false
+            # Leave blank or use 'null' for NoneType
+            major_moons: null
+          ansible.builtin.debug:
+            msg:
+              - "The name of the planet is {{ planet_name }}."
+              - "It is {{ diameter_dec }} kilometers in diameter."
+              - "0x130F (hexadecimal) = {{ diameter_hex }} (dec)."
+              - "011417 (octal) = {{ diameter_oct }} (dec)."
+              - >-
+                One day on {{ planet_name }} is
+                {{ hours_per_day }} Earth hours.
+              - "Rings: {{ rings }}"
+              - "Moons: {{ major_moons }}"
+
+    # Usage: ansible-playbook use_lists.yml
+    - name: Use lists of variables
+      hosts: managed_node_1
+      gather_facts: false
+      tasks:
+        - name: Set and display a list
+          vars:
+            major_moons:
+              - "Ganymede"
+              - "Callisto"
+              - "Europa"
+              - "Io"
+          ansible.builtin.debug:
+            msg:
+              - "{{ major_moons }}"
+              - >-
+                {{ major_moons[0] }} is bigger than
+                {{ major_moons.2 }}.
+
+        - name: Set and display a mixed list
+          vars:
+            venus:
+              - "Venus"
+              - 12104
+              - 2802.0
+              - false
+              - null
+          ansible.builtin.debug:
+            msg:
+              - "{{ venus }}"
+              - >-
+                {{ venus[0] }} is {{ venus[1] }} km in diameter.
+
+    # Usage: ansible-playbook use_dicts.yml
+    - name: Use dictionaries
+      hosts: managed_node_1
+      gather_facts: false
+      tasks:
+        - name: Set and display a dictionary
+          vars:
+            venus:
+              planet_name: "Venus"
+              diameter_dec: 12104
+              hours_per_day: 2802.0
+              rings: false
+          ansible.builtin.debug:
+            msg:
+              - "{{ venus }}"
+              - >-
+                {{ venus['planet_name'] }} is
+                {{ venus.diameter_dec }} km in diameter.
+              - >-
+                One day on {{ venus['planet_name'] }} is
+                {{ venus['hours_per_day'] }} Earth hours.
+              - "Rings: {{ venus['rings'] }}"
 ...
 # code: language=ansible
 # vi: set noai nu ts=2 sw=2 sts=2 sta et:

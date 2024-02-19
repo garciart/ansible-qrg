@@ -10,28 +10,28 @@
   gather_facts: false
   tasks:
     - name: Run the first task
+      tags:
+        - odd
       ansible.builtin.debug:
         msg: "This is the first task."
-      tags:
-        - odd
 
     - name: Run a second task
+      tags:
+        - even
       ansible.builtin.debug:
         msg: "This is a second task."
-      tags:
-        - even
 
     - name: Run a third task
-      ansible.builtin.debug:
-        msg: "This is a third task."
       tags:
         - odd
+      ansible.builtin.debug:
+        msg: "This is a third task."
 
     - name: Run a fourth task
-      ansible.builtin.debug:
-        msg: "This is a fourth task."
       tags:
         - even
+      ansible.builtin.debug:
+        msg: "This is a fourth task."
 ...
 # code: language=ansible
 # vi: set noai nu ts=2 sw=2 sts=2 sta et:

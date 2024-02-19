@@ -1,0 +1,27 @@
+---
+# This playbook uses dictionaries
+# Usage: ansible-playbook use_dicts.yml
+- name: Use dictionaries
+  hosts: managed_node_1
+  gather_facts: false
+  tasks:
+    - name: Set and display a dictionary
+      vars:
+        venus:
+          planet_name: "Venus"
+          diameter_dec: 12104
+          hours_per_day: 2802.0
+          rings: false
+      ansible.builtin.debug:
+        msg:
+          - "{{ venus }}"
+          - >-
+            {{ venus['planet_name'] }} is
+            {{ venus.diameter_dec }} km in diameter.
+          - >-
+            One day on {{ venus['planet_name'] }} is
+            {{ venus['hours_per_day'] }} Earth hours.
+          - "Rings: {{ venus['rings'] }}"
+...
+# code: language=ansible
+# vi: set noai nu ts=2 sw=2 sts=2 sta et:

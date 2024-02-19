@@ -1,37 +1,41 @@
 ---
 # This file demos different data types used by Ansible
-# Usage: ansible localhost --module-name ansible.builtin.debug --args "var=continent_name" --extra-vars "@vars.yml"
+# Usage:
+# - ansible localhost --module-name ansible.builtin.debug
+#   --args "var=planet_name" --extra-vars "@vars.yml"
+# - ansible localhost -m debug -a "var=[planet_name,diameter]"
+#   -e "@vars.yml"
 
 # Different types of scalar variables
-continent_name: "Antarctica"
-geo_rank: 5
-geo_pct: 9.5
-connected: false
-countries: null
+planet_name: "Mercury"
+diameter: 4879
+hours_per_day: 4222.6
+rings: false
+major_moons: null
 
 # Two different ways to style a list of values
 # Use nesting and indentation to denote hierarchy and scope
-flow_list: ["Antarctica", 5, 9.5]
+flow_list: ["Mercury", 4879, 4222.6]
 block_list:
-  - "Antarctica"
-  - 5
-  - 9.5
+  - "Mercury"
+  - 4879
+  - 4222.6
 
 # Two different ways to style a dictionary of variables
-flow_dict: { connected: false, countries: null }
+flow_dict: { rings: false, major_moons: null }
 block_dict:
-  connected: false
-  countries: null
+  rings: false
+  major_moons: null
 
 # A list of lists and dictionaries
 list_of_lists_and_dicts:
-  - ["Antarctica", 5, 9.5]
-  - { connected: false, countries: null }
-  - - "Antarctica"
-    - 5
-    - 9.5
-  - connected: false
-    countries: null
+  - ["Mercury", 4879, 4222.6]
+  - { rings: false, major_moons: null }
+  - - "Mercury"
+    - 4879
+    - 4222.6
+  - rings: false
+    major_moons: null
 ...
 # code: language=yaml
 # vi: set noai nu ts=2 sw=2 sts=2 sta et:

@@ -1,45 +1,39 @@
 ---
-# This playbook sets and uses different types of variables
+# This playbook uses different types of scalar variables
 # Usage: ansible-playbook use_variables.yml
-- name: Set and use different types of variables
+- name: Use different types of scalar variables
   hosts: managed_node_1
   gather_facts: false
   tasks:
     - name: Set and display a string variable
       vars:
         # Use quotation marks to explicitly declare strings
-        continent_name: "Africa"
+        planet_name: "Mercury"
       ansible.builtin.debug:
-        var: continent_name
+        var: planet_name
 
-    - name: Set and display other types of variables
+    - name: Set and display other scalar variables
       vars:
-        continent_name: "Africa"
-        geo_rank: 5
-        geo_rank_oct: 05 # noqa yaml[octal-values]
-        geo_rank_hex: 0x5
-        geo_pct: 9.5
-        connected: true
-        countries: null
-        state_capitol: "Montgomery"
-        state_number: 22
-        state_number_octal: 026 # noqa yaml[octal-values]
-        state_number_hex: 0x16
-        percent_water: 3.39
+        planet_name: "Mercury"
+        diameter_dec: 4879
+        diameter_hex: 0x130F
+        diameter_oct: 011417 # noqa yaml[octal-values]
+        hours_per_day: 4222.6
         # Use 'true/false' instead of 'yes/no' or 'on/off'
-        land_locked: false
+        rings: false
         # Leave blank or use 'null' for NoneType
-        state_foo:
-        state_bar: null
+        major_moons: null
       ansible.builtin.debug:
         msg:
-          - "The state name is {{ state_name }}."
-          - "The state capitol is {{ state_capitol }}."
-          - "The state admission number is {{ state_number }}."
-          - "026 (octal) = {{ state_number_octal }} and 0x16 (hex) = {{ state_number_hex }}."
-          - "{{ state_name }} is {{ percent_water }} percent water."
-          - "Is {{ state_name }} landlocked: {{ land_locked }}."
-          - "The state 'foo' is '{{ state_foo }}' and the state 'bar' is '{{ state_bar }}'."
+          - "The name of the planet is {{ planet_name }}."
+          - "It is {{ diameter_dec }} kilometers in diameter."
+          - "0x130F (hexadecimal) = {{ diameter_hex }} (dec)."
+          - "011417 (octal) = {{ diameter_oct }} (dec)."
+          - >-
+            One day on {{ planet_name }} is
+            {{ hours_per_day }} Earth hours.
+          - "Rings: {{ rings }}"
+          - "Moons: {{ major_moons }}"
 ...
 # code: language=ansible
 # vi: set noai nu ts=2 sw=2 sts=2 sta et:

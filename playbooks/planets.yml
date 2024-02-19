@@ -4,78 +4,85 @@ planets:
     diameter_dec: 4879
     diameter_hex: 0x130F
     diameter_oct: 011417 # noqa yaml[octal-values]
-    gravity: 3.7
+    hours_per_day: 4222.6
     rings: false
     major_moons: null
+
   - planet_name: "Venus"
     diameter_dec: 12104
     diameter_hex: 0x2F48
     diameter_oct: 027510 # noqa yaml[octal-values]
-    gravity: 8.9
+    hours_per_day: 2802.0
     rings: false
     major_moons: null
+
   - planet_name: "Earth"
     diameter_dec: 12756
     diameter_hex: 0x31D4
     diameter_oct: 030724 # noqa yaml[octal-values]
-    gravity: 9.8
+    hours_per_day: 24.0
     rings: false
     major_moons:
-      - Luna
+      - "Moon"
+
   - planet_name: "Mars"
     diameter_dec: 6792
     diameter_hex: 0x1A88
     diameter_oct: 015210 # noqa yaml[octal-values]
-    gravity: 3.7
+    hours_per_day: 24.7
     rings: false
     major_moons:
-      - Phobos
-      - Deimos
+      - "Phobos"
+      - "Deimos"
+
   - planet_name: "Jupiter"
     diameter_dec: 142984
     diameter_hex: 0x22E88
     diameter_oct: 0427210 # noqa yaml[octal-values]
-    gravity: 23.1
+    hours_per_day: 9.9
     rings: true
     major_moons:
-      - Ganymede
-      - Callisto
-      - Europa
-      - Io
+      - "Ganymede"
+      - "Callisto"
+      - "Europa"
+      - "Io"
+
   - planet_name: "Saturn"
     diameter_dec: 120536
     diameter_hex: 0x1D6D8
     diameter_oct: 0353330 # noqa yaml[octal-values]
-    gravity: 9.0
+    hours_per_day: 10.7
     rings: true
     major_moons:
-      - Titan
-      - Rhea
-      - Iapetus
-      - Dione
-      - Tethys
-      - Enceladus
-      - Mimas
+      - "Titan"
+      - "Rhea"
+      - "Iapetus"
+      - "Dione"
+      - "Tethys"
+      - "Enceladus"
+      - "Mimas"
+
   - planet_name: "Uranus"
     diameter_dec: 51118
     diameter_hex: 0xC7AE
     diameter_oct: 0143656 # noqa yaml[octal-values]
-    gravity: 8.7
+    hours_per_day: 17.2
     rings: true
     major_moons:
-      - Titania
-      - Oberon
-      - Umbriel
-      - Ariel
-      - Miranda
+      - "Titania"
+      - "Oberon"
+      - "Umbriel"
+      - "Ariel"
+      - "Miranda"
+
   - planet_name: "Neptune"
     diameter_dec: 49528
     diameter_hex: 0xC178
     diameter_oct: 0140570 # noqa yaml[octal-values]
-    gravity: 11.0
+    hours_per_day: 16.1
     rings: true
     major_moons:
-      - Triton
+      - "Triton"
 ...
 # code: language=yaml
 # vi: set noai nu ts=2 sw=2 sts=2 sta et:

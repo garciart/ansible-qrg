@@ -17,8 +17,10 @@ Link to playbooks (in order):
 - [run_or_skip_tasks.yml](/playbooks/run_or_skip_tasks.yml)
 - [organize_tasks.yml](/playbooks/organize_tasks.yml)
 - [handle_errors.yml](/playbooks/handle_errors.yml)
-
 - [use_variables.yml](/playbooks/use_variables.yml)
+- [use_lists.yml](/playbooks/use_lists.yml)
+- [use_dicts.yml](/playbooks/use_dicts.yml)
+
 - [determine_type.yml](/playbooks/determine_type.yml)
 - [get_magic_vars.yml](/playbooks/get_magic_vars.yml)
 - [get_return_values.yml](/playbooks/get_return_values.yml)

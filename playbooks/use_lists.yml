@@ -1,0 +1,37 @@
+---
+# This playbook uses lists of variables
+# Usage: ansible-playbook use_lists.yml
+- name: Use lists of variables
+  hosts: managed_node_1
+  gather_facts: false
+  tasks:
+    - name: Set and display a list
+      vars:
+        major_moons:
+          - "Ganymede"
+          - "Callisto"
+          - "Europa"
+          - "Io"
+      ansible.builtin.debug:
+        msg:
+          - "{{ major_moons }}"
+          - >-
+            {{ major_moons[0] }} is bigger than
+            {{ major_moons.2 }}.
+
+    - name: Set and display a mixed list
+      vars:
+        venus:
+          - "Venus"
+          - 12104
+          - 2802.0
+          - false
+          - null
+      ansible.builtin.debug:
+        msg:
+          - "{{ venus }}"
+          - >-
+            {{ venus[0] }} is {{ venus[1] }} km in diameter.
+...
+# code: language=ansible
+# vi: set noai nu ts=2 sw=2 sts=2 sta et:
