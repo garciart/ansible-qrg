@@ -1,52 +1,54 @@
 ---
 # This playbook demonstrates variable scope
-# Usage: ansible-playbook demo_var_scope.yml --extra-vars="cmd_line_var='I am a command line variable, and I can be used anywhere within this playbook.'"
+# Usage:
+# - ansible-playbook demo_var_scope.yml -e \
+#   "cmd_line_var='Use command line variables anywhere in a playbook.'"
 - name: Run the first play to demonstrate variable scope
   hosts: managed_node_1
   gather_facts: false
   vars:
-    play_level_var: "I am a play level variable, and I can be used anywhere within this play."
+    play_var: "Use a play variable in its play."
   tasks:
-    - name: Display the value of a command line variable
+    - name: Use a command line variable
       ansible.builtin.debug:
         msg: "{{ cmd_line_var }}"
 
-    - name: Display the value of a play level variable
+    - name: Use a play variable
       ansible.builtin.debug:
         msg:
-          - "{{ play_level_var }}"
+          - "{{ play_var }}"
           - "{{ cmd_line_var }}"
 
-    - name: Display the value of a block level variable
+    - name: Use a block variable
       vars:
-        block_level_var: "I am a block level variable, and I can be used anywhere within this block."
+        block_var: "Use a block variable in its block."
       block:
-        - name: Display the value of a play and block level variable
+        - name: Use play and block variables
           ansible.builtin.debug:
             msg:
-              - "{{ block_level_var }}"
-              - "{{ play_level_var }}"
+              - "{{ block_var }}"
+              - "{{ play_var }}"
               - "{{ cmd_line_var }}"
 
-        - name: Display the value of a play, block, and task level variable
+        - name: Use play, block, and task variables
           vars:
-            task_level_var: "I am a task level variable, and I can be used anywhere within this task."
+            task_var: "Use a task variable in its task."
           ansible.builtin.debug:
             msg:
-              - "{{ task_level_var }}"
-              - "{{ block_level_var }}"
-              - "{{ play_level_var }}"
+              - "{{ task_var }}"
+              - "{{ block_var }}"
+              - "{{ play_var }}"
               - "{{ cmd_line_var }}"
 
-        - name: Attempt to display a task level variable outside its scope
+        - name: Try to use a task variable outside its task
           ansible.builtin.debug:
-            msg: "{{ task_level_var }}"
+            msg: "{{ task_var }}"
           # See https://ansible.readthedocs.io/projects/lint/rules/ignore-errors/
           ignore_errors: true # noqa ignore-errors
 
-    - name: Attempt to display a block level variable outside its scope
+    - name: Try to use a block variable outside its block
       ansible.builtin.debug:
-        msg: "{{ block_level_var }}"
+        msg: "{{ block_var }}"
       ignore_errors: true # noqa ignore-errors
 
 - name: Run the second play to demonstrate variable scope
@@ -57,9 +59,9 @@
       ansible.builtin.debug:
         msg: "{{ cmd_line_var }}"
 
-    - name: Attempt to display the value of a play level variable outside its scope
+    - name: Try to use a play variable outside its play
       ansible.builtin.debug:
-        msg: "{{ play_level_var }}"
+        msg: "{{ play_var }}"
       ignore_errors: true # noqa ignore-errors
 ...
 # code: language=ansible

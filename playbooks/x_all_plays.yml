@@ -1,5 +1,5 @@
 # This playbook runs the plays and tasks in the playbooks
-# Usage: ansible-playbook playbooks/x_all_plays.yml
+# Usage: ansible-playbook x_all_plays.yml -e "planet_name='Earth' rings=false cmd_line_var='Use command line variables anywhere in a playbook.'"
 ---
 # Usage: ansible-playbook say_hello.yml
 - name: Say Hello
@@ -40,6 +40,23 @@
       ansible.builtin.debug:
         msg: "This is the second play."
 
+# Usage: ansible-playbook target_multiple_nodes.yml
+- name: Target a list of nodes
+  hosts: managed_node_1, managed_node_2
+  gather_facts: false
+  tasks:
+    - name: Say Hello
+      ansible.builtin.debug:
+        msg: "Hello from a list of nodes!"
+
+- name: Target a group of nodes
+  hosts: managed_nodes
+  gather_facts: false
+  tasks:
+    - name: Say Hello
+      ansible.builtin.debug:
+        msg: "Hello from a group of nodes!"
+
 # Usage: ansible-playbook breakup_strings.yml
 - name: Break up long strings
   hosts: managed_node_1
@@ -49,7 +66,8 @@
       ansible.builtin.debug:
         msg: "Happy Birthday to You, Happy Birthday to You, Happy Birthday, Happy Birthday, Happy Birthday to You!"
 
-    - name: Use a literal block scalar (|) to preserve newlines in a multiline string
+    - name: Use a literal block scalar
+      # Use a literal block scalar (|) to preserve newlines in a multiline string
       ansible.builtin.debug:
         msg: |
           Happy Birthday to You,
@@ -57,7 +75,8 @@
           Happy Birthday, Happy Birthday,
           Happy Birthday to You!
 
-    - name: Use a folded block scalar (>) to collapse a multiline string into a single line
+    - name: Use a folded block scalar
+      # Use a folded block scalar (>) to collapse a multiline string into a single line
       ansible.builtin.debug:
         msg: >
           Happy Birthday to You,
@@ -65,7 +84,8 @@
           Happy Birthday, Happy Birthday,
           Happy Birthday to You!
 
-    - name: Use a literal block scalar (|-), but explicitly chomp the final newline
+    - name: Use a literal block scalar
+      # Use a literal block scalar (|-), but explicitly chomp the final newline
       ansible.builtin.debug:
         msg: |-
           Happy Birthday to You,
@@ -73,7 +93,8 @@
           Happy Birthday, Happy Birthday,
           Happy Birthday to You!
 
-    - name: Use a folded block scalar (>-) with chomping (same as the default result)
+    - name: Use a folded block scalar
+      # Use a folded block scalar (>-) with chomping (same as the default result)
       ansible.builtin.debug:
         msg: >-
           Happy Birthday to You,
@@ -163,110 +184,433 @@
 
         - name: Create a task that will not run
           ansible.builtin.debug:
-            msg: "I will not run, since the previous task failed."
+            msg: "I will not run if the previous task fails."
       rescue:
         - name: Display an error message
           ansible.builtin.debug:
             msg: "I run if a task in the block fails."
       always:
-        - name: Perform a task whether the previous tasks passed or failed
+        - name: >-
+            Perform a task whether the previous tasks passed
+            or failed
           ansible.builtin.debug:
             msg: "I always run."
 
-    # Usage: ansible-playbook use_variables.yml
-    - name: Use different types of scalar variables
-      hosts: managed_node_1
-      gather_facts: false
-      tasks:
-        - name: Set and display a string variable
-          vars:
-            # Use quotation marks to explicitly declare strings
-            planet_name: "Mercury"
-          ansible.builtin.debug:
-            var: planet_name
+# Usage: ansible-playbook use_variables.yml
+- name: Use different types of scalar variables
+  hosts: managed_node_1
+  gather_facts: false
+  tasks:
+    - name: Set and display a string variable
+      vars:
+        # Use quotation marks to explicitly declare strings
+        planet_name: "Mercury"
+      ansible.builtin.debug:
+        var: planet_name
 
-        - name: Set and display other scalar variables
-          vars:
-            planet_name: "Mercury"
-            diameter_dec: 4879
-            diameter_hex: 0x130F
-            diameter_oct: 011417 # noqa yaml[octal-values]
-            hours_per_day: 4222.6
-            # Use 'true/false' instead of 'yes/no' or 'on/off'
-            rings: false
-            # Leave blank or use 'null' for NoneType
-            major_moons: null
+    - name: Set and display other scalar variables
+      vars:
+        planet_name: "Mercury"
+        diameter_dec: 4879
+        diameter_hex: 0x130F
+        diameter_oct: 011417 # noqa yaml[octal-values]
+        hours_per_day: 4222.6
+        # Use 'true/false' instead of 'yes/no' or 'on/off'
+        rings: false
+        # Leave blank or use 'null' for NoneType
+        major_moons: null
+      ansible.builtin.debug:
+        msg:
+          - "The name of the planet is {{ planet_name }}."
+          - "It is {{ diameter_dec }} km in diameter."
+          - "0x130F (hex) = {{ diameter_hex }} (dec)."
+          - "011417 (oct) = {{ diameter_oct }} (dec)."
+          - >-
+            One day on {{ planet_name }} is
+            {{ hours_per_day }} Earth hours.
+          - "Rings: {{ rings }}"
+          - "Moons: {{ major_moons }}"
+
+# Usage: ansible-playbook use_lists.yml
+- name: Set and use lists of variables
+  hosts: managed_node_1
+  gather_facts: false
+  tasks:
+    - name: Set and display a list
+      vars:
+        major_moons:
+          - "Ganymede"
+          - "Callisto"
+          - "Europa"
+          - "Io"
+      ansible.builtin.debug:
+        msg:
+          - "{{ major_moons }}"
+          - >-
+            {{ major_moons[0] }} is bigger than
+            {{ major_moons.2 }}.
+
+    - name: Set and display a mixed list
+      vars:
+        jupiter:
+          - "Jupiter"
+          - 142984
+          - 9.9
+          - true
+      ansible.builtin.debug:
+        msg:
+          - "{{ jupiter }}"
+          - >-
+            {{ jupiter[0] }} is {{ jupiter[1] }} km
+            in diameter.
+          - >-
+            One day on {{ jupiter[0] }} is
+            {{ jupiter[2] }} Earth hours.
+          - "Rings: {{ jupiter[3] }}"
+
+# Usage: ansible-playbook use_dicts.yml
+- name: Set and use dictionaries of variables
+  hosts: managed_node_1
+  gather_facts: false
+  tasks:
+    - name: Set and display a dictionary
+      vars:
+        jupiter:
+          planet_name: "Jupiter"
+          diameter_dec: 142984
+          hours_per_day: 9.9
+          rings: true
+      ansible.builtin.debug:
+        msg:
+          - "{{ jupiter }}"
+          - >-
+            {{ jupiter['planet_name'] }} is
+            {{ jupiter.diameter_dec }} km in diameter.
+          - >-
+            One day on {{ jupiter['planet_name'] }} is
+            {{ jupiter['hours_per_day'] }} Earth hours.
+          - "Rings: {{ jupiter['rings'] }}"
+
+# Usage: ansible-playbook get_var_type.yml
+- name: Get variable types
+  hosts: managed_node_1
+  gather_facts: false
+  tasks:
+    - name: Get the type of a variable
+      vars:
+        planet_name: "Mars"
+      ansible.builtin.debug:
+        var: planet_name, planet_name | type_debug
+
+    - name: Get the types of other variables
+      vars:
+        planet_name: "Mars"
+        diameter_dec: 6792
+        hours_per_day: 24.7
+        rings: false
+        major_moons:
+          - "Phobos"
+          - "Deimos"
+        other:
+          au: 1.52
+          order_no: 3
+      ansible.builtin.debug:
+        msg:
+          - >-
+            {{ planet_name }} is
+            {{ planet_name | type_debug }}.
+          - >-
+            {{ diameter_dec }} is an
+            {{ diameter_dec | type_debug }}.
+          - >-
+            {{ hours_per_day }} is a
+            {{ hours_per_day | type_debug }}.
+          - "{{ rings }} is a {{ rings | type_debug }}."
+          - >-
+            {{ major_moons }} is a
+            {{ major_moons | type_debug }}.
+          - >-
+            {{ major_moons[0] }} is
+            {{ major_moons[0] | type_debug }}.
+          - "{{ other }} is a {{ other | type_debug }}."
+          - >-
+            {{ other['au'] }} is a
+            {{ other['au'] | type_debug }}.
+
+# Usage: ansible-playbook get_return_values.yml
+- name: Capture and display the return values of a task
+  hosts: managed_node_1
+  gather_facts: false
+  tasks:
+    - name: Say Hello
+      ansible.builtin.debug:
+        msg: "Hello, World!"
+      register: result
+
+    - name: Display the return values of the previous task
+      ansible.builtin.debug:
+        var: result
+
+    - name: Display result type
+      ansible.builtin.debug:
+        var: result | type_debug
+
+    - name: Display a single return value
+      ansible.builtin.debug:
+        var: result['failed']
+
+# Usage: ansible-playbook get_special_vars.yml
+- name: Display facts and magic variables
+  hosts: managed_node_1
+  gather_facts: false
+  tasks:
+    - name: Display all magic variables
+      ansible.builtin.debug:
+        var: hostvars
+
+    - name: Display a magic variable
+      ansible.builtin.debug:
+        var: inventory_hostname
+
+    - name: Display magic variables for the target node only
+      ansible.builtin.debug:
+        var: hostvars[inventory_hostname]
+
+    - name: Display connection variables
+      ansible.builtin.debug:
+        var: ansible_host, ansible_connection
+
+    - name: Gather facts
+      ansible.builtin.setup:
+
+    - name: Display all facts
+      ansible.builtin.debug:
+        var: ansible_facts
+
+    - name: Display a fact
+      ansible.builtin.debug:
+        var: ansible_facts['os_family']
+
+# Usage:
+# - ansible-playbook use_cmd_line_vars.yml
+#   --extra-vars="planet_name='Earth' rings=false"
+- name: Get and use command line variables
+  hosts: managed_node_1
+  gather_facts: false
+  tasks:
+    - name: Display the values of command line variables
+      ansible.builtin.debug:
+        msg:
+          - >-
+            {{ planet_name }} is a
+            {{ planet_name | type_debug }}.
+          - "{{ rings }} is a {{ rings | type_debug }}."
+
+# Usage:
+# - ansible-playbook demo_var_scope.yml -e \
+#   "cmd_line_var='Use command line variables anywhere in a playbook.'"
+- name: Run the first play to demonstrate variable scope
+  hosts: managed_node_1
+  gather_facts: false
+  vars:
+    play_var: "Use a play variable in its play."
+  tasks:
+    - name: Use a command line variable
+      ansible.builtin.debug:
+        msg: "{{ cmd_line_var }}"
+
+    - name: Use a play variable
+      ansible.builtin.debug:
+        msg:
+          - "{{ play_var }}"
+          - "{{ cmd_line_var }}"
+
+    - name: Use a block variable
+      vars:
+        block_var: "Use a block variable in its block."
+      block:
+        - name: Use play and block variables
           ansible.builtin.debug:
             msg:
-              - "The name of the planet is {{ planet_name }}."
-              - "It is {{ diameter_dec }} kilometers in diameter."
-              - "0x130F (hexadecimal) = {{ diameter_hex }} (dec)."
-              - "011417 (octal) = {{ diameter_oct }} (dec)."
-              - >-
-                One day on {{ planet_name }} is
-                {{ hours_per_day }} Earth hours.
-              - "Rings: {{ rings }}"
-              - "Moons: {{ major_moons }}"
+              - "{{ block_var }}"
+              - "{{ play_var }}"
+              - "{{ cmd_line_var }}"
 
-    # Usage: ansible-playbook use_lists.yml
-    - name: Use lists of variables
-      hosts: managed_node_1
-      gather_facts: false
-      tasks:
-        - name: Set and display a list
+        - name: Use play, block, and task variables
           vars:
-            major_moons:
-              - "Ganymede"
-              - "Callisto"
-              - "Europa"
-              - "Io"
+            task_var: "Use a task variable in its task."
           ansible.builtin.debug:
             msg:
-              - "{{ major_moons }}"
-              - >-
-                {{ major_moons[0] }} is bigger than
-                {{ major_moons.2 }}.
+              - "{{ task_var }}"
+              - "{{ block_var }}"
+              - "{{ play_var }}"
+              - "{{ cmd_line_var }}"
 
-        - name: Set and display a mixed list
-          vars:
-            jupiter:
-              - "Jupiter"
-              - 142984
-              - 9.9
-              - true
+        - name: Try to use a task variable outside its task
           ansible.builtin.debug:
-            msg:
-              - "{{ jupiter }}"
-              - >-
-                {{ jupiter[0] }} is {{ jupiter[1] }} km
-                in diameter.
-              - >-
-                One day on {{ jupiter[0] }} is
-                {{ jupiter[2] }} Earth hours.
-              - "Rings: {{ jupiter[3] }}"
+            msg: "{{ task_var }}"
+          # See https://ansible.readthedocs.io/projects/lint/rules/ignore-errors/
+          ignore_errors: true # noqa ignore-errors
 
-    # Usage: ansible-playbook use_dicts.yml
-    - name: Use dictionaries
-      hosts: managed_node_1
-      gather_facts: false
-      tasks:
-        - name: Set and display a dictionary
-          vars:
-            jupiter:
-              planet_name: "Jupiter"
-              diameter_dec: 142984
-              hours_per_day: 9.9
-              rings: true
+    - name: Try to use a block variable outside its block
+      ansible.builtin.debug:
+        msg: "{{ block_var }}"
+      ignore_errors: true # noqa ignore-errors
+
+- name: Run the second play to demonstrate variable scope
+  hosts: managed_node_1
+  gather_facts: false
+  tasks:
+    - name: Display the value of a command line variable
+      ansible.builtin.debug:
+        msg: "{{ cmd_line_var }}"
+
+    - name: Try to use a play variable outside its play
+      ansible.builtin.debug:
+        msg: "{{ play_var }}"
+      ignore_errors: true # noqa ignore-errors
+
+# Usage: ansible-playbook play_var_precedence.yml
+- name: Demonstrate variable precedence
+  hosts: managed_node_1
+  gather_facts: false
+  vars:
+    play_var: "I am a play level variable."
+  tasks:
+    - name: Use play_var at the play level
+      ansible.builtin.debug:
+        msg: "{{ play_var }}"
+
+    - name: Override play_var at the block level
+      vars:
+        play_var: >-
+          Block level variables override play level variables
+          with the same name within the block.
+      block:
+        - name: Use play_var at the block level
           ansible.builtin.debug:
-            msg:
-              - "{{ jupiter }}"
-              - >-
-                {{ jupiter['planet_name'] }} is
-                {{ jupiter.diameter_dec }} km in diameter.
-              - >-
-                One day on {{ jupiter['planet_name'] }} is
-                {{ jupiter['hours_per_day'] }} Earth hours.
-              - "Rings: {{ jupiter['rings'] }}"
+            msg: "{{ play_var }}"
+
+        - name: Override and use play_var at the task level
+          vars:
+            play_var: >-
+              Task level variables override block level
+              variables with the same name within the task.
+          ansible.builtin.debug:
+            msg: "{{ play_var }}"
+
+    - name: Use play_var at the play level again
+      ansible.builtin.debug:
+        msg: "{{ play_var }}"
+
+    - name: Change play_var using set_fact
+      ansible.builtin.set_fact:
+        play_var: >-
+          The set_fact module overrides play, block, and
+          task assignments.
+
+    - name: Use the new value of play_var at the play level
+      ansible.builtin.debug:
+        msg: "{{ play_var }}"
+
+# Usage: ansible-playbook cast_variables.yml
+- name: Cast a variable to another type
+  hosts: managed_node_1
+  gather_facts: false
+  tasks:
+    - name: Recast variables at the point of use (always works)
+      vars:
+        str_value: "1"
+        int_value: 0
+        float_value: 1.0
+        bool_value: false
+      ansible.builtin.debug:
+        msg:
+          - >-
+            You can cast a string ('{{ str_value }}') as
+            an integer ({{ str_value | int }}),
+            a float ({{ str_value | float }}),
+            or a boolean ({{ str_value | bool }}).
+          - >-
+            You can cast an integer ({{ int_value }}) as
+            a string ('{{ int_value | string }}'),
+            a float ({{ int_value | float }}),
+            or a boolean ({{ int_value | bool }}).
+          - >-
+            You can cast a float ({{ float_value }}) as
+            a string ('{{ float_value | string }}'),
+            an integer ({{ float_value | int }}),
+            or a boolean ({{ float_value | bool }}).
+          - >-
+            You can cast a boolean ({{ bool_value }}) as
+            a string ('{{ bool_value | string }}'),
+            an integer ({{ bool_value | int }}),
+            or a float ({{ bool_value | float }}).
+
+    - name: Convert variables using casting (may not work)
+      vars:
+        int_value: 1
+        bool_from_int: "{{ int_value | bool }}"
+        float_from_int: "{{ int_value | float }}"
+        str_from_int: "{{ int_value | string }}"
+
+        str_value: "0"
+        bool_from_str: "{{ str_value | bool }}"
+        float_from_str: "{{ str_value | float }}"
+        int_from_str: "{{ str_value | int }}"
+      ansible.builtin.debug:
+        msg:
+          # Jinja2 templating returns a string, unless converting to boolean
+          - >-
+            {{ int_value }} ({{ int_value | type_debug }})
+            to bool becomes {{ bool_from_int }}
+            ({{ bool_from_int | type_debug }}).
+          - >-
+            {{ int_value }} ({{ int_value | type_debug }})
+            to float becomes {{ float_from_int }}
+            ({{ float_from_int | type_debug }}), not float.
+          - >-
+            {{ int_value }} ({{ int_value | type_debug }})
+            to str becomes {{ str_from_int }}
+            ({{ str_from_int | type_debug }}), not string.
+          - >-
+            {{ str_value }} ({{ str_value | type_debug }})
+            to bool becomes {{ bool_from_str }}
+            ({{ bool_from_str | type_debug }}).
+          - >-
+            {{ str_value }} ({{ str_value | type_debug }})
+            to float becomes {{ float_from_str }}
+            ({{ float_from_str | type_debug }}), not float.
+          - >-
+            {{ str_value }} ({{ str_value | type_debug }})
+            to int becomes {{ int_from_str }}
+            ({{ int_from_str | type_debug }}), not int.
+
+    - name: Use set_fact to recast variables (may not work)
+      block:
+        - name: Set a fact
+          ansible.builtin.set_fact:
+            str_value: "1"
+
+        - name: Display the fact and its type
+          ansible.builtin.debug:
+            var: str_value, str_value | type_debug
+
+        - name: Recast fact to int
+          ansible.builtin.set_fact:
+            str_value: "{{ str_value | int }}"
+
+        - name: Display the recast fact and its type
+          ansible.builtin.debug:
+            var: str_value, str_value | type_debug
+
+        - name: Create a new fact
+          ansible.builtin.set_fact:
+            int_value: "{{ str_value | int }}"
+
+        - name: Display the new fact and its type
+          ansible.builtin.debug:
+            var: int_value, int_value | type_debug
 ...
 # code: language=ansible
 # vi: set noai nu ts=2 sw=2 sts=2 sta et:

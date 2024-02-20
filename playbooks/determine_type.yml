@@ -1,42 +1,50 @@
 ---
-# This playbook determines a variable's type
-# Usage: ansible-playbook determine_type.yml
-- name: Set and use different types of variables
+# This playbook gets varible types
+# Usage: ansible-playbook get_var_type.yml
+- name: Get variable types
   hosts: managed_node_1
   gather_facts: false
   tasks:
-    - name: Set and display a string variable
+    - name: Get the type of a variable
       vars:
-        state_name: "Alabama"
+        planet_name: "Mars"
       ansible.builtin.debug:
-        var: state_name, state_name | type_debug
+        var: planet_name, planet_name | type_debug
 
-    - name: Set and display other types of variables
+    - name: Get the types of other variables
       vars:
-        state_name: "Alabama"
-        state_capitol: "Montgomery"
-        state_number: 22
-        state_number_octal: 026 # noqa yaml[octal-values]
-        state_number_hex: 0x16
-        percent_water: 3.39
-        land_locked: false
-        state_foo:
-        state_bar: null
+        planet_name: "Mars"
+        diameter_dec: 6792
+        hours_per_day: 24.7
+        rings: false
+        major_moons:
+          - "Phobos"
+          - "Deimos"
+        other:
+          au: 1.52
+          order_no: 3
       ansible.builtin.debug:
         msg:
-          - "{{ state_name }} is an {{ state_name | type_debug }} type."
-          - "{{ state_capitol }} is an {{ state_capitol | type_debug }} type."
-          - "{{ state_number }} is an {{ state_number | type_debug }}."
           - >-
-            026 (octal {{ state_number_octal }}) is also
-            an {{ state_number_octal | type_debug }}.
+            {{ planet_name }} is
+            {{ planet_name | type_debug }}.
           - >-
-            0x16 (hexadecimal {{ state_number_hex }}) is
-            an {{ state_number_hex | type_debug }} as well.
-          - "{{ percent_water }} is a {{ percent_water | type_debug }}."
-          - "{{ land_locked }} is a {{ land_locked | type_debug }}."
-          - "'{{ state_foo }}' is a {{ state_foo | type_debug }}."
-          - "'{{ state_bar }}' is also a {{ state_bar | type_debug }}."
+            {{ diameter_dec }} is an
+            {{ diameter_dec | type_debug }}.
+          - >-
+            {{ hours_per_day }} is a
+            {{ hours_per_day | type_debug }}.
+          - "{{ rings }} is a {{ rings | type_debug }}."
+          - >-
+            {{ major_moons }} is a
+            {{ major_moons | type_debug }}.
+          - >-
+            {{ major_moons[0] }} is
+            {{ major_moons[0] | type_debug }}.
+          - "{{ other }} is a {{ other | type_debug }}."
+          - >-
+            {{ other['au'] }} is a
+            {{ other['au'] | type_debug }}.
 ...
 # code: language=ansible
 # vi: set noai nu ts=2 sw=2 sts=2 sta et:

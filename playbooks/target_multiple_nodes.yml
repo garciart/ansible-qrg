@@ -5,17 +5,17 @@
   hosts: managed_node_1, managed_node_2
   gather_facts: false
   tasks:
-    - name: Get the name of each node
+    - name: Say Hello
       ansible.builtin.debug:
-        var: inventory_hostname
+        msg: "Hello from a list of nodes!"
 
 - name: Target a group of nodes
   hosts: managed_nodes
   gather_facts: false
   tasks:
-    - name: Get the name of each node in the group
+    - name: Say Hello
       ansible.builtin.debug:
-        var: inventory_hostname
+        msg: "Hello from a group of nodes!"
 ...
 # code: language=ansible
 # vi: set noai nu ts=2 sw=2 sts=2 sta et:

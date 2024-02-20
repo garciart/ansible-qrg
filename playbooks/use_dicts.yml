@@ -1,7 +1,7 @@
 ---
-# This playbook uses dictionaries
+# This playbook sets and uses dictionaries of variables
 # Usage: ansible-playbook use_dicts.yml
-- name: Use dictionaries
+- name: Set and use dictionaries of variables
   hosts: managed_node_1
   gather_facts: false
   tasks:

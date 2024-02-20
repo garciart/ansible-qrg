@@ -1,6 +1,8 @@
 ---
 # This playbook gets and uses command-line variables
-# Usage: ansible-playbook cmd_line_vars.yml --extra-vars="state_name='Alabama' state_number=22"
+# Usage:
+# - ansible-playbook use_cmd_line_vars.yml
+#   --extra-vars="planet_name='Earth' rings=false"
 - name: Get and use command line variables
   hosts: managed_node_1
   gather_facts: false
@@ -8,9 +10,10 @@
     - name: Display the values of command line variables
       ansible.builtin.debug:
         msg:
-          - "{{ state_name }} is a {{ state_name | type_debug }}."
-          - "{{ state_number }} is a {{ state_number | type_debug }}."
-          - "{{ state_name }} is state number {{ state_number }}."
+          - >-
+            {{ planet_name }} is a
+            {{ planet_name | type_debug }}.
+          - "{{ rings }} is a {{ rings | type_debug }}."
 ...
 # code: language=ansible
 # vi: set noai nu ts=2 sw=2 sts=2 sta et:

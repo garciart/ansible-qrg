@@ -9,7 +9,8 @@
       ansible.builtin.debug:
         msg: "Happy Birthday to You, Happy Birthday to You, Happy Birthday, Happy Birthday, Happy Birthday to You!"
 
-    - name: Use a literal block scalar (|) to preserve newlines in a multiline string
+    - name: Use a literal block scalar
+      # Use a literal block scalar (|) to preserve newlines in a multiline string
       ansible.builtin.debug:
         msg: |
           Happy Birthday to You,
@@ -17,7 +18,8 @@
           Happy Birthday, Happy Birthday,
           Happy Birthday to You!
 
-    - name: Use a folded block scalar (>) to collapse a multiline string into a single line
+    - name: Use a folded block scalar
+      # Use a folded block scalar (>) to collapse a multiline string into a single line
       ansible.builtin.debug:
         msg: >
           Happy Birthday to You,
@@ -25,7 +27,8 @@
           Happy Birthday, Happy Birthday,
           Happy Birthday to You!
 
-    - name: Use a literal block scalar (|-), but explicitly chomp the final newline
+    - name: Use a literal block scalar
+      # Use a literal block scalar (|-), but explicitly chomp the final newline
       ansible.builtin.debug:
         msg: |-
           Happy Birthday to You,
@@ -33,7 +36,8 @@
           Happy Birthday, Happy Birthday,
           Happy Birthday to You!
 
-    - name: Use a folded block scalar (>-) with chomping (same as the default result)
+    - name: Use a folded block scalar
+      # Use a folded block scalar (>-) with chomping (same as the default result)
       ansible.builtin.debug:
         msg: >-
           Happy Birthday to You,

@@ -1,0 +1,36 @@
+---
+# This playbook gets special variables and facts
+# Usage: ansible-playbook get_special_vars.yml
+- name: Display facts and magic variables
+  hosts: managed_node_1
+  gather_facts: false
+  tasks:
+    - name: Display all magic variables
+      ansible.builtin.debug:
+        var: hostvars
+
+    - name: Display a magic variable
+      ansible.builtin.debug:
+        var: inventory_hostname
+
+    - name: Display magic variables for the target node only
+      ansible.builtin.debug:
+        var: hostvars[inventory_hostname]
+
+    - name: Display connection variables
+      ansible.builtin.debug:
+        var: ansible_host, ansible_connection
+
+    - name: Gather facts
+      ansible.builtin.setup:
+
+    - name: Display all facts
+      ansible.builtin.debug:
+        var: ansible_facts
+
+    - name: Display a fact
+      ansible.builtin.debug:
+        var: ansible_facts['os_family']
+...
+# code: language=ansible
+# vi: set noai nu ts=2 sw=2 sts=2 sta et:

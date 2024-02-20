@@ -26,9 +26,9 @@
       ansible.builtin.debug:
         msg:
           - "The name of the planet is {{ planet_name }}."
-          - "It is {{ diameter_dec }} kilometers in diameter."
-          - "0x130F (hexadecimal) = {{ diameter_hex }} (dec)."
-          - "011417 (octal) = {{ diameter_oct }} (dec)."
+          - "It is {{ diameter_dec }} km in diameter."
+          - "0x130F (hex) = {{ diameter_hex }} (dec)."
+          - "011417 (oct) = {{ diameter_oct }} (dec)."
           - >-
             One day on {{ planet_name }} is
             {{ hours_per_day }} Earth hours.

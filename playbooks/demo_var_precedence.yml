@@ -1,41 +1,47 @@
 ---
 # This playbook demonstrates variable precedence
-# Usage: ansible-playbook demo_var_precedence.yml
+# Usage: ansible-playbook play_var_precedence.yml
 - name: Demonstrate variable precedence
   hosts: managed_node_1
   gather_facts: false
   vars:
-    my_var: "I am a play level variable."
+    play_var: "I am a play level variable."
   tasks:
-    - name: Display the value of my_var at the play level
+    - name: Use play_var at the play level
       ansible.builtin.debug:
-        msg: "{{ my_var }}"
+        msg: "{{ play_var }}"
 
-    - name: Display the value of a block level variable
+    - name: Override play_var at the block level
       vars:
-        my_var: "Block level variables override play level variables with the same name within the block."
+        play_var: >-
+          Block level variables override play level variables
+          with the same name within the block.
       block:
-        - name: Display the value of my_var at the block level
+        - name: Use play_var at the block level
           ansible.builtin.debug:
-            msg: "{{ my_var }}"
+            msg: "{{ play_var }}"
 
-        - name: Display the value of my_var at the task level
+        - name: Override and use play_var at the task level
           vars:
-            my_var: "Task level variables override block level variables with the same name within the task."
+            play_var: >-
+              Task level variables override block level
+              variables with the same name within the task.
           ansible.builtin.debug:
-            msg: "{{ my_var }}"
+            msg: "{{ play_var }}"
 
-    - name: Display the value of my_var at the play level again
+    - name: Use play_var at the play level again
       ansible.builtin.debug:
-        msg: "{{ my_var }}"
+        msg: "{{ play_var }}"
 
-    - name: Change a variable using set_fact
+    - name: Change play_var using set_fact
       ansible.builtin.set_fact:
-        my_var: "The set_fact module overrides play, block, and task static assignments."
+        play_var: >-
+          The set_fact module overrides play, block, and
+          task assignments.
 
-    - name: Display the new value of my_var at the play level
+    - name: Use the new value of play_var at the play level
       ansible.builtin.debug:
-        msg: "{{ my_var }}"
+        msg: "{{ play_var }}"
 ...
 # code: language=ansible
 # vi: set noai nu ts=2 sw=2 sts=2 sta et:

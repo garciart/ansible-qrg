@@ -17,13 +17,15 @@
 
         - name: Create a task that will not run
           ansible.builtin.debug:
-            msg: "I will not run, since the previous task failed."
+            msg: "I will not run if the previous task fails."
       rescue:
         - name: Display an error message
           ansible.builtin.debug:
             msg: "I run if a task in the block fails."
       always:
-        - name: Perform a task whether the previous tasks passed or failed
+        - name: >-
+            Perform a task whether the previous tasks passed
+            or failed
           ansible.builtin.debug:
             msg: "I always run."
 ...
