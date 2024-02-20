@@ -7,35 +7,31 @@
   tasks:
     - name: Set and display a list
       vars:
-        major_moons:
-          - "Ganymede"
-          - "Callisto"
-          - "Europa"
-          - "Io"
+        moons:
+          - "Phobos"
+          - "Deimos"
       ansible.builtin.debug:
         msg:
-          - "{{ major_moons }}"
+          - "{{ moons }}"
           - >-
-            {{ major_moons[0] }} is bigger than
-            {{ major_moons.2 }}.
+            {{ moons[0] }} is bigger than
+            {{ moons.1 }}.
 
     - name: Set and display a mixed list
       vars:
-        jupiter:
-          - "Jupiter"
-          - 142984
-          - 9.9
-          - true
+        mars:
+          - "Mars"
+          - 6792
+          - 24.7
+          - false
       ansible.builtin.debug:
         msg:
-          - "{{ jupiter }}"
+          - "{{ mars }}"
+          - "{{ mars[0] }} is {{ mars[1] }} km in diameter."
           - >-
-            {{ jupiter[0] }} is {{ jupiter[1] }} km
-            in diameter.
-          - >-
-            One day on {{ jupiter[0] }} is
-            {{ jupiter[2] }} Earth hours.
-          - "Rings: {{ jupiter[3] }}"
+            One day on {{ mars[0] }} is
+            {{ mars[2] }} Earth hours.
+          - "Rings: {{ mars[3] }}"
 ...
 # code: language=ansible
 # vi: set noai nu ts=2 sw=2 sts=2 sta et:

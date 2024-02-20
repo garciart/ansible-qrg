@@ -2,7 +2,7 @@
 # This playbook gets and uses command-line variables
 # Usage:
 # - ansible-playbook use_cmd_line_vars.yml
-#   --extra-vars="planet_name='Earth' rings=false"
+#   --extra-vars="planet_name='Mars' rings=false"
 - name: Get and use command line variables
   hosts: managed_node_1
   gather_facts: false

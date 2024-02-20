@@ -15,25 +15,25 @@
     - name: Set and display other scalar variables
       vars:
         planet_name: "Mercury"
-        diameter_dec: 4879
-        diameter_hex: 0x130F
-        diameter_oct: 011417 # noqa yaml[octal-values]
-        hours_per_day: 4222.6
+        diameter: 4879
+        diam_hex: 0x130F
+        diam_oct: 011417 # noqa yaml[octal-values]
+        hours_in_day: 4222.6
         # Use 'true/false' instead of 'yes/no' or 'on/off'
         rings: false
         # Leave blank or use 'null' for NoneType
-        major_moons: null
+        moons: null
       ansible.builtin.debug:
         msg:
           - "The name of the planet is {{ planet_name }}."
-          - "It is {{ diameter_dec }} km in diameter."
-          - "0x130F (hex) = {{ diameter_hex }} (dec)."
-          - "011417 (oct) = {{ diameter_oct }} (dec)."
+          - "It is {{ diameter }} km in diameter."
+          - "0x130F (hex) = {{ diam_hex }} (dec)."
+          - "011417 (oct) = {{ diam_oct }} (dec)."
           - >-
             One day on {{ planet_name }} is
-            {{ hours_per_day }} Earth hours.
+            {{ hours_in_day }} Earth hours.
           - "Rings: {{ rings }}"
-          - "Moons: {{ major_moons }}"
+          - "Moons: {{ moons }}"
 ...
 # code: language=ansible
 # vi: set noai nu ts=2 sw=2 sts=2 sta et:

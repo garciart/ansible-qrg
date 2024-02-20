@@ -1,20 +1,29 @@
 ---
 # This playbook concatenates variables
 # Usage: ansible-playbook concat_variables.yml
-- name: Set and use different types of variables
+- name: Concatenate different types of variables
   hosts: managed_node_1
   gather_facts: false
   tasks:
-    - name: Concatenate a string variable
+    - name: Concatenate 3 and 8
       vars:
-        state_name: "Alabama"
-        description: " is a state."
-        concated_string_1: "{{ state_name ~ description }}"
-        concated_string_2: "{{ [state_name, description] | join }}"
+        int_1: 3
+        int_2: 8
       ansible.builtin.debug:
         msg:
-          - "Using the plus (+) operator to concatenate a string: {{ concated_string_1 }}"
-          - "Using the join filter to concatenate a string: {{ concated_string_2 }}"
+          - "The tilde (~) operator concatenates integers: {{ int_1 ~ int_2 }}"
+          - "The join filter concatenates integers: {{ [int_1, int_2] | join }}"
+          - "The plus (+) operator sums up integers: {{ int_1 + int_2 }}"
+
+    - name: Concatenate string variables
+      vars:
+        planet_name: "Mercury"
+        description: " is a planet."
+      ansible.builtin.debug:
+        msg:
+          - "Using the tilde (~) operator to concatenate a string (recommended): {{ planet_name ~ description }}"
+          - "Using the plus (+) operator to concatenate a string: {{ planet_name + description }}"
+          - "Using the join filter to concatenate a string: {{ [planet_name, description] | join }}"
 ...
 # code: language=ansible
 # vi: set noai nu ts=2 sw=2 sts=2 sta et:

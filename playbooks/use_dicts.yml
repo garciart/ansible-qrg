@@ -7,21 +7,21 @@
   tasks:
     - name: Set and display a dictionary
       vars:
-        jupiter:
-          planet_name: "Jupiter"
-          diameter_dec: 142984
-          hours_per_day: 9.9
-          rings: true
+        mars:
+          planet_name: "Mars"
+          diameter: 6792
+          hours_in_day: 24.7
+          rings: false
       ansible.builtin.debug:
         msg:
-          - "{{ jupiter }}"
+          - "{{ mars }}"
           - >-
-            {{ jupiter['planet_name'] }} is
-            {{ jupiter.diameter_dec }} km in diameter.
+            {{ mars['planet_name'] }} is
+            {{ mars.diameter }} km in diameter.
           - >-
-            One day on {{ jupiter['planet_name'] }} is
-            {{ jupiter['hours_per_day'] }} Earth hours.
-          - "Rings: {{ jupiter['rings'] }}"
+            One day on {{ mars['planet_name'] }} is
+            {{ mars['hours_in_day'] }} Earth hours.
+          - "Rings: {{ mars['rings'] }}"
 ...
 # code: language=ansible
 # vi: set noai nu ts=2 sw=2 sts=2 sta et:

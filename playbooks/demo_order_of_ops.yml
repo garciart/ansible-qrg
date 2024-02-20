@@ -5,17 +5,25 @@
   hosts: managed_node_1
   gather_facts: false
   tasks:
-    - name: Demonstrate the order of operations using constants and variables
+    - name: Order of operations using constants and variables
       vars:
         two: 2
         three: 3
         eight: 8
       ansible.builtin.debug:
         msg:
-          - "2 * 8 + 3 = {{ 2 * 8 + 3 }}"
-          - "2 + 8 * 3 equals {{ two + eight * three }}, not 19."
-          - "(2 + 8) * 3 equals {{ (2 + 8) * 3 }}, not 26."
-          - "2 + (8 * 3) equals {{ two + (eight * three) }}, not 30."
+          - "Perform left before right:"
+          - "2 + 8 - 3 == {{ 2 + 8 - 3 }}"
+          - "2 - 8 + 3 == {{ two - eight + three }}"
+          - "Perform multiplication before addition:"
+          - "2 * 8 + 3 == {{ 2 * 8 + 3 }}"
+          - "2 + 8 * 3 == {{ two + eight * three }}"
+          - "Perform exponentiation before multiplication:"
+          - "2**8 * 3 == {{ 2**8 * 3 }}"
+          - "2 * 8**3 == {{ two * eight**three }}"
+          - "Perform parentheses before exponentiation:"
+          - "(2 + 8) ** 3 == {{ (2 + 8) ** 3 }}"
+          - "2 ** (8 + 3) == {{ two ** (eight + three) }}"
 ...
 # code: language=ansible
 # vi: set noai nu ts=2 sw=2 sts=2 sta et:

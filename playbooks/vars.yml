@@ -9,9 +9,9 @@
 # Different types of scalar variables
 planet_name: "Mercury"
 diameter: 4879
-hours_per_day: 4222.6
+hours_in_day: 4222.6
 rings: false
-major_moons: null
+moons: null
 
 # Two different ways to style a list of values
 # Use nesting and indentation to denote hierarchy and scope
@@ -22,20 +22,20 @@ block_list:
   - 4222.6
 
 # Two different ways to style a dictionary of variables
-flow_dict: { rings: false, major_moons: null }
+flow_dict: { rings: false, moons: null }
 block_dict:
   rings: false
-  major_moons: null
+  moons: null
 
 # A list of lists and dictionaries
 list_of_lists_and_dicts:
   - ["Mercury", 4879, 4222.6]
-  - { rings: false, major_moons: null }
+  - { rings: false, moons: null }
   - - "Mercury"
     - 4879
     - 4222.6
   - rings: false
-    major_moons: null
+    moons: null
 ...
 # code: language=yaml
 # vi: set noai nu ts=2 sw=2 sts=2 sta et:

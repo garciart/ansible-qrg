@@ -5,19 +5,19 @@
   hosts: managed_node_1
   gather_facts: false
   tasks:
-    - name: Perform math calculations using constants and variables
+    - name: Perform math using constants and variables
       vars:
         three: 3
         eight: 8
       ansible.builtin.debug:
         msg:
-          - "Multiplication: 8 * 3 = {{ 8 * 3 }}"
-          - "Division: 8 / 3 = {{ '%0.2f' | format(eight / three) | float }}"
           - "Addition: 8 + 3 = {{ 8 + 3 }}"
           - "Subtraction: 8 - 3 = {{ eight - three }}"
-          - "Exponent: 8**3 = {{ 8**3 }}"
+          - "Multiplication: 8 * 3 = {{ 8 * 3 }}"
+          - "Division: 8 / 3 = {{ eight / three }}"
           - "Floor Division: 8 // 3 = {{ eight // three }}"
           - "Modulo: 8 % 3 = {{ 8 % 3 }}"
+          - "Exponent: 8**3 = {{ 8**3 }}"
 ...
 # code: language=ansible
 # vi: set noai nu ts=2 sw=2 sts=2 sta et:

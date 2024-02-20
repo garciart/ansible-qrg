@@ -14,10 +14,10 @@
     - name: Get the types of other variables
       vars:
         planet_name: "Mars"
-        diameter_dec: 6792
-        hours_per_day: 24.7
+        diameter: 6792
+        hours_in_day: 24.7
         rings: false
-        major_moons:
+        moons:
           - "Phobos"
           - "Deimos"
         other:
@@ -28,19 +28,13 @@
           - >-
             {{ planet_name }} is
             {{ planet_name | type_debug }}.
+          - "{{ diameter }} is an {{ diameter | type_debug }}."
           - >-
-            {{ diameter_dec }} is an
-            {{ diameter_dec | type_debug }}.
-          - >-
-            {{ hours_per_day }} is a
-            {{ hours_per_day | type_debug }}.
+            {{ hours_in_day }} is a
+            {{ hours_in_day | type_debug }}.
           - "{{ rings }} is a {{ rings | type_debug }}."
-          - >-
-            {{ major_moons }} is a
-            {{ major_moons | type_debug }}.
-          - >-
-            {{ major_moons[0] }} is
-            {{ major_moons[0] | type_debug }}.
+          - "{{ moons }} is a {{ moons | type_debug }}."
+          - "{{ moons[0] }} is {{ moons[0] | type_debug }}."
           - "{{ other }} is a {{ other | type_debug }}."
           - >-
             {{ other['au'] }} is a

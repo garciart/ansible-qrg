@@ -1,59 +1,59 @@
 ---
 planets:
   - planet_name: "Mercury"
-    diameter_dec: 4879
-    diameter_hex: 0x130F
-    diameter_oct: 011417 # noqa yaml[octal-values]
-    hours_per_day: 4222.6
+    diameter: 4879
+    diam_hex: 0x130F
+    diam_oct: 011417 # noqa yaml[octal-values]
+    hours_in_day: 4222.6
     rings: false
-    major_moons: null
+    moons: null
 
   - planet_name: "Venus"
-    diameter_dec: 12104
-    diameter_hex: 0x2F48
-    diameter_oct: 027510 # noqa yaml[octal-values]
-    hours_per_day: 2802.0
+    diameter: 12104
+    diam_hex: 0x2F48
+    diam_oct: 027510 # noqa yaml[octal-values]
+    hours_in_day: 2802.0
     rings: false
-    major_moons: null
+    moons: null
 
   - planet_name: "Earth"
-    diameter_dec: 12756
-    diameter_hex: 0x31D4
-    diameter_oct: 030724 # noqa yaml[octal-values]
-    hours_per_day: 24.0
+    diameter: 12756
+    diam_hex: 0x31D4
+    diam_oct: 030724 # noqa yaml[octal-values]
+    hours_in_day: 24.0
     rings: false
-    major_moons:
+    moons:
       - "Moon"
 
   - planet_name: "Mars"
-    diameter_dec: 6792
-    diameter_hex: 0x1A88
-    diameter_oct: 015210 # noqa yaml[octal-values]
-    hours_per_day: 24.7
+    diameter: 6792
+    diam_hex: 0x1A88
+    diam_oct: 015210 # noqa yaml[octal-values]
+    hours_in_day: 24.7
     rings: false
-    major_moons:
+    moons:
       - "Phobos"
       - "Deimos"
 
   - planet_name: "Jupiter"
-    diameter_dec: 142984
-    diameter_hex: 0x22E88
-    diameter_oct: 0427210 # noqa yaml[octal-values]
-    hours_per_day: 9.9
+    diameter: 142984
+    diam_hex: 0x22E88
+    diam_oct: 0427210 # noqa yaml[octal-values]
+    hours_in_day: 9.9
     rings: true
-    major_moons:
+    moons:
       - "Ganymede"
       - "Callisto"
       - "Europa"
       - "Io"
 
   - planet_name: "Saturn"
-    diameter_dec: 120536
-    diameter_hex: 0x1D6D8
-    diameter_oct: 0353330 # noqa yaml[octal-values]
-    hours_per_day: 10.7
+    diameter: 120536
+    diam_hex: 0x1D6D8
+    diam_oct: 0353330 # noqa yaml[octal-values]
+    hours_in_day: 10.7
     rings: true
-    major_moons:
+    moons:
       - "Titan"
       - "Rhea"
       - "Iapetus"
@@ -63,12 +63,12 @@ planets:
       - "Mimas"
 
   - planet_name: "Uranus"
-    diameter_dec: 51118
-    diameter_hex: 0xC7AE
-    diameter_oct: 0143656 # noqa yaml[octal-values]
-    hours_per_day: 17.2
+    diameter: 51118
+    diam_hex: 0xC7AE
+    diam_oct: 0143656 # noqa yaml[octal-values]
+    hours_in_day: 17.2
     rings: true
-    major_moons:
+    moons:
       - "Titania"
       - "Oberon"
       - "Umbriel"
@@ -76,12 +76,12 @@ planets:
       - "Miranda"
 
   - planet_name: "Neptune"
-    diameter_dec: 49528
-    diameter_hex: 0xC178
-    diameter_oct: 0140570 # noqa yaml[octal-values]
-    hours_per_day: 16.1
+    diameter: 49528
+    diam_hex: 0xC178
+    diam_oct: 0140570 # noqa yaml[octal-values]
+    hours_in_day: 16.1
     rings: true
-    major_moons:
+    moons:
       - "Triton"
 ...
 # code: language=yaml

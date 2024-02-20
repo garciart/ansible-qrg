@@ -1,5 +1,5 @@
 # This playbook runs the plays and tasks in the playbooks
-# Usage: ansible-playbook x_all_plays.yml -e "planet_name='Earth' rings=false cmd_line_var='Use command line variables anywhere in a playbook.'"
+# Usage: ansible-playbook x_all_plays.yml -e "planet_name='Mars' rings=false cmd_line_var='Use command line variables anywhere in a playbook.'"
 ---
 # Usage: ansible-playbook say_hello.yml
 - name: Say Hello
@@ -211,25 +211,25 @@
     - name: Set and display other scalar variables
       vars:
         planet_name: "Mercury"
-        diameter_dec: 4879
-        diameter_hex: 0x130F
-        diameter_oct: 011417 # noqa yaml[octal-values]
-        hours_per_day: 4222.6
+        diameter: 4879
+        diam_hex: 0x130F
+        diam_oct: 011417 # noqa yaml[octal-values]
+        hours_in_day: 4222.6
         # Use 'true/false' instead of 'yes/no' or 'on/off'
         rings: false
         # Leave blank or use 'null' for NoneType
-        major_moons: null
+        moons: null
       ansible.builtin.debug:
         msg:
           - "The name of the planet is {{ planet_name }}."
-          - "It is {{ diameter_dec }} km in diameter."
-          - "0x130F (hex) = {{ diameter_hex }} (dec)."
-          - "011417 (oct) = {{ diameter_oct }} (dec)."
+          - "It is {{ diameter }} km in diameter."
+          - "0x130F (hex) = {{ diam_hex }} (dec)."
+          - "011417 (oct) = {{ diam_oct }} (dec)."
           - >-
             One day on {{ planet_name }} is
-            {{ hours_per_day }} Earth hours.
+            {{ hours_in_day }} Earth hours.
           - "Rings: {{ rings }}"
-          - "Moons: {{ major_moons }}"
+          - "Moons: {{ moons }}"
 
 # Usage: ansible-playbook use_lists.yml
 - name: Set and use lists of variables
@@ -238,35 +238,31 @@
   tasks:
     - name: Set and display a list
       vars:
-        major_moons:
-          - "Ganymede"
-          - "Callisto"
-          - "Europa"
-          - "Io"
+        moons:
+          - "Phobos"
+          - "Deimos"
       ansible.builtin.debug:
         msg:
-          - "{{ major_moons }}"
+          - "{{ moons }}"
           - >-
-            {{ major_moons[0] }} is bigger than
-            {{ major_moons.2 }}.
+            {{ moons[0] }} is bigger than
+            {{ moons.1 }}.
 
     - name: Set and display a mixed list
       vars:
-        jupiter:
-          - "Jupiter"
-          - 142984
-          - 9.9
-          - true
+        mars:
+          - "Mars"
+          - 6792
+          - 24.7
+          - false
       ansible.builtin.debug:
         msg:
-          - "{{ jupiter }}"
+          - "{{ mars }}"
+          - "{{ mars[0] }} is {{ mars[1] }} km in diameter."
           - >-
-            {{ jupiter[0] }} is {{ jupiter[1] }} km
-            in diameter.
-          - >-
-            One day on {{ jupiter[0] }} is
-            {{ jupiter[2] }} Earth hours.
-          - "Rings: {{ jupiter[3] }}"
+            One day on {{ mars[0] }} is
+            {{ mars[2] }} Earth hours.
+          - "Rings: {{ mars[3] }}"
 
 # Usage: ansible-playbook use_dicts.yml
 - name: Set and use dictionaries of variables
@@ -275,21 +271,21 @@
   tasks:
     - name: Set and display a dictionary
       vars:
-        jupiter:
-          planet_name: "Jupiter"
-          diameter_dec: 142984
-          hours_per_day: 9.9
-          rings: true
+        mars:
+          planet_name: "Mars"
+          diameter: 6792
+          hours_in_day: 24.7
+          rings: false
       ansible.builtin.debug:
         msg:
-          - "{{ jupiter }}"
+          - "{{ mars }}"
           - >-
-            {{ jupiter['planet_name'] }} is
-            {{ jupiter.diameter_dec }} km in diameter.
+            {{ mars['planet_name'] }} is
+            {{ mars.diameter }} km in diameter.
           - >-
-            One day on {{ jupiter['planet_name'] }} is
-            {{ jupiter['hours_per_day'] }} Earth hours.
-          - "Rings: {{ jupiter['rings'] }}"
+            One day on {{ mars['planet_name'] }} is
+            {{ mars['hours_in_day'] }} Earth hours.
+          - "Rings: {{ mars['rings'] }}"
 
 # Usage: ansible-playbook get_var_type.yml
 - name: Get variable types
@@ -305,10 +301,10 @@
     - name: Get the types of other variables
       vars:
         planet_name: "Mars"
-        diameter_dec: 6792
-        hours_per_day: 24.7
+        diameter: 6792
+        hours_in_day: 24.7
         rings: false
-        major_moons:
+        moons:
           - "Phobos"
           - "Deimos"
         other:
@@ -319,19 +315,13 @@
           - >-
             {{ planet_name }} is
             {{ planet_name | type_debug }}.
+          - "{{ diameter }} is an {{ diameter | type_debug }}."
           - >-
-            {{ diameter_dec }} is an
-            {{ diameter_dec | type_debug }}.
-          - >-
-            {{ hours_per_day }} is a
-            {{ hours_per_day | type_debug }}.
+            {{ hours_in_day }} is a
+            {{ hours_in_day | type_debug }}.
           - "{{ rings }} is a {{ rings | type_debug }}."
-          - >-
-            {{ major_moons }} is a
-            {{ major_moons | type_debug }}.
-          - >-
-            {{ major_moons[0] }} is
-            {{ major_moons[0] | type_debug }}.
+          - "{{ moons }} is a {{ moons | type_debug }}."
+          - "{{ moons[0] }} is {{ moons[0] | type_debug }}."
           - "{{ other }} is a {{ other | type_debug }}."
           - >-
             {{ other['au'] }} is a
@@ -393,7 +383,7 @@
 
 # Usage:
 # - ansible-playbook use_cmd_line_vars.yml
-#   --extra-vars="planet_name='Earth' rings=false"
+#   --extra-vars="planet_name='Mars' rings=false"
 - name: Get and use command line variables
   hosts: managed_node_1
   gather_facts: false
@@ -513,104 +503,49 @@
       ansible.builtin.debug:
         msg: "{{ play_var }}"
 
-# Usage: ansible-playbook cast_variables.yml
-- name: Cast a variable to another type
+# Usage: ansible-playbook perform_math.yml
+- name: Perform math calculations
   hosts: managed_node_1
   gather_facts: false
   tasks:
-    - name: Recast variables at the point of use (always works)
+    - name: Perform math using constants and variables
       vars:
-        str_value: "1"
-        int_value: 0
-        float_value: 1.0
-        bool_value: false
+        three: 3
+        eight: 8
       ansible.builtin.debug:
         msg:
-          - >-
-            You can cast a string ('{{ str_value }}') as
-            an integer ({{ str_value | int }}),
-            a float ({{ str_value | float }}),
-            or a boolean ({{ str_value | bool }}).
-          - >-
-            You can cast an integer ({{ int_value }}) as
-            a string ('{{ int_value | string }}'),
-            a float ({{ int_value | float }}),
-            or a boolean ({{ int_value | bool }}).
-          - >-
-            You can cast a float ({{ float_value }}) as
-            a string ('{{ float_value | string }}'),
-            an integer ({{ float_value | int }}),
-            or a boolean ({{ float_value | bool }}).
-          - >-
-            You can cast a boolean ({{ bool_value }}) as
-            a string ('{{ bool_value | string }}'),
-            an integer ({{ bool_value | int }}),
-            or a float ({{ bool_value | float }}).
+          - "Addition: 8 + 3 = {{ 8 + 3 }}"
+          - "Subtraction: 8 - 3 = {{ eight - three }}"
+          - "Multiplication: 8 * 3 = {{ 8 * 3 }}"
+          - "Division: 8 / 3 = {{ eight / three }}"
+          - "Floor Division: 8 // 3 = {{ eight // three }}"
+          - "Modulo: 8 % 3 = {{ 8 % 3 }}"
+          - "Exponent: 8**3 = {{ 8**3 }}"
 
-    - name: Convert variables using casting (may not work)
+# Usage: ansible-playbook demo_order_of_ops.yml
+- name: Demonstrate the order of operations
+  hosts: managed_node_1
+  gather_facts: false
+  tasks:
+    - name: Order of operations using constants and variables
       vars:
-        int_value: 1
-        bool_from_int: "{{ int_value | bool }}"
-        float_from_int: "{{ int_value | float }}"
-        str_from_int: "{{ int_value | string }}"
-
-        str_value: "0"
-        bool_from_str: "{{ str_value | bool }}"
-        float_from_str: "{{ str_value | float }}"
-        int_from_str: "{{ str_value | int }}"
+        two: 2
+        three: 3
+        eight: 8
       ansible.builtin.debug:
         msg:
-          # Jinja2 templating returns a string, unless converting to boolean
-          - >-
-            {{ int_value }} ({{ int_value | type_debug }})
-            to bool becomes {{ bool_from_int }}
-            ({{ bool_from_int | type_debug }}).
-          - >-
-            {{ int_value }} ({{ int_value | type_debug }})
-            to float becomes {{ float_from_int }}
-            ({{ float_from_int | type_debug }}), not float.
-          - >-
-            {{ int_value }} ({{ int_value | type_debug }})
-            to str becomes {{ str_from_int }}
-            ({{ str_from_int | type_debug }}), not string.
-          - >-
-            {{ str_value }} ({{ str_value | type_debug }})
-            to bool becomes {{ bool_from_str }}
-            ({{ bool_from_str | type_debug }}).
-          - >-
-            {{ str_value }} ({{ str_value | type_debug }})
-            to float becomes {{ float_from_str }}
-            ({{ float_from_str | type_debug }}), not float.
-          - >-
-            {{ str_value }} ({{ str_value | type_debug }})
-            to int becomes {{ int_from_str }}
-            ({{ int_from_str | type_debug }}), not int.
-
-    - name: Use set_fact to recast variables (may not work)
-      block:
-        - name: Set a fact
-          ansible.builtin.set_fact:
-            str_value: "1"
-
-        - name: Display the fact and its type
-          ansible.builtin.debug:
-            var: str_value, str_value | type_debug
-
-        - name: Recast fact to int
-          ansible.builtin.set_fact:
-            str_value: "{{ str_value | int }}"
-
-        - name: Display the recast fact and its type
-          ansible.builtin.debug:
-            var: str_value, str_value | type_debug
-
-        - name: Create a new fact
-          ansible.builtin.set_fact:
-            int_value: "{{ str_value | int }}"
-
-        - name: Display the new fact and its type
-          ansible.builtin.debug:
-            var: int_value, int_value | type_debug
+          - "Perform left before right:"
+          - "2 + 8 - 3 == {{ 2 + 8 - 3 }}"
+          - "2 - 8 + 3 == {{ two - eight + three }}"
+          - "Perform multiplication before addition:"
+          - "2 * 8 + 3 == {{ 2 * 8 + 3 }}"
+          - "2 + 8 * 3 == {{ two + eight * three }}"
+          - "Perform exponentiation before multiplication:"
+          - "2**8 * 3 == {{ 2**8 * 3 }}"
+          - "2 * 8**3 == {{ two * eight**three }}"
+          - "Perform parentheses before exponentiation:"
+          - "(2 + 8) ** 3 == {{ (2 + 8) ** 3 }}"
+          - "2 ** (8 + 3) == {{ two ** (eight + three) }}"
 ...
 # code: language=ansible
 # vi: set noai nu ts=2 sw=2 sts=2 sta et:

@@ -27,17 +27,19 @@ Link to playbooks (in order):
 - [use_cmd_line_vars.yml](/playbooks/use_cmd_line_vars.yml)
 - [demo_var_scope.yml](/playbooks/demo_var_scope.yml)
 - [demo_var_precedence.yml](/playbooks/demo_var_precedence.yml)
+- [perform_math.yml](/playbooks/perform_math.yml)
+- [demo_order_of_ops.yml](/playbooks/demo_order_of_ops.yml)
+
 - [cast_variables.yml](/playbooks/cast_variables.yml)
 
 - [concat_variables.yml](/playbooks/concat_variables.yml)
 - [slice_variables.yml](/playbooks/slice_variables.yml)
 - [format_variables.yml](/playbooks/format_variables.yml)
-- [perform_math.yml](/playbooks/perform_math.yml)
-- [demo_order_of_ops.yml](/playbooks/demo_order_of_ops.yml)
+
 - [check_equality.yml](/playbooks/check_equality.yml)
 - [check_identity.yml](/playbooks/check_identity.yml)
 - [use_conditionals.yml](/playbooks/use_conditionals.yml)
-- [combine_conditionals.yml](/playbooks/combine_conditionals.yml)
+- [use_logical_ops.yml](/playbooks/use_logical_ops.yml)
 - [check_null_or_empty.yml](/playbooks/check_null_or_empty.yml)
 
 - [use_verbosity.yml](/playbooks/use_verbosity.yml)
