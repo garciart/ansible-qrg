@@ -1,21 +1,43 @@
 ---
-# This playbook displays parts of a string variable using slicing
+# This playbook displays parts of a varaible using slicing
 # Usage: ansible-playbook slice_variables.yml
-- name: Set and use different types of variables
-  hosts: managed_node_1
+- name: Display parts of a variable using slicing
+  hosts: managed_node1
   gather_facts: false
   vars:
-    state_name: "Alabama"
+    planet: "Saturn"
+    moons:
+      - "Titan"
+      - "Rhea"
+      - "Iapetus"
+      - "Dione"
+      - "Tethys"
+      - "Enceladus"
+      - "Mimas"
   tasks:
-    - name: Slice a string variable
+    - name: Display parts of a string using slicing
       ansible.builtin.debug:
         msg:
-          - "The string is '{{ state_name }}'."
-          - "The first letter of the string, using an index, is '{{ state_name[0] }}'."
-          - "The first letter of the string, using a filter, is '{{ state_name | first }}'."
-          - "The first two letters of the string are '{{ state_name[:2] }}'."
-          - "The remaining letters of the string are '{{ state_name[2:] }}'."
-          - "The third and fourth letters of the string are '{{ state_name[2:4] }}'."
-          - "The last letter of the string, using an index, is '{{ state_name[-1] }}'."
-          - "The last letter of the string, using a filter, is '{{ state_name | last }}'."
+          - "The planet name is {{ planet }}."
+          - "First letter (index): {{ planet[0] }}"
+          - "First letter (filter): {{ planet | first }}"
+          - "First two letters: {{ planet[:2] }}"
+          - "Remaining letters: {{ planet[2:] }}"
+          - "Third and fourth letters: {{ planet[2:4] }}"
+          - "Last letter (index): {{ planet[-1] }}"
+          - "Last letter (filter): {{ planet | last }}"
+
+    - name: Display parts of a list using slicing
+      ansible.builtin.debug:
+        msg:
+          - "The moons are {{ moons }}."
+          - "First moon (index): {{ moons[0] }}"
+          - "First moon (filter): {{ moons | first }}"
+          - "First two moons: {{ moons[:2] }}"
+          - "Remaining moons: {{ moons[2:] }}"
+          - "Third and fourth moons: {{ moons[2:4] }}"
+          - "Last moon (index): {{ moons[-1] }}"
+          - "Last moon (filter): {{ moons | last }}"
 ...
+# code: language=ansible
+# vi: set noai nu ts=2 sw=2 sts=2 sta et:

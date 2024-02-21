@@ -2,12 +2,12 @@
 # This file demos different data types used by Ansible
 # Usage:
 # - ansible localhost --module-name ansible.builtin.debug
-#   --args "var=planet_name" --extra-vars "@vars.yml"
-# - ansible localhost -m debug -a "var=[planet_name,diameter]"
+#   --args "var=planet" --extra-vars "@vars.yml"
+# - ansible localhost -m debug -a "var=[planet,diameter]"
 #   -e "@vars.yml"
 
 # Different types of scalar variables
-planet_name: "Mercury"
+planet: "Mercury"
 diameter: 4879
 hours_in_day: 4222.6
 rings: false

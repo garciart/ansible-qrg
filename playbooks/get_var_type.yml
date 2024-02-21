@@ -2,18 +2,18 @@
 # This playbook gets varible types
 # Usage: ansible-playbook get_var_type.yml
 - name: Get variable types
-  hosts: managed_node_1
+  hosts: managed_node1
   gather_facts: false
   tasks:
     - name: Get the type of a variable
       vars:
-        planet_name: "Mars"
+        planet: "Mars"
       ansible.builtin.debug:
-        var: planet_name, planet_name | type_debug
+        var: planet, planet | type_debug
 
     - name: Get the types of other variables
       vars:
-        planet_name: "Mars"
+        planet: "Mars"
         diameter: 6792
         hours_in_day: 24.7
         rings: false
@@ -26,8 +26,8 @@
       ansible.builtin.debug:
         msg:
           - >-
-            {{ planet_name }} is
-            {{ planet_name | type_debug }}.
+            {{ planet }} is
+            {{ planet | type_debug }}.
           - "{{ diameter }} is an {{ diameter | type_debug }}."
           - >-
             {{ hours_in_day }} is a

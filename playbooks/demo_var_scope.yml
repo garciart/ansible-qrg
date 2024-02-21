@@ -4,7 +4,7 @@
 # - ansible-playbook demo_var_scope.yml -e \
 #   "cmd_line_var='Use command line variables anywhere in a playbook.'"
 - name: Run the first play to demonstrate variable scope
-  hosts: managed_node_1
+  hosts: managed_node1
   gather_facts: false
   vars:
     play_var: "Use a play variable in its play."
@@ -52,7 +52,7 @@
       ignore_errors: true # noqa ignore-errors
 
 - name: Run the second play to demonstrate variable scope
-  hosts: managed_node_1
+  hosts: managed_node1
   gather_facts: false
   tasks:
     - name: Display the value of a command line variable

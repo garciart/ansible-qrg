@@ -2,7 +2,7 @@
 # This playbook checks if a variable is undefined, null, or empty
 # Usage: ansible-playbook check_null_or_empty.yml
 - name: Check if a variable is undefined, null, or empty
-  hosts: managed_node_1
+  hosts: managed_node1
   gather_facts: false
   vars:
     null_var: null

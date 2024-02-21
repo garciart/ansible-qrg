@@ -2,7 +2,7 @@
 # This playbook checks if values are identical
 # Usage: ansible-playbook check_identity.yml
 - name: Check if values are identical
-  hosts: managed_node_1
+  hosts: managed_node1
   gather_facts: false
   tasks:
     - name: Check if values are identical

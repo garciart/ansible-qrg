@@ -2,7 +2,7 @@
 # Demonstrate how to debug a play
 # Usage: ansible-playbook debug_plays.yml
 - name: Demonstrate how to debug a play
-  hosts: managed_node_1
+  hosts: managed_node1
   gather_facts: false
   debugger: always
   tasks:

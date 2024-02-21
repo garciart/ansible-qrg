@@ -1,6 +1,6 @@
 ---
 planets:
-  - planet_name: "Mercury"
+  - planet: "Mercury"
     diameter: 4879
     diam_hex: 0x130F
     diam_oct: 011417 # noqa yaml[octal-values]
@@ -8,7 +8,7 @@ planets:
     rings: false
     moons: null
 
-  - planet_name: "Venus"
+  - planet: "Venus"
     diameter: 12104
     diam_hex: 0x2F48
     diam_oct: 027510 # noqa yaml[octal-values]
@@ -16,7 +16,7 @@ planets:
     rings: false
     moons: null
 
-  - planet_name: "Earth"
+  - planet: "Earth"
     diameter: 12756
     diam_hex: 0x31D4
     diam_oct: 030724 # noqa yaml[octal-values]
@@ -25,7 +25,7 @@ planets:
     moons:
       - "Moon"
 
-  - planet_name: "Mars"
+  - planet: "Mars"
     diameter: 6792
     diam_hex: 0x1A88
     diam_oct: 015210 # noqa yaml[octal-values]
@@ -35,7 +35,7 @@ planets:
       - "Phobos"
       - "Deimos"
 
-  - planet_name: "Jupiter"
+  - planet: "Jupiter"
     diameter: 142984
     diam_hex: 0x22E88
     diam_oct: 0427210 # noqa yaml[octal-values]
@@ -47,7 +47,7 @@ planets:
       - "Europa"
       - "Io"
 
-  - planet_name: "Saturn"
+  - planet: "Saturn"
     diameter: 120536
     diam_hex: 0x1D6D8
     diam_oct: 0353330 # noqa yaml[octal-values]
@@ -62,7 +62,7 @@ planets:
       - "Enceladus"
       - "Mimas"
 
-  - planet_name: "Uranus"
+  - planet: "Uranus"
     diameter: 51118
     diam_hex: 0xC7AE
     diam_oct: 0143656 # noqa yaml[octal-values]
@@ -75,7 +75,7 @@ planets:
       - "Ariel"
       - "Miranda"
 
-  - planet_name: "Neptune"
+  - planet: "Neptune"
     diameter: 49528
     diam_hex: 0xC178
     diam_oct: 0140570 # noqa yaml[octal-values]

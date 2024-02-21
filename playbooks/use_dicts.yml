@@ -2,13 +2,13 @@
 # This playbook sets and uses dictionaries of variables
 # Usage: ansible-playbook use_dicts.yml
 - name: Set and use dictionaries of variables
-  hosts: managed_node_1
+  hosts: managed_node1
   gather_facts: false
   tasks:
     - name: Set and display a dictionary
       vars:
         mars:
-          planet_name: "Mars"
+          planet: "Mars"
           diameter: 6792
           hours_in_day: 24.7
           rings: false
@@ -16,10 +16,10 @@
         msg:
           - "{{ mars }}"
           - >-
-            {{ mars['planet_name'] }} is
+            {{ mars['planet'] }} is
             {{ mars.diameter }} km in diameter.
           - >-
-            One day on {{ mars['planet_name'] }} is
+            One day on {{ mars['planet'] }} is
             {{ mars['hours_in_day'] }} Earth hours.
           - "Rings: {{ mars['rings'] }}"
 ...

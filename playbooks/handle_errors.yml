@@ -2,7 +2,7 @@
 # This playbook performs error handling using blocks
 # Usage: ansible-playbook handle_errors.yml
 - name: Perform error handling
-  hosts: managed_node_1
+  hosts: managed_node1
   gather_facts: false
   tasks:
     - name: Perform error handling

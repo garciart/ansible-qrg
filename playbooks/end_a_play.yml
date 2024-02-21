@@ -1,0 +1,23 @@
+---
+# This playbook ends a play is a condition is met
+# Usage: ansible-playbook end_a_play.yml
+- name: End a play if a condition is not met
+  hosts: managed_node1
+  gather_facts: false
+  tasks:
+    - name: Say Hello
+      ansible.builtin.debug:
+        msg:
+          - "Hello, World!"
+
+    - name: End a play if foo is not defined
+      ansible.builtin.meta: end_play
+      when: foo is undefined
+
+    - name: Say Hello again
+      ansible.builtin.debug:
+        msg:
+          - "Hello, again!"
+...
+# code: language=ansible
+# vi: set noai nu ts=2 sw=2 sts=2 sta et:

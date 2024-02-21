@@ -29,12 +29,10 @@ Link to playbooks (in order):
 - [demo_var_precedence.yml](/playbooks/demo_var_precedence.yml)
 - [perform_math.yml](/playbooks/perform_math.yml)
 - [demo_order_of_ops.yml](/playbooks/demo_order_of_ops.yml)
-
-- [cast_variables.yml](/playbooks/cast_variables.yml)
-
+- [format_variables.yml](/playbooks/format_variables.yml)
 - [concat_variables.yml](/playbooks/concat_variables.yml)
 - [slice_variables.yml](/playbooks/slice_variables.yml)
-- [format_variables.yml](/playbooks/format_variables.yml)
+- [cast_variables.yml](/playbooks/cast_variables.yml)
 
 - [check_equality.yml](/playbooks/check_equality.yml)
 - [check_identity.yml](/playbooks/check_identity.yml)

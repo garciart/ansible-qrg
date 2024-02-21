@@ -6,7 +6,7 @@
 # - ansible-playbook run_or_skip_tasks.yml --tags odd
 # - ansible-playbook run_or_skip_tasks.yml --skip-tags odd
 - name: Run or skip tasks
-  hosts: managed_node_1
+  hosts: managed_node1
   gather_facts: false
   tasks:
     - name: Run the first task

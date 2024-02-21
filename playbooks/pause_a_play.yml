@@ -2,7 +2,7 @@
 # This playbook pauses for time and input
 # Usage: ansible-playbook pause_a_play.yml
 - name: Pause a play
-  hosts: managed_node_1
+  hosts: managed_node1
   gather_facts: true
   tasks:
     - name: Run a task

@@ -2,7 +2,7 @@
 # This playbook uses conditionals to display a message or run a task
 # Usage: ansible-playbook use_conditionals.yml
 - name: Use conditionals
-  hosts: managed_node_1
+  hosts: managed_node1
   gather_facts: false
   tasks:
     - name: Display messages based on a condition (if)

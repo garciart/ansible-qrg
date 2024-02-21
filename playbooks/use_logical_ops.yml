@@ -2,7 +2,7 @@
 # This playbook checks multiple conditions before displaying a message or running a task
 # Usage: ansible-playbook use_logical_ops.yml
 - name: Check multiple conditions
-  hosts: managed_node_1
+  hosts: managed_node1
   gather_facts: false
   tasks:
     - name: Display a message if all conditions are met

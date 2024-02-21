@@ -10,9 +10,9 @@ all:
           ansible_connection: local
     managed_nodes:
       hosts:
-        managed_node_1:
+        managed_node1:
           ansible_connection: local
-        managed_node_2:
+        managed_node2:
           ansible_connection: local
 ...
 # code: language=yaml

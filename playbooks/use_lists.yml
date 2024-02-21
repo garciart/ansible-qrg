@@ -2,7 +2,7 @@
 # This playbook sets and uses lists of variables
 # Usage: ansible-playbook use_lists.yml
 - name: Set and use lists of variables
-  hosts: managed_node_1
+  hosts: managed_node1
   gather_facts: false
   tasks:
     - name: Set and display a list

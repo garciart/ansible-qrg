@@ -2,7 +2,7 @@
 # This playbook gets special variables and facts
 # Usage: ansible-playbook get_special_vars.yml
 - name: Display facts and magic variables
-  hosts: managed_node_1
+  hosts: managed_node1
   gather_facts: false
   tasks:
     - name: Display all magic variables

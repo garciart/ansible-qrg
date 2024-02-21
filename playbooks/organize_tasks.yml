@@ -5,7 +5,7 @@
 # - ansible-playbook organize_tasks.yml --tags foo
 # - ansible-playbook organize_tasks.yml --skip-tags foo
 - name: Organize tasks using blocks
-  hosts: managed_node_1
+  hosts: managed_node1
   gather_facts: false
   tasks:
     - name: Create a block of foo tasks

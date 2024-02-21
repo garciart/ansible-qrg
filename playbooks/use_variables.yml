@@ -2,19 +2,19 @@
 # This playbook uses different types of scalar variables
 # Usage: ansible-playbook use_variables.yml
 - name: Use different types of scalar variables
-  hosts: managed_node_1
+  hosts: managed_node1
   gather_facts: false
   tasks:
     - name: Set and display a string variable
       vars:
         # Use quotation marks to explicitly declare strings
-        planet_name: "Mercury"
+        planet: "Mercury"
       ansible.builtin.debug:
-        var: planet_name
+        var: planet
 
     - name: Set and display other scalar variables
       vars:
-        planet_name: "Mercury"
+        planet: "Mercury"
         diameter: 4879
         diam_hex: 0x130F
         diam_oct: 011417 # noqa yaml[octal-values]
@@ -25,12 +25,12 @@
         moons: null
       ansible.builtin.debug:
         msg:
-          - "The name of the planet is {{ planet_name }}."
+          - "The name of the planet is {{ planet }}."
           - "It is {{ diameter }} km in diameter."
           - "0x130F (hex) = {{ diam_hex }} (dec)."
           - "011417 (oct) = {{ diam_oct }} (dec)."
           - >-
-            One day on {{ planet_name }} is
+            One day on {{ planet }} is
             {{ hours_in_day }} Earth hours.
           - "Rings: {{ rings }}"
           - "Moons: {{ moons }}"

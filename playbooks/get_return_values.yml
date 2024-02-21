@@ -2,7 +2,7 @@
 # This playbook captures and displays the return values of a task
 # Usage: ansible-playbook get_return_values.yml
 - name: Capture and display the return values of a task
-  hosts: managed_node_1
+  hosts: managed_node1
   gather_facts: false
   tasks:
     - name: Say Hello

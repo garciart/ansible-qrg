@@ -2,7 +2,7 @@
 # This playbook casts variables to other types
 # Usage: ansible-playbook cast_variables.yml
 - name: Cast a variable to another type
-  hosts: managed_node_1
+  hosts: managed_node1
   gather_facts: false
   tasks:
     - name: Recast variables at the point of use (always works)
@@ -34,7 +34,7 @@
             integer ({{ bool_value | int }}),
             or float ({{ bool_value | float }}).
 
-    - name: Convert variables using filters (may not work)
+    - name: Convert vars before use (does not always work)
       vars:
         int_value: 1
         bool_from_int: "{{ int_value | bool }}"
@@ -73,9 +73,9 @@
             to int becomes {{ int_from_str }}
             ({{ int_from_str | type_debug }}), not int.
 
-    - name: Use set_fact to recast variables (may not work)
+    - name: Use set_fact to recast vars (does not always work)
       block:
-        - name: Set a string fact to recast (may not work)
+        - name: Set a string fact
           ansible.builtin.set_fact:
             str_value: "1"
 

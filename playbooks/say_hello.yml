@@ -2,7 +2,7 @@
 # This playbook displays a greeting on the screen
 # Usage: ansible-playbook say_hello.yml
 - name: Say Hello
-  hosts: managed_node_1
+  hosts: managed_node1
   gather_facts: false
   tasks:
     - name: Say Hello

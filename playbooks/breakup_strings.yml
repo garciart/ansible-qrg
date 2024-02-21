@@ -2,7 +2,7 @@
 # This playbook breaks up long strings of code to improve readability
 # Usage: ansible-playbook breakup_strings.yml
 - name: Break up long strings
-  hosts: managed_node_1
+  hosts: managed_node1
   gather_facts: false
   tasks:
     - name: Use flow styling to display output (default)
