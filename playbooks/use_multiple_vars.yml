@@ -1,0 +1,36 @@
+---
+# This playbook displays different types of scalar variables
+# Usage: ansible-playbook use_multiple_vars.yml
+- name: Use different types of scalar variables
+  hosts: managed_node1
+  gather_facts: false
+  vars:
+    planet: "Mercury"
+    diameter: 4879
+    diam_hex: 0x130F
+    diam_oct: 011417 # noqa yaml[octal-values]
+    hours_in_day: 4222.6
+    # Use 'true/false' instead of 'yes/no' or 'on/off'
+    rings: false
+    # Leave blank or use 'null' for NoneType
+    moons: null
+  tasks:
+    - name: Display different types of scalar variables
+      ansible.builtin.debug:
+        msg:
+          - "The name of the planet is {{ planet }}."
+          - "It is {{ diameter }} km in diameter."
+          - "0x130F (hex) = {{ diam_hex }} (dec)."
+          - "011417 (oct) = {{ diam_oct }} (dec)."
+          - "One day is {{ hours_in_day }} Earth hours."
+          - "Rings: {{ rings }}"
+          - "Moons: {{ moons | default('None', true) }}"
+
+    - name: Use multiple variables in a parameter
+      ansible.builtin.debug:
+        msg: >-
+          One day on {{ planet }} is equal to
+          {{ hours_in_day }} Earth hours.
+...
+# code: language=ansible
+# vi: set noai nu ts=2 sw=2 sts=2 sta et:

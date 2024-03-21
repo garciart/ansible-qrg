@@ -1,8 +1,16 @@
 ---
 # This playbook targets multiple nodes
 # Usage: ansible-playbook target_multiple_nodes.yml
+- name: Target a single node
+  hosts: managed_node1
+  gather_facts: false
+  tasks:
+    - name: Say Hello
+      ansible.builtin.debug:
+        msg: "Hello from a node!"
+
 - name: Target a list of nodes
-  hosts: managed_node1, managed_node2
+  hosts: control_node, managed_node1
   gather_facts: false
   tasks:
     - name: Say Hello
