@@ -12,15 +12,15 @@
 
     - name: Display the return values of the previous task
       ansible.builtin.debug:
-        var: result
+        msg: "{{ result }}"
 
     - name: Display result type
       ansible.builtin.debug:
-        var: result | type_debug
+        msg: "{{ result | type_debug }}"
 
     - name: Display a single return value
       ansible.builtin.debug:
-        var: result['failed']
+        msg: "{{ result['failed'] }}"
 ...
 # code: language=ansible
 # vi: set noai nu ts=2 sw=2 sts=2 sta et:

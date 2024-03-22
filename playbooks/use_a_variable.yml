@@ -1,7 +1,7 @@
 ---
 # This playbook displays the value of a scalar variable
 # Usage: ansible-playbook use_a_variable.yml
-- name: Use different types of scalar variables
+- name: Use a scalar variable
   hosts: managed_node1
   gather_facts: false
   tasks:

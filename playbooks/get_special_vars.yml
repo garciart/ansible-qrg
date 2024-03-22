@@ -7,30 +7,30 @@
   tasks:
     - name: Display all magic variables
       ansible.builtin.debug:
-        var: hostvars
+        msg: "{{ hostvars }}"
 
     - name: Display a magic variable
       ansible.builtin.debug:
-        var: inventory_hostname
+        msg: "{{ inventory_hostname }}"
 
     - name: Display magic variables for the target node only
       ansible.builtin.debug:
-        var: hostvars[inventory_hostname]
+        msg: "{{ hostvars[inventory_hostname] }}"
 
     - name: Display connection variables
       ansible.builtin.debug:
-        var: ansible_host, ansible_connection
+        msg: "{{ ansible_host, ansible_connection }}"
 
     - name: Gather facts
       ansible.builtin.setup:
 
     - name: Display all facts
       ansible.builtin.debug:
-        var: ansible_facts
+        msg: "{{ ansible_facts }}"
 
     - name: Display a fact
       ansible.builtin.debug:
-        var: ansible_facts['os_family']
+        msg: "{{ ansible_facts['os_family'] }}"
 ...
 # code: language=ansible
 # vi: set noai nu ts=2 sw=2 sts=2 sta et:
