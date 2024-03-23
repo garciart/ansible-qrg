@@ -1,11 +1,11 @@
 ---
-# This playbook gets special variables and facts
+# This playbook gets and displays special variables and facts
 # Usage: ansible-playbook get_special_vars.yml
-- name: Display facts and magic variables
+- name: Display magic variables and gathered facts
   hosts: managed_node1
   gather_facts: false
   tasks:
-    - name: Display all magic variables
+    - name: Display magic variables Ansible always collects
       ansible.builtin.debug:
         msg: "{{ hostvars }}"
 
@@ -13,22 +13,36 @@
       ansible.builtin.debug:
         msg: "{{ inventory_hostname }}"
 
-    - name: Display magic variables for the target node only
-      ansible.builtin.debug:
-        msg: "{{ hostvars[inventory_hostname] }}"
-
-    - name: Display connection variables
-      ansible.builtin.debug:
-        msg: "{{ ansible_host, ansible_connection }}"
-
-    - name: Gather facts
+    - name: Scan the target node and gather facts
       ansible.builtin.setup:
 
-    - name: Display all facts
+    - name: Display all magic variables and facts
+      ansible.builtin.debug:
+        msg: "{{ hostvars }}"
+
+    - name: Display facts for the target node only
       ansible.builtin.debug:
         msg: "{{ ansible_facts }}"
 
-    - name: Display a fact
+    - name: Display a fact about the target node
+      ansible.builtin.debug:
+        msg: "{{ ansible_facts['os_family'] }}"
+
+- name: Gather facts by default
+  hosts: managed_node1
+  gather_facts: true
+  tasks:
+    # Results should be the same as the last three tasks
+    # of the previous play
+    - name: Display all magic variables and facts
+      ansible.builtin.debug:
+        msg: "{{ hostvars }}"
+
+    - name: Display facts for the target node only
+      ansible.builtin.debug:
+        msg: "{{ ansible_facts }}"
+
+    - name: Display a fact about the target node
       ansible.builtin.debug:
         msg: "{{ ansible_facts['os_family'] }}"
 ...

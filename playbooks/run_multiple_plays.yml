@@ -1,19 +1,19 @@
 ---
-# This playbook runs more than one play
+# This playbook runs multiple plays
 # Usage: ansible-playbook run_multiple_plays.yml
 - name: Run a play
   hosts: managed_node1
   gather_facts: false
   tasks:
-    - name: Display a message in the first play
+    - name: Show a message in the first play
       ansible.builtin.debug:
         msg: "This is the first play."
 
-- name: Run another play in the same playbook
+- name: Run another play
   hosts: managed_node1
   gather_facts: false
   tasks:
-    - name: Display a message in the second play
+    - name: Show a message in the second play
       ansible.builtin.debug:
         msg: "This is the second play."
 ...

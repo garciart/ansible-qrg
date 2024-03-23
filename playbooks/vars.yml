@@ -1,5 +1,5 @@
 ---
-# This file demos different data types used by Ansible
+# This file contains different data types used by Ansible
 # Usage:
 # - ansible localhost --module-name ansible.builtin.debug
 #   --args "var=planet" --extra-vars "@vars.yml"

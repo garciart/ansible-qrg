@@ -1,5 +1,5 @@
 ---
-# This playbook runs more than one task
+# This playbook runs multiple tasks
 # Usage: ansible-playbook run_multiple_tasks.yml
 - name: Run multiple tasks in a play
   hosts: managed_node1

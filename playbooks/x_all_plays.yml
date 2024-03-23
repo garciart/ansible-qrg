@@ -59,7 +59,7 @@
       ansible.builtin.debug:
         msg: "Hello from a group of nodes!"
 
-# Usage: ansible-playbook breakup_strings.yml
+# Usage: ansible-playbook split_strings.yml
 - name: Break up long strings
   hosts: managed_node1
   gather_facts: false
@@ -105,10 +105,10 @@
           Happy Birthday to You!
 
 # Usage:
-# - ansible-playbook run_or_skip_tasks.yml --step
-# - ansible-playbook run_or_skip_tasks.yml --start-at-task "Run a third task"
-# - ansible-playbook run_or_skip_tasks.yml --tags odd
-# - ansible-playbook run_or_skip_tasks.yml --skip-tags odd
+# - ansible-playbook skip_tasks.yml --step
+# - ansible-playbook skip_tasks.yml --start-at-task "Run a third task"
+# - ansible-playbook skip_tasks.yml --tags odd
+# - ansible-playbook skip_tasks.yml --skip-tags odd
 - name: Run or skip tasks
   hosts: managed_node1
   gather_facts: false
@@ -138,10 +138,10 @@
         msg: "This is a fourth task."
 
 # Usage:
-# - ansible-playbook organize_tasks.yml
-# - ansible-playbook organize_tasks.yml --tags foo
-# - ansible-playbook organize_tasks.yml --skip-tags foo
-- name: Organize tasks using blocks
+# - ansible-playbook group_tasks.yml
+# - ansible-playbook group_tasks.yml --tags foo
+# - ansible-playbook group_tasks.yml --skip-tags foo
+- name: Group tasks using blocks
   hosts: managed_node1
   gather_facts: false
   tasks:

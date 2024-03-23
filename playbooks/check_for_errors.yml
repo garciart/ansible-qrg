@@ -1,6 +1,6 @@
 ---
 # This playbook has intentional errors and styling issues
-# Usage: ansible-lint perform_linting.yml
+# Usage: ansible-lint check_for_errors.yml
 - name: run a bad play
   hosts: managed_node1
   gather_facts: maybe

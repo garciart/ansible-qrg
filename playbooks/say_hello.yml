@@ -1,6 +1,6 @@
 %YAML 1.2
 ---
-# This playbook displays a greeting on the screen
+# This playbook shows a greeting on the screen
 # Usage: ansible-playbook say_hello.yml
 - name: Say Hello
   hosts: managed_node1

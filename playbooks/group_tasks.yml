@@ -1,10 +1,10 @@
 ---
-# This playbook organizes tasks using blocks and tags
+# This playbook groups tasks using blocks and tags
 # Usage:
-# - ansible-playbook organize_tasks.yml
-# - ansible-playbook organize_tasks.yml --tags foo
-# - ansible-playbook organize_tasks.yml --skip-tags foo
-- name: Organize tasks using blocks
+# - ansible-playbook group_tasks.yml
+# - ansible-playbook group_tasks.yml --tags foo
+# - ansible-playbook group_tasks.yml --skip-tags foo
+- name: Group tasks using blocks
   hosts: managed_node1
   gather_facts: false
   tasks:
