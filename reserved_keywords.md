@@ -1,6 +1,6 @@
 # Reserved Keywords
 
-The following words have special meanings in Ansible, Jinja2, YAML, and Python, and you should not use them for variable names. For example, if you name a variable `task`, Ansible may attempt to process its value as a task. causing the play to fail.
+The following words have special meanings in Ansible, Jinja2, YAML, and Python, and you should not use them for variable names. For example, if you name a variable `task`, Ansible may try to process its value as a task. causing the play to fail.
 
 These lists are not comprehensive and are subject to change.
 

@@ -1,35 +1,34 @@
 ---
-# This playbook uses a default value if a variable is undefined
+# Use a default value if a variable is undefined or empty
 # Usage: ansible-playbook use_default_value.yml
 - name: Use default values
   hosts: managed_node1
   gather_facts: false
   vars:
-    defined_var: "This variable is defined."
+    defined_var: "I am defined."
     empty_var: ""
   tasks:
-    - name: Display a defined variable
+    - name: Show a defined variable
       ansible.builtin.debug:
         msg: "{{ defined_var }}"
 
-    - name: Display an undefined variable
+    - name: Use a default value for an undefined variable
       block:
-        - name: Attempt to display an undefined variable
+        - name: Try to show an undefined variable
           ansible.builtin.debug:
             msg: "{{ undefined_var }}"
 
       rescue:
-        - name: >-
-            Display a default value for an undefined variable
+        - name: Use a default value
           ansible.builtin.debug:
             msg: >-
               {{ undefined_var | default('I am undefined!') }}
 
-    - name: Display an empty variable
+    - name: Show an empty variable
       ansible.builtin.debug:
         msg: "{{ empty_var | default('I am empty!') }}"
 
-    - name: Display a default value for an empty variable
+    - name: Show a default value for an empty variable
       ansible.builtin.debug:
         msg: "{{ empty_var | default('I am empty!', true) }}"
 ...

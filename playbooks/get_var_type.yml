@@ -1,21 +1,21 @@
 ---
-# This playbook gets varible types
+# Show varibles and their types
 # Usage: ansible-playbook get_var_type.yml
-- name: Get variable types
+- name: Get varible types
   hosts: managed_node1
   gather_facts: false
   tasks:
-    - name: Get the type of a variable
+    - name: Show the type of a variable
       vars:
         planet: "Mars"
       ansible.builtin.debug:
-        var: planet, planet | type_debug
+        msg: "{{ planet | type_debug }}"
 
-    - name: Get the types of other variables
+    - name: Show the types of other variables
       vars:
         planet: "Mars"
         diameter: 6792
-        hours_in_day: 24.7
+        hours_per_day: 24.7
         rings: false
         moons:
           - "Phobos"
@@ -25,19 +25,17 @@
           order_no: 3
       ansible.builtin.debug:
         msg:
+          - "{{ planet }}: {{ planet | type_debug }}."
+          - "{{ diameter }}: {{ diameter | type_debug }}."
           - >-
-            {{ planet }} is
-            {{ planet | type_debug }}.
-          - "{{ diameter }} is an {{ diameter | type_debug }}."
+            {{ hours_per_day }}:
+            {{ hours_per_day | type_debug }}.
+          - "{{ rings }}: {{ rings | type_debug }}."
+          - "{{ moons }}: {{ moons | type_debug }}."
+          - "{{ moons[0] }}: {{ moons[0] | type_debug }}."
+          - "{{ other }}: {{ other | type_debug }}."
           - >-
-            {{ hours_in_day }} is a
-            {{ hours_in_day | type_debug }}.
-          - "{{ rings }} is a {{ rings | type_debug }}."
-          - "{{ moons }} is a {{ moons | type_debug }}."
-          - "{{ moons[0] }} is {{ moons[0] | type_debug }}."
-          - "{{ other }} is a {{ other | type_debug }}."
-          - >-
-            {{ other['au'] }} is a
+            {{ other['au'] }}:
             {{ other['au'] | type_debug }}.
 ...
 # code: language=ansible

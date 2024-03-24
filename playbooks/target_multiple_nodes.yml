@@ -1,5 +1,5 @@
 ---
-# This playbook targets multiple nodes
+# Run plays against one or more nodes
 # Usage: ansible-playbook target_multiple_nodes.yml
 - name: Target a single node
   hosts: managed_node1

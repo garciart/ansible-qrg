@@ -1,5 +1,5 @@
 ---
-# This playbook runs multiple plays
+# Run multiple plays in a playbook
 # Usage: ansible-playbook run_multiple_plays.yml
 - name: Run a play
   hosts: managed_node1

@@ -1,5 +1,5 @@
 ---
-# This file contains different data types used by Ansible
+# Initialize different data types used by Ansible
 # Usage:
 # - ansible localhost --module-name ansible.builtin.debug
 #   --args "var=planet" --extra-vars "@vars.yml"
@@ -9,7 +9,7 @@
 # Different types of scalar variables
 planet: "Mercury"
 diameter: 4879
-hours_in_day: 4222.6
+hours_per_day: 4222.6
 rings: false
 moons: null
 

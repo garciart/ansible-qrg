@@ -1,6 +1,6 @@
 ---
-# This playbook demonstrates variable precedence
-# Usage: ansible-playbook play_var_precedence.yml
+# Demonstrate variable precedence
+# Usage: ansible-playbook demo_var_precedence.yml
 - name: Demonstrate variable precedence
   hosts: managed_node1
   gather_facts: false

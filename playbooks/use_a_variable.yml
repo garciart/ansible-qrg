@@ -1,5 +1,5 @@
 ---
-# This playbook displays the value of a scalar variable
+# Set and show the value of a scalar variable
 # Usage: ansible-playbook use_a_variable.yml
 - name: Use a scalar variable
   hosts: managed_node1

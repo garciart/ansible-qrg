@@ -1,11 +1,11 @@
 ---
-# Use this playbook to selectively run or skip tasks
+# Use command line args and tags to run or skip tasks
 # Usage:
 # - ansible-playbook skip_tasks.yml --step
 # - ansible-playbook skip_tasks.yml --start-at-task "Run a third task"
 # - ansible-playbook skip_tasks.yml --tags odd
 # - ansible-playbook skip_tasks.yml --skip-tags odd
-- name: Skip tasks
+- name: Run tagged tasks
   hosts: managed_node1
   gather_facts: false
   tasks:

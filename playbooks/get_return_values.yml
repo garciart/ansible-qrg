@@ -1,7 +1,7 @@
 ---
-# This playbook captures and displays the return values of a task
+# Capture and display the return values of a task
 # Usage: ansible-playbook get_return_values.yml
-- name: Capture and display the return values of a task
+- name: Get return values
   hosts: managed_node1
   gather_facts: false
   tasks:
@@ -10,15 +10,15 @@
         msg: "Hello, World!"
       register: result
 
-    - name: Display the return values of the previous task
+    - name: Show the return values of the previous task
       ansible.builtin.debug:
         msg: "{{ result }}"
 
-    - name: Display result type
+    - name: Show the return value object type
       ansible.builtin.debug:
         msg: "{{ result | type_debug }}"
 
-    - name: Display a single return value
+    - name: Show a single return value
       ansible.builtin.debug:
         msg: "{{ result['failed'] }}"
 ...

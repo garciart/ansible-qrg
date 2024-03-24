@@ -1,5 +1,5 @@
 ---
-# This playbook splits up long strings to improve readability
+# Split up long strings to improve readability
 # Usage: ansible-playbook split_strings.yml
 - name: Split up long strings
   hosts: managed_node1

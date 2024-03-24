@@ -1,5 +1,5 @@
 ---
-# This playbook handles errors using blocks
+# Handle errors using blocks
 # Usage: ansible-playbook handle_errors.yml
 - name: Handle an error using a block
   hosts: managed_node1
@@ -15,9 +15,9 @@
           ansible.builtin.fail:
             msg: "I failed."
 
-        - name: Unreachable task
+        - name: Try an unreachable task
           ansible.builtin.debug:
-            msg: "I will not run if the previous task fails."
+            msg: "I cannot be reached."
       rescue:
         - name: Show an error message
           ansible.builtin.debug:

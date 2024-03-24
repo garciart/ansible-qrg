@@ -1,11 +1,11 @@
 ---
-# This playbook sets and uses lists of variables
+# Set and show lists of variables
 # Usage: ansible-playbook use_lists.yml
-- name: Set and use lists of variables
+- name: Use lists of variables
   hosts: managed_node1
   gather_facts: false
   tasks:
-    - name: Set and display a list
+    - name: Set and show a list
       vars:
         moons:
           - "Phobos"
@@ -13,25 +13,19 @@
       ansible.builtin.debug:
         msg:
           - "{{ moons }}"
-          - >-
-            {{ moons[0] }} is bigger than
-            {{ moons.1 }}.
+          - "{{ moons[0] }} and {{ moons.1 }} are moons."
 
-    - name: Set and display a mixed list
+    - name: Set and show a mixed list
       vars:
         mars:
           - "Mars"
           - 6792
           - 24.7
-          - false
       ansible.builtin.debug:
         msg:
           - "{{ mars }}"
           - "{{ mars[0] }} is {{ mars[1] }} km in diameter."
-          - >-
-            One day on {{ mars[0] }} is
-            {{ mars[2] }} Earth hours.
-          - "Rings: {{ mars[3] }}"
+          - One sol is {{ mars[2] }} Earth hours.
 ...
 # code: language=ansible
 # vi: set noai nu ts=2 sw=2 sts=2 sta et:

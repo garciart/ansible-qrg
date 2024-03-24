@@ -1,18 +1,15 @@
 ---
-# This playbook gets and uses command-line variables
-# Usage:
-# - ansible-playbook get_cmd_line_vars.yml
-#   --extra-vars="planet='Mars' rings=false"
-- name: Get and use command line variables
+# Get and show command line variables
+# Usage: ansible-playbook get_cmd_line_vars.yml \
+#        --extra-vars= "planet='Mars' rings=false"
+- name: Get command line variables
   hosts: managed_node1
   gather_facts: false
   tasks:
-    - name: Display the values of command line variables
+    - name: Show command line variables values and types
       ansible.builtin.debug:
         msg:
-          - >-
-            {{ planet }} is a
-            {{ planet | type_debug }}.
+          - "{{ planet }} is a {{ planet | type_debug }}."
           - "{{ rings }} is a {{ rings | type_debug }}."
 ...
 # code: language=ansible

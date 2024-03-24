@@ -4,7 +4,7 @@ planets:
     diameter: 4879
     diam_hex: 0x130F
     diam_oct: 011417 # noqa yaml[octal-values]
-    hours_in_day: 4222.6
+    hours_per_day: 4222.6
     rings: false
     moons: null
 
@@ -12,7 +12,7 @@ planets:
     diameter: 12104
     diam_hex: 0x2F48
     diam_oct: 027510 # noqa yaml[octal-values]
-    hours_in_day: 2802.0
+    hours_per_day: 2802.0
     rings: false
     moons: null
 
@@ -20,7 +20,7 @@ planets:
     diameter: 12756
     diam_hex: 0x31D4
     diam_oct: 030724 # noqa yaml[octal-values]
-    hours_in_day: 24.0
+    hours_per_day: 24.0
     rings: false
     moons:
       - "Moon"
@@ -29,7 +29,7 @@ planets:
     diameter: 6792
     diam_hex: 0x1A88
     diam_oct: 015210 # noqa yaml[octal-values]
-    hours_in_day: 24.7
+    hours_per_day: 24.7
     rings: false
     moons:
       - "Phobos"
@@ -39,7 +39,7 @@ planets:
     diameter: 142984
     diam_hex: 0x22E88
     diam_oct: 0427210 # noqa yaml[octal-values]
-    hours_in_day: 9.9
+    hours_per_day: 9.9
     rings: true
     moons:
       - "Ganymede"
@@ -51,7 +51,7 @@ planets:
     diameter: 120536
     diam_hex: 0x1D6D8
     diam_oct: 0353330 # noqa yaml[octal-values]
-    hours_in_day: 10.7
+    hours_per_day: 10.7
     rings: true
     moons:
       - "Titan"
@@ -66,7 +66,7 @@ planets:
     diameter: 51118
     diam_hex: 0xC7AE
     diam_oct: 0143656 # noqa yaml[octal-values]
-    hours_in_day: 17.2
+    hours_per_day: 17.2
     rings: true
     moons:
       - "Titania"
@@ -79,7 +79,7 @@ planets:
     diameter: 49528
     diam_hex: 0xC178
     diam_oct: 0140570 # noqa yaml[octal-values]
-    hours_in_day: 16.1
+    hours_per_day: 16.1
     rings: true
     moons:
       - "Triton"

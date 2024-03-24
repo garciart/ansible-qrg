@@ -9,7 +9,7 @@
   hosts: managed_node1
   gather_facts: false
   tasks:
-    - name: Attempt to display an undefined variable
+    - name: Try to display an undefined variable
       ansible.builtin.debug:
         msg:
           - "{{ foo }}"

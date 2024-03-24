@@ -1,68 +1,63 @@
 ---
-# This playbook demonstrates variable scope
-# Usage:
-# - ansible-playbook demo_var_scope.yml -e \
-#   "cmd_line_var='Use command line variables anywhere in a playbook.'"
-- name: Run the first play to demonstrate variable scope
+# Demonstrate variable scope
+# Usage: ansible-playbook demo_var_scope.yml -e \
+#        "cmd_line_var='I am a command line variable.'"
+- name: Demonstrate variable scope in a play
   hosts: managed_node1
   gather_facts: false
   vars:
-    play_var: "Use a play variable in its play."
+    play_var: "I am a play variable."
   tasks:
-    - name: Use a command line variable
+    - name: Show the command line variable
       ansible.builtin.debug:
         msg: "{{ cmd_line_var }}"
 
-    - name: Use a play variable
+    - name: Show CLI and play variables
       ansible.builtin.debug:
         msg:
-          - "{{ play_var }}"
           - "{{ cmd_line_var }}"
+          - "{{ play_var }}"
 
-    - name: Use a block variable
+    - name: Show a block variable
       vars:
-        block_var: "Use a block variable in its block."
+        block_var: "I am a block variable."
       block:
-        - name: Use play and block variables
+        - name: Show CLI, play, and block variables
           ansible.builtin.debug:
             msg:
-              - "{{ block_var }}"
-              - "{{ play_var }}"
               - "{{ cmd_line_var }}"
+              - "{{ play_var }}"
+              - "{{ block_var }}"
 
-        - name: Use play, block, and task variables
+        - name: Show CLI, play, block, and task variables
           vars:
-            task_var: "Use a task variable in its task."
+            task_var: "I am a task variable."
           ansible.builtin.debug:
             msg:
-              - "{{ task_var }}"
-              - "{{ block_var }}"
-              - "{{ play_var }}"
               - "{{ cmd_line_var }}"
+              - "{{ play_var }}"
+              - "{{ block_var }}"
+              - "{{ task_var }}"
 
         - name: Try to use a task variable outside its task
           ansible.builtin.debug:
-            msg: "{{ task_var }}"
-          # See https://ansible.readthedocs.io/projects/lint/rules/ignore-errors/
-          ignore_errors: true # noqa ignore-errors
+            msg: "{{ task_var | default('Out of scope!') }}"
 
     - name: Try to use a block variable outside its block
       ansible.builtin.debug:
-        msg: "{{ block_var }}"
-      ignore_errors: true # noqa ignore-errors
+        msg: "{{ block_var | default('Out of scope!') }}"
 
-- name: Run the second play to demonstrate variable scope
+- name: Run a second play to demonstrate playbook scope
   hosts: managed_node1
   gather_facts: false
   tasks:
-    - name: Display the value of a command line variable
+    - name: Show the command line variable
       ansible.builtin.debug:
         msg: "{{ cmd_line_var }}"
 
     - name: Try to use a play variable outside its play
       ansible.builtin.debug:
-        msg: "{{ play_var }}"
-      ignore_errors: true # noqa ignore-errors
+        msg: "{{ play_var | default('Out of scope!') }}"
 ...
 # code: language=ansible
 # vi: set noai nu ts=2 sw=2 sts=2 sta et:

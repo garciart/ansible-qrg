@@ -216,7 +216,7 @@
         diameter: 4879
         diam_hex: 0x130F
         diam_oct: 011417 # noqa yaml[octal-values]
-        hours_in_day: 4222.6
+        hours_per_day: 4222.6
         # Use 'true/false' instead of 'yes/no' or 'on/off'
         rings: false
         # Leave blank or use 'null' for NoneType
@@ -229,7 +229,7 @@
           - "011417 (oct) = {{ diam_oct }} (dec)."
           - >-
             One day on {{ planet }} is
-            {{ hours_in_day }} Earth hours.
+            {{ hours_per_day }} Earth hours.
           - "Rings: {{ rings }}"
           - "Moons: {{ moons }}"
 
@@ -276,7 +276,7 @@
         mars:
           planet: "Mars"
           diameter: 6792
-          hours_in_day: 24.7
+          hours_per_day: 24.7
           rings: false
       ansible.builtin.debug:
         msg:
@@ -286,7 +286,7 @@
             {{ mars.diameter }} km in diameter.
           - >-
             One day on {{ mars['planet'] }} is
-            {{ mars['hours_in_day'] }} Earth hours.
+            {{ mars['hours_per_day'] }} Earth hours.
           - "Rings: {{ mars['rings'] }}"
 
 # Usage: ansible-playbook get_var_type.yml
@@ -304,7 +304,7 @@
       vars:
         planet: "Mars"
         diameter: 6792
-        hours_in_day: 24.7
+        hours_per_day: 24.7
         rings: false
         moons:
           - "Phobos"
@@ -319,8 +319,8 @@
             {{ planet | type_debug }}.
           - "{{ diameter }} is an {{ diameter | type_debug }}."
           - >-
-            {{ hours_in_day }} is a
-            {{ hours_in_day | type_debug }}.
+            {{ hours_per_day }} is a
+            {{ hours_per_day | type_debug }}.
           - "{{ rings }} is a {{ rings | type_debug }}."
           - "{{ moons }} is a {{ moons | type_debug }}."
           - "{{ moons[0] }} is {{ moons[0] | type_debug }}."
