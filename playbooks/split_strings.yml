@@ -5,12 +5,13 @@
   hosts: managed_node1
   gather_facts: false
   tasks:
-    - name: Use flow styling to display output (default)
+    - name: Show a string using default flow
       ansible.builtin.debug:
         msg: "Happy Birthday to You, Happy Birthday to You, Happy Birthday, Happy Birthday, Happy Birthday to You!"
 
-    - name: Use a literal block scalar
-      # Use a literal block scalar (|) to preserve newlines in a multiline string
+    - name: Split a string with a literal block scalar
+      # A literal block scalar (|) preserves newlines
+      # in a multiline string
       ansible.builtin.debug:
         msg: |
           Happy Birthday to You,
@@ -18,8 +19,9 @@
           Happy Birthday, Happy Birthday,
           Happy Birthday to You!
 
-    - name: Use a folded block scalar
-      # Use a folded block scalar (>) to collapse a multiline string into a single line
+    - name: Split a string with a folded block scalar
+      # A folded block scalar (>) collapses a multiline
+      # string into a single line
       ansible.builtin.debug:
         msg: >
           Happy Birthday to You,
@@ -27,8 +29,7 @@
           Happy Birthday, Happy Birthday,
           Happy Birthday to You!
 
-    - name: Use a literal block scalar with chomping
-      # Use a literal block scalar (|-), but explicitly chomp the final newline
+    - name: Chomp the final newline of a literal block scalar
       ansible.builtin.debug:
         msg: |-
           Happy Birthday to You,
@@ -36,8 +37,7 @@
           Happy Birthday, Happy Birthday,
           Happy Birthday to You!
 
-    - name: Use a folded block scalar with chomping
-      # Use a folded block scalar (>-) with chomping (same as the default result)
+    - name: Chomp the final newline of a folded block scalar
       ansible.builtin.debug:
         msg: >-
           Happy Birthday to You,

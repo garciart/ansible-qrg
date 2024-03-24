@@ -26,6 +26,7 @@ Link to playbooks (in order):
 - [get_var_type.yml](/playbooks/get_var_type.yml)
 - [get_return_values.yml](/playbooks/get_return_values.yml)
 - [get_special_vars.yml](/playbooks/get_special_vars.yml)
+- [set_fact.yml](/playbooks/set_fact.yml)
 - [get_cmd_line_vars.yml](/playbooks/get_cmd_line_vars.yml)
 - [demo_var_scope.yml](/playbooks/demo_var_scope.yml)
 - [demo_var_precedence.yml](/playbooks/demo_var_precedence.yml)

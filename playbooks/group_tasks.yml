@@ -8,7 +8,7 @@
   hosts: managed_node1
   gather_facts: false
   tasks:
-    - name: Create a block of foo tasks
+    - name: Run a block of foo tasks
       tags:
         - foo
       block:
@@ -20,7 +20,7 @@
           ansible.builtin.debug:
             msg: "This is another foo task."
 
-    - name: Create a block of bar tasks
+    - name: Run a block of bar tasks
       tags:
         - bar
       block:

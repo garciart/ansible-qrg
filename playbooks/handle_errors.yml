@@ -1,31 +1,29 @@
 ---
-# This playbook performs error handling using blocks
+# This playbook handles errors using blocks
 # Usage: ansible-playbook handle_errors.yml
-- name: Perform error handling
+- name: Handle an error using a block
   hosts: managed_node1
   gather_facts: false
   tasks:
-    - name: Perform error handling
+    - name: Handle an error
       block:
-        - name: Perform a task that passes
+        - name: Run a task that passes
           ansible.builtin.debug:
             msg: "I passed!"
 
-        - name: Perform a tasks that fails
+        - name: Run a tasks that fails
           ansible.builtin.fail:
             msg: "I failed."
 
-        - name: Create a task that will not run
+        - name: Unreachable task
           ansible.builtin.debug:
             msg: "I will not run if the previous task fails."
       rescue:
-        - name: Display an error message
+        - name: Show an error message
           ansible.builtin.debug:
             msg: "I run if a task in the block fails."
       always:
-        - name: >-
-            Perform a task whether the previous tasks passed
-            or failed
+        - name: Run a task even if another task failed
           ansible.builtin.debug:
             msg: "I always run."
 ...
