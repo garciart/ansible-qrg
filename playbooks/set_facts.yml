@@ -1,6 +1,6 @@
 ---
 # Set a fact usable by all plays and tasks in a playbook
-# Usage: ansible-playbook set_fact.yml
+# Usage: ansible-playbook set_facts.yml
 - name: Set a fact
   hosts: managed_node1
   gather_facts: false
