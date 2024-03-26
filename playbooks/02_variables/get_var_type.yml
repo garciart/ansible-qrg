@@ -1,0 +1,42 @@
+---
+# Show variables and their types
+# Usage: ansible-playbook get_var_type.yml
+- name: Get variable types
+  hosts: managed_node1
+  gather_facts: false
+  tasks:
+    - name: Show the type of a variable
+      vars:
+        planet: "Mars"
+      ansible.builtin.debug:
+        msg: "{{ planet | type_debug }}"
+
+    - name: Show the types of other variables
+      vars:
+        planet: "Mars"
+        diameter: 6792
+        hours_per_day: 24.7
+        rings: false
+        moons:
+          - "Phobos"
+          - "Deimos"
+        other:
+          au: 1.52
+          order_no: 3
+      ansible.builtin.debug:
+        msg:
+          - "{{ planet }}: {{ planet | type_debug }}."
+          - "{{ diameter }}: {{ diameter | type_debug }}."
+          - >-
+            {{ hours_per_day }}:
+            {{ hours_per_day | type_debug }}.
+          - "{{ rings }}: {{ rings | type_debug }}."
+          - "{{ moons }}: {{ moons | type_debug }}."
+          - "{{ moons[0] }}: {{ moons[0] | type_debug }}."
+          - "{{ other }}: {{ other | type_debug }}."
+          - >-
+            {{ other['au'] }}:
+            {{ other['au'] | type_debug }}.
+...
+# code: language=ansible
+# vi: set noai nu ts=2 sw=2 sts=2 sta et:

@@ -1,0 +1,48 @@
+---
+# Demonstrate variable precedence in a play
+# Note: No command line vars since you cannot override them
+# Usage: ansible-playbook demo_var_precedence.yml
+- name: Demonstrate variable precedence
+  hosts: managed_node1
+  gather_facts: false
+  vars:
+    play_var: "I am a play level variable."
+  tasks:
+    - name: Show play_var at the play level
+      ansible.builtin.debug:
+        msg: "{{ play_var }}"
+
+    - name: Override play_var
+      vars:
+        play_var: >-
+          Block level variables override play level
+          variables with the same name within the block.
+      block:
+        - name: Override play_var at the block level
+          ansible.builtin.debug:
+            msg: "{{ play_var }}"
+
+        - name: Override play_var at the task level
+          vars:
+            play_var: >-
+              Task level variables override block level
+              variables with the same name within the task.
+          ansible.builtin.debug:
+            msg: "{{ play_var }}"
+
+    - name: Show play_var at the play level again
+      ansible.builtin.debug:
+        msg: "{{ play_var }}"
+
+    - name: Edit play_var using set_fact
+      ansible.builtin.set_fact:
+        play_var: >-
+          The set_fact module overrides play, block, and
+          task assignments.
+
+    - name: Show the new value of play_var
+      ansible.builtin.debug:
+        msg: "{{ play_var }}"
+...
+# code: language=ansible
+# vi: set noai nu ts=2 sw=2 sts=2 sta et:

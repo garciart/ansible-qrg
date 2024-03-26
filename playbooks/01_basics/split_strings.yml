@@ -1,0 +1,49 @@
+---
+# Split long strings to improve readability
+# Usage: ansible-playbook split_strings.yml
+- name: Split strings
+  hosts: managed_node1
+  gather_facts: false
+  tasks:
+    - name: Show a string using default flow
+      ansible.builtin.debug:
+        msg: "Happy Birthday to You, Happy Birthday to You, Happy Birthday, Happy Birthday, Happy Birthday to You!"
+
+    - name: Split a string with a literal block scalar
+      # A literal block scalar (|) preserves newlines
+      # in a multiline string
+      ansible.builtin.debug:
+        msg: |
+          Happy Birthday to You,
+          Happy Birthday to You,
+          Happy Birthday, Happy Birthday,
+          Happy Birthday to You!
+
+    - name: Split a string with a folded block scalar
+      # A folded block scalar (>) collapses a multiline
+      # string into a single line
+      ansible.builtin.debug:
+        msg: >
+          Happy Birthday to You,
+          Happy Birthday to You,
+          Happy Birthday, Happy Birthday,
+          Happy Birthday to You!
+
+    - name: Chomp the last newline of a literal block scalar
+      ansible.builtin.debug:
+        msg: |-
+          Happy Birthday to You,
+          Happy Birthday to You,
+          Happy Birthday, Happy Birthday,
+          Happy Birthday to You!
+
+    - name: Chomp the last newline of a folded block scalar
+      ansible.builtin.debug:
+        msg: >-
+          Happy Birthday to You,
+          Happy Birthday to You,
+          Happy Birthday, Happy Birthday,
+          Happy Birthday to You!
+...
+# code: language=ansible
+# vi: set noai nu ts=2 sw=2 sts=2 sta et:

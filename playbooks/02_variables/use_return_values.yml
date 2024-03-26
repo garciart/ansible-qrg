@@ -1,0 +1,26 @@
+---
+# Capture and show the return values of a task
+# Usage: ansible-playbook use_return_values.yml
+- name: Use return values
+  hosts: managed_node1
+  gather_facts: false
+  tasks:
+    - name: Say Hello
+      ansible.builtin.debug:
+        msg: "Hello, World!"
+      register: result
+
+    - name: Show the return values of the previous task
+      ansible.builtin.debug:
+        msg: "{{ result }}"
+
+    - name: Show the return value object type
+      ansible.builtin.debug:
+        msg: "{{ result | type_debug }}"
+
+    - name: Show a single return value
+      ansible.builtin.debug:
+        msg: "{{ result['failed'] }}"
+...
+# code: language=ansible
+# vi: set noai nu ts=2 sw=2 sts=2 sta et:

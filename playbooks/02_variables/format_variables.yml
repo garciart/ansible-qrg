@@ -1,0 +1,38 @@
+---
+# Format variable output using filters
+# https://cplusplus.com/reference/cstdio/printf/
+# Usage: ansible-playbook format_variables.yml
+- name: Format variables
+  hosts: managed_node1
+  gather_facts: false
+  tasks:
+    - name: Use printf style formatting
+      vars:
+        pi: 3.1415926536
+        degrees: 360
+      ansible.builtin.debug:
+        msg:
+          - "{{ pi }}: {{ '%0.2f' % pi }}"
+          - "{{ degrees }}: {{ '%x' % degrees }}"
+
+
+    - name: Use format filter
+      vars:
+        pi: 3.1415926536
+        degrees: 360
+      ansible.builtin.debug:
+        msg:
+          - "{{ pi }}: {{ '%0.2f' | format(pi) }}"
+          - "{{ degrees }}: {{ '%x' | format(degrees) }}"
+
+    - name: Use str.format() method
+      vars:
+        pi: 3.1415926536
+        degrees: 360
+      ansible.builtin.debug:
+        msg:
+          - "{{ pi }}: {{ '{:.2f}'.format(pi) }}"
+          - "{{ degrees }}: {{ '{:#x}'.format(degrees) }}"
+...
+# code: language=ansible
+# vi: set noai nu ts=2 sw=2 sts=2 sta et:

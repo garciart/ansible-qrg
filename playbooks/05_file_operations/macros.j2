@@ -1,0 +1,3 @@
+{% macro is_defined_not_empty(var) %}
+  {{ var is defined and var is not none and var | trim | length > 0 }}
+{% endmacro %}

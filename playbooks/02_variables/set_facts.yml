@@ -1,0 +1,22 @@
+---
+# Set a fact usable by the plays and tasks in a playbook
+# Usage: ansible-playbook set_facts.yml
+- name: Set facts
+  hosts: managed_node1
+  gather_facts: false
+  tasks:
+    - name: Set a fact
+      ansible.builtin.set_fact:
+        new_fact: "This is a new fact"
+
+    - name: Show the fact
+      ansible.builtin.debug:
+        msg: "{{ new_fact }}"
+
+- name: Show a fact set in the previous play
+  hosts: managed_node1
+  gather_facts: false
+  tasks:
+    - name: Show the fact
+      ansible.builtin.debug:
+        msg: "{{ new_fact }}"

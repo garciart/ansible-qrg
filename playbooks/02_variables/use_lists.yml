@@ -1,0 +1,31 @@
+---
+# Set and show lists of variables
+# Usage: ansible-playbook use_lists.yml
+- name: Use lists
+  hosts: managed_node1
+  gather_facts: false
+  tasks:
+    - name: Set and show a list
+      vars:
+        moons:
+          - "Phobos"
+          - "Deimos"
+      ansible.builtin.debug:
+        msg:
+          - "{{ moons }}"
+          - "{{ moons[0] }} and {{ moons.1 }} are moons."
+
+    - name: Set and show a mixed list
+      vars:
+        mars:
+          - "Mars"
+          - 6792
+          - 24.7
+      ansible.builtin.debug:
+        msg:
+          - "{{ mars }}"
+          - "{{ mars[0] }} is {{ mars[1] }} km in diameter."
+          - One sol is {{ mars[2] }} Earth hours.
+...
+# code: language=ansible
+# vi: set noai nu ts=2 sw=2 sts=2 sta et:

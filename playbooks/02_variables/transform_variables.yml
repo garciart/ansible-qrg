@@ -1,0 +1,26 @@
+---
+# Transform variables using filters
+# https://jinja.palletsprojects.com/en/3.1.x/templates/#list-of-builtin-filters
+# Usage: ansible-playbook transform_variables.yml
+- name: Transform variables
+  hosts: managed_node1
+  gather_facts: false
+  tasks:
+    - name: Transform variables
+      vars:
+        greeting: "hello, world"
+      ansible.builtin.debug:
+        msg:
+          - "Original: {{ greeting }}"
+          - "Sentence Case: {{ greeting | capitalize }}"
+          - "Title Case: {{ greeting | title }}"
+          - "Uppercase: {{ greeting | upper }}"
+          - >-
+            Replace a Word:
+            {{ greeting | replace('hello', 'Yo') }}
+          - "Reverse Characters: {{ greeting | reverse }}"
+          - "Center: {{ greeting | center(40) }}"
+          - "Length: {{ greeting | length }} characters."
+...
+# code: language=ansible
+# vi: set noai nu ts=2 sw=2 sts=2 sta et:

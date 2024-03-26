@@ -1,0 +1,36 @@
+---
+# Use default values if variables are undefined or empty
+# Usage: ansible-playbook use_default_values.yml
+- name: Use default values
+  hosts: managed_node1
+  gather_facts: false
+  vars:
+    defined_var: "I am defined."
+    empty_var: ""
+  tasks:
+    - name: Show a defined variable
+      ansible.builtin.debug:
+        msg: "{{ defined_var }}"
+
+    - name: Use a default value if a variable is undefined
+      block:
+        - name: Try to show an undefined variable
+          ansible.builtin.debug:
+            msg: "{{ undefined_var }}"
+
+      rescue:
+        - name: Use a default value
+          ansible.builtin.debug:
+            msg: >-
+              {{ undefined_var | default('I am undefined!') }}
+
+    - name: Show an empty variable
+      ansible.builtin.debug:
+        msg: "{{ empty_var | default('I am empty!') }}"
+
+    - name: Use a default value if a variable is empty
+      ansible.builtin.debug:
+        msg: "{{ empty_var | default('I am empty!', true) }}"
+...
+# code: language=ansible
+# vi: set noai nu ts=2 sw=2 sts=2 sta et:

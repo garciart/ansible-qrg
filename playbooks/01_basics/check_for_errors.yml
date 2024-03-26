@@ -1,0 +1,12 @@
+---
+# Check for errors and styling issues
+# Usage: ansible-lint check_for_errors.yml
+- name: run a bad play
+  hosts: managed_node1
+  gather_facts: maybe
+  tasks:
+    - debug:
+        msg: "Hello, World!"
+...
+# code: language=ansible
+# vi: set noai nu ts=2 sw=2 sts=2 sta et:

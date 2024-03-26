@@ -1,0 +1,29 @@
+---
+# Target multiple nodes nodes in a playbook
+# Usage: ansible-playbook target_multiple_nodes.yml
+- name: Target a single node in a play
+  hosts: managed_node1
+  gather_facts: false
+  tasks:
+    - name: Say Hello
+      ansible.builtin.debug:
+        msg: "Hello from a node!"
+
+- name: Target a list of nodes in a play
+  hosts: control_node, managed_node1
+  gather_facts: false
+  tasks:
+    - name: Say Hello
+      ansible.builtin.debug:
+        msg: "Hello from a list of nodes!"
+
+- name: Target a group of nodes in a play
+  hosts: managed_nodes
+  gather_facts: false
+  tasks:
+    - name: Say Hello
+      ansible.builtin.debug:
+        msg: "Hello from a group of nodes!"
+...
+# code: language=ansible
+# vi: set noai nu ts=2 sw=2 sts=2 sta et:

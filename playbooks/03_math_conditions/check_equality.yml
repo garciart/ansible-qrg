@@ -1,0 +1,43 @@
+---
+# Check if values are equal
+# Usage: ansible-playbook check_equality.yml
+- name: Check equality
+  hosts: managed_node1
+  vars:
+    one: 1
+  gather_facts: false
+  tasks:
+    - name: Check if values are equal
+      ansible.builtin.debug:
+        msg:
+          - "1 == 1: {{ 1 == 1 }}"
+          - "1 == 0: {{ one == 0 }}"
+          - "1 == 1.0: {{ 1 == 1.0 }}"
+          - "1 == 0.0: {{ one == 0.0 }}"
+          - "1 == true: {{ 1 == true }}"
+          - "1 == false: {{ one == false }}"
+
+    - name: Check if values are not equal
+      ansible.builtin.debug:
+        msg:
+          - "1 != 1: {{ 1 != 1 }}"
+          - "1 != 0: {{ one != 0 }}"
+          - "1 != 1.0: {{ 1 != 1.0 }}"
+          - "1 != 0.0: {{ one != 0.0 }}"
+          - "1 != true: {{ 1 != true }}"
+          - "1 != false: {{ one != false }}"
+
+    - name: Check other relationships
+      ansible.builtin.debug:
+        msg:
+          - "1 > 1: {{ 1 > 1 }}"
+          - "1 > 0: {{ one > 0 }}"
+          - "1 < 1: {{ 1 < 1 }}"
+          - "1 < 0: {{ one < 0 }}"
+          - "1 >= 1: {{ 1 >= 1 }}"
+          - "1 >= 0: {{ one >= 0 }}"
+          - "1 <= 1: {{ 1 <= 1 }}"
+          - "1 <= 0: {{ one <= 0 }}"
+...
+# code: language=ansible
+# vi: set noai nu ts=2 sw=2 sts=2 sta et:
