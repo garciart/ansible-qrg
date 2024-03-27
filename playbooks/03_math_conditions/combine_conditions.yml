@@ -1,9 +1,16 @@
 ---
-# This playbook checks multiple conditions before displaying a message or running a task
-# Usage: ansible-playbook use_logical_ops.yml
-- name: Check multiple conditions
+# Check for multiple conditions before running a task
+# Usage: ansible-playbook combine_conditions.yml
+- name: Combine conditions
   hosts: managed_node1
   gather_facts: false
+  vars:
+    planet: "Mars"
+    rocky:
+      - Mercury
+      - Venus
+      - Earth
+      - Mars
   tasks:
     - name: Display a message if all conditions are met
       ansible.builtin.debug:

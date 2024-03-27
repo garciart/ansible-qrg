@@ -1,39 +1,48 @@
 ---
-# This playbook uses conditionals to display a message or run a task
+# Uses conditionals to run a task
 # Usage: ansible-playbook use_conditionals.yml
 - name: Use conditionals
   hosts: managed_node1
   gather_facts: false
+  vars:
+    planet: "Mars"
+    rocky:
+      - Mercury
+      - Venus
+      - Earth
+      - Mars
   tasks:
-    - name: Display messages based on a condition (if)
+    - name: Show message based on a condition (if)
       ansible.builtin.debug:
         msg:
-          - "{{ '8 equals 8' if 8 == 8 }}"
-          - "{{ '8 equals 3' if 8 == 3 }}"
+          - "{{ 'Mars' if planet == 'Mars' }}"
+          - "{{ 'Rocky' if 'Mars' in rocky }}"
 
-    - name: Display an alternate message based on a condition (if-else)
+    - name: Show alternate message (if-else)
       ansible.builtin.debug:
         msg:
-          - "{{ '8 equals 8' if 8 == 8 else '8 does not equal 8' }}"
-          - "{{ '8 equals 3' if 8 == 3 else '8 does not equal 3' }}"
+          - "{{ 'Mars' if planet == 'Mars' else 'Earth' }}"
+          - "{{ 'Rocky' if 'Mars' in rocky else 'Gas' }}"
 
-    - name: Display an alternate message based on a condition (ternary filter)
+    - name: Show alternate message (ternary filter)
       ansible.builtin.debug:
         msg:
-          - "{{ (8 == 8) is true | ternary('8 equals 8', '8 does not equal 8') }}"
-          - "{{ (8 == 3) is true | ternary('8 equals 3', '8 does not equal 3') }}"
+          - >-
+            {{ (planet == 'Mars') is true | ternary('Mars',
+            'Earth') }}
+          - >-
+            {{ ('Mars' in rocky) is false | ternary('Gas',
+            'Rocky') }}
 
     - name: Perform a task if a condition is met (when)
       ansible.builtin.debug:
-        msg:
-          - "{{ '8 equals 8' }}"
-      when: 8 == 8
+        msg: "Welcome to Mars!"
+      when: planet == 'Mars'
 
     - name: Skip a task if a condition is not met (when)
       ansible.builtin.debug:
-        msg:
-          - "{{ '8 equals 3' }}"
-      when: 8 == 3
+        msg: "Mars is a gas giant."
+      when: "'Mars' not in rocky"
 ...
 # code: language=ansible
 # vi: set noai nu ts=2 sw=2 sts=2 sta et:

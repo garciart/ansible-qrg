@@ -1,5 +1,6 @@
 ---
 # Test variables against a common expression
+# https://jinja.palletsprojects.com/en/3.1.x/templates/#list-of-builtin-tests
 # Usage: ansible-playbook test_variables.yml
 - name: Test variables
   hosts: managed_node1
@@ -13,53 +14,32 @@
       - "Phobos"
       - "Deimos"
   tasks:
-    - name: Is and Is Not
+    - name: Test for type
       ansible.builtin.debug:
         msg:
-          - "'Mars' is a string: {{ planet is string }}"
-          - "'Mars' is an integer: {{ planet is integer }}"
-          - "'Mars' is not an integer: {{ planet is not integer }}"
+          - "'Mars' is str: {{ planet is string }}"
+          - "'Mars' is int: {{ planet is integer }}"
+          - "'Mars' is not int: {{ planet is not integer }}"
 
-    - name: In
+    - name: Test for content
       ansible.builtin.debug:
         msg:
-          - "'Mars' has an 'r': {{ 'r' in planet }}"
-          - "'Mars' has a 't': {{ 't' in planet }}"
-          - "'Mars' does not have a 't': {{ 't' not in planet }}"
-          - "Phobos is a Martian moon: {{ 'Phobos' in moons }}"
+          - "'r' in 'Mars': {{ 'r' in planet }}"
+          - "'t' in 'Mars': {{ 't' in planet }}"
+          - "No 't' in 'Mars': {{ 't' not in planet }}"
+          - >-
+            Phobos is a Martian moon: {{ 'Phobos' in moons }}
           - "Titan is a Martian moon: {{ 'Titan' in moons }}"
-          - "Titan is not a Martian moon: {{ 'Titan' not in moons }}"
+          - >-
+            Titan is not a Martian moon:
+            {{ 'Titan' not in moons }}
 
-    - name: Check if values are identical
+    - name: Perform other tests
       ansible.builtin.debug:
         msg:
-          # 1 is an integer, not a boolean, so this is false
-          - "1 is true: {{ 1 is true }}"
-          - "true is true: {{ true is true }}"
-          # 'is' has a higher precedence than '==' (i.e., 1 == (1 is true)),
-          # so '1 is true', which is 'false', is not an integer or '1'
-          - "This is bad code: 1 == 1 is true: {{ 1 == 1 is true }}"
-          # Parenthesis have a higher precedence than 'is'
-          - "This is good code: (1 == 1) is true: {{ (1 == 1) is true }}"
-          - "This is good code: (1 == 1) is false: {{ (1 == 1) is false }}"
-
-    - name: Check if values are not identical
-      ansible.builtin.debug:
-        msg:
-          - "1 is not true: {{ 1 is not true }}"
-          - "true is not true: {{ true is not true }}"
-          - "This is bad code: 1 == 1 is not true: {{ 1 == 1 is not true }}"
-          - "This is good code: (1 == 1) is not true: {{ (1 == 1) is not true }}"
-          - "This is good code: (1 == 1) is not false: {{ (1 == 1) is not false }}"
-
-    - name: Check value identity using tests
-      # https://jinja.palletsprojects.com/en/3.1.x/templates/#list-of-builtin-tests
-      ansible.builtin.debug:
-        msg:
-          - "1 is a number: {{ 1 is number }}"
-          - "1 is an integer: {{ 1 is integer }}"
-          - "1 is a float: {{ 1 is float }}"
-          - "1 is a boolean: {{ 1 is boolean }}"
+          - "6792 is even: {{ diameter is even }}"
+          - "24.7 is float: {{ hours_per_day is float }}"
+          - "Mars had rings: {{ rings is true }}"
 ...
 # code: language=ansible
 # vi: set noai nu ts=2 sw=2 sts=2 sta et:
