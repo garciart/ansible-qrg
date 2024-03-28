@@ -6,41 +6,31 @@
   gather_facts: false
   vars:
     planet: "Mars"
-    rocky:
-      - Mercury
-      - Venus
-      - Earth
-      - Mars
+    moons:
+      - Phobos
+      - Deimos
   tasks:
     - name: Show a message if all conditions are met
       ansible.builtin.debug:
-        msg:
-          - >-
-            {{ 'Hi!' if planet == 'Mars' and
-            'Mars' in rocky }}
-          - >-
-            {{ ('Yo!' if planet == 'Earth' and
-            'Earth' in rocky) | default('Not!') }}
+        msg: >-
+          {{ 'Hi!' if planet == 'Mars' and
+          'Phobos' in moons }}
 
     - name: Show a message if any condition is met
       ansible.builtin.debug:
-        msg:
-          - >-
-            {{ 'Welcome to Mars!' if planet == 'Mars' or
-            'Mars' in rocky }}
-          - >-
-            {{ 'Welcome to Earth!' if planet == 'Earth' or
-            'Earth' in rocky }}
+        msg: >-
+          {{ 'Welcome to Mars!' if planet == 'Mars' or
+          'Phobos' in moons }}
 
     - name: Perform a task if all conditions are met
       ansible.builtin.debug:
         msg: "Both conditions met!"
-      when: planet == 'Mars' and 'Mars' in rocky
+      when: planet == 'Mars' and 'Phobos' in moons
 
     - name: Perform a task if any condition is met
       ansible.builtin.debug:
-        msg: "One condition met!"
-      when: planet == 'Earth' or 'Earth' in rocky
+        msg: "One or more conditions met!"
+      when: planet == 'Mars' or 'Phobos' in moons
 ...
 # code: language=ansible
 # vi: set noai nu ts=2 sw=2 sts=2 sta et:

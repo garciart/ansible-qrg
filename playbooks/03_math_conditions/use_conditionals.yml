@@ -6,43 +6,32 @@
   gather_facts: false
   vars:
     planet: "Mars"
-    rocky:
-      - Mercury
-      - Venus
-      - Earth
-      - Mars
   tasks:
     - name: Show message based on a condition (if)
       ansible.builtin.debug:
-        msg:
-          - "{{ 'Mars' if planet == 'Mars' }}"
-          - "{{ 'Rocky' if 'Mars' in rocky }}"
+        msg: "{{ 'Hi!' if planet == 'Mars' }}"
 
     - name: Show alternate message (if-else)
       ansible.builtin.debug:
-        msg:
-          - "{{ 'Mars' if planet == 'Mars' else 'Earth' }}"
-          - "{{ 'Rocky' if 'Mars' in rocky else 'Gas' }}"
+        msg: >-
+          {{ 'Welcome to Mars!' if planet == 'Mars' else
+          'Welcome to Earth!' }}
 
     - name: Show alternate message (ternary filter)
       ansible.builtin.debug:
-        msg:
-          - >-
-            {{ (planet == 'Mars') is true | ternary('Mars',
-            'Earth') }}
-          - >-
-            {{ ('Mars' in rocky) is false | ternary('Gas',
-            'Rocky') }}
+        msg: >-
+          {{ (planet == 'Mars') is true |
+          ternary('Welcome to Mars!', 'Welcome to Earth!') }}
 
     - name: Perform a task if a condition is met (when)
       ansible.builtin.debug:
-        msg: "Welcome to Mars!"
+        msg: "Condition met!"
       when: planet == 'Mars'
 
     - name: Skip a task if a condition is not met (when)
       ansible.builtin.debug:
-        msg: "Mars is a gas giant."
-      when: "'Mars' not in rocky"
+        msg: "Condition not met!"
+      when: planet == 'Earth'
 ...
 # code: language=ansible
 # vi: set noai nu ts=2 sw=2 sts=2 sta et:
