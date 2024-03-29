@@ -27,10 +27,20 @@
         msg: "Both conditions met!"
       when: planet == 'Mars' and 'Phobos' in moons
 
+    - name: Skip a task if all conditions are not met
+      ansible.builtin.debug:
+        msg: "All conditions not met!"
+      when: planet == 'Earth' and 'Phobos' in moons
+
     - name: Perform a task if any condition is met
       ansible.builtin.debug:
         msg: "One or more conditions met!"
       when: planet == 'Mars' or 'Phobos' in moons
+
+    - name: Skip a task if a no conditions are met
+      ansible.builtin.debug:
+        msg: "No conditions met!"
+      when: planet == 'Earth' and 'Phobos' in moons
 ...
 # code: language=ansible
 # vi: set noai nu ts=2 sw=2 sts=2 sta et:

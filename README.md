@@ -50,7 +50,7 @@ Link to [reserved keywords list](/reserved_keywords.md).
 - [test_variables.yml](/playbooks/03_math_conditions/test_variables.yml)
 - [use_conditionals.yml](/playbooks/03_math_conditions/use_conditionals.yml)
 - [combine_conditions.yml](/playbooks/03_math_conditions/combine_conditions.yml)
-- [check_null_or_empty.yml](/playbooks/03_math_conditions/check_null_or_empty.yml)
+- [validate_vars.yml](/playbooks/03_math_conditions/validate_vars.yml)
 
 ### Debugging
 

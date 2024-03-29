@@ -1,0 +1,67 @@
+---
+# Check if a variable is undefined, null, or empty
+# Usage: ansible-playbook validate_vars.yml
+- name: Validate variables
+  hosts: managed_node1
+  gather_facts: false
+  vars:
+    null_var: null
+    empty_var: "   "
+    not_empty_var: "a  "
+  tasks:
+    - name: Check if a variable is defined
+      block:
+        - name: Check if a variable is defined
+          ansible.builtin.assert:
+            that: "{{ undef_var is defined }}"
+            success_msg: "undef_var is defined."
+            fail_msg: "undef_var is not defined."
+      rescue:
+        - name: Show an error message
+          ansible.builtin.debug:
+            msg: "That variable is undefined!"
+
+
+    - name: Check if a variable is null
+      block:
+        - name: Check if a variable is null
+          ansible.builtin.assert:
+            that: "{{ null_var != None }}"
+            success_msg: "null_var is not null."
+            fail_msg: "null_var is null."
+      rescue:
+        - name: Show an error message
+          ansible.builtin.debug:
+            msg: "That variable is null!"
+
+    - name: Check if a variable is empty
+      # This method always works
+      block:
+        - name: Check if a variable is empty
+          ansible.builtin.assert:
+            # Trim before checking and do not compare to an empty string
+            # See https://ansible.readthedocs.io/projects/lint/rules/empty-string-compare/
+            that: "{{ empty_var | trim | length != 0 }}"
+            success_msg: "empty_var is not empty."
+            fail_msg: "empty_var is empty."
+      rescue:
+        - name: Show an error message
+          ansible.builtin.debug:
+            msg: "That variable is empty!"
+
+    - name: Do not run if var is undefined, null, or empty
+      ansible.builtin.debug:
+        msg: "Hello, World!"
+      # Always check if the variable is defined first
+      when: >-
+        undef_var is defined and undef_var != None and
+        undef_var | trim | length != 0
+
+    - name: Display a default value if a var is undefined
+      ansible.builtin.debug:
+        msg: >-
+          This variable is undefined; using the
+          default value of {{ undef_var | default(8) }}.
+...
+# code: language=ansible
+# vi: set noai nu ts=2 sw=2 sts=2 sta et:
