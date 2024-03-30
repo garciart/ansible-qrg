@@ -1,11 +1,11 @@
 ---
-# This playbook demonstrates the order of operations in Ansible
+# Demonstrate the order of operations
 # Usage: ansible-playbook demo_order_of_ops.yml
 - name: Demonstrate the order of operations
   hosts: managed_node1
   gather_facts: false
   tasks:
-    - name: Order of operations using constants and variables
+    - name: Show results of calculations
       vars:
         two: 2
         three: 3

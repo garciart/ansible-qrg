@@ -1,8 +1,8 @@
 ---
 # Get and show command line variables
 # Usage:
-#   ansible-playbook use_cmd_line_vars.yml \
-#     --extra-vars= "planet='Mars' rings=false"
+# ansible-playbook use_cmd_line_vars.yml \
+#   --extra-vars= "planet='Mars' rings=false"
 - name: Use command line variables
   hosts: managed_node1
   gather_facts: false

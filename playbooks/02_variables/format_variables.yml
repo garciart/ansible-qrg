@@ -1,5 +1,5 @@
 ---
-# Format variable output using filters
+# Format output using filters
 # https://cplusplus.com/reference/cstdio/printf/
 # Usage: ansible-playbook format_variables.yml
 - name: Format variables

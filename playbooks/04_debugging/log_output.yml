@@ -1,9 +1,9 @@
 ---
-# Use this playbook to log the output of a play
+# Log the output of a play
 # Do not forget to enable logging in ansible.cfg
 # Usage:
-#   - ansible-playbook log_output.yml
-#   - ansible-playbook log_output.yml -v
+# ansible-playbook log_output.yml
+# ansible-playbook log_output.yml -v
 - name: Log output
   hosts: managed_node1
   gather_facts: false

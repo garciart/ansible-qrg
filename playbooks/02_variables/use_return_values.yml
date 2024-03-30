@@ -1,5 +1,5 @@
 ---
-# Capture and show the return values of a task
+# Get and show the return values of a task
 # Usage: ansible-playbook use_return_values.yml
 - name: Use return values
   hosts: managed_node1

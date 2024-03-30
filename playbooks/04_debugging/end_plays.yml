@@ -1,7 +1,7 @@
 ---
-# This playbook ends a play is a condition is met
-# Usage: ansible-playbook end_a_play.yml
-- name: End a play if a condition is not met
+# End a play is a condition is met
+# Usage: ansible-playbook end_plays.yml
+- name: End plays
   hosts: managed_node1
   gather_facts: false
   tasks:

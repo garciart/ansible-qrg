@@ -1,5 +1,5 @@
 ---
-# Check for multiple conditions before running a task
+# Check for multiple conditions in a task
 # Usage: ansible-playbook combine_conditions.yml
 - name: Combine conditions
   hosts: managed_node1

@@ -1,5 +1,5 @@
 ---
-# Gather and show special variables and facts
+# Get and show special variables and facts
 # Usage: ansible-playbook use_special_vars.yml
 - name: Use special variables
   hosts: managed_node1

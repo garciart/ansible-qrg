@@ -1,5 +1,5 @@
 ---
-# This playbook gets user input
+# Get and show user input
 # Usage: ansible-playbook get_user_input.yml
 - name: Get user input
   hosts: managed_node1

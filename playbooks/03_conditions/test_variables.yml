@@ -1,5 +1,5 @@
 ---
-# Test variables against a common expression
+# Test if an expression is true or false
 # https://jinja.palletsprojects.com/en/3.1.x/templates/#list-of-builtin-tests
 # Usage: ansible-playbook test_variables.yml
 - name: Test variables

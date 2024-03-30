@@ -1,8 +1,8 @@
 ---
 # Demonstrate variable scope in a playbook
 # Usage:
-#   ansible-playbook demo_var_scope.yml -e \
-#     "cmd_line_var='I am a command line variable.'"
+# ansible-playbook demo_var_scope.yml -e \
+#   "cmd_line_var='I am a command line variable.'"
 - name: Demonstrate variable scope
   hosts: managed_node1
   gather_facts: false

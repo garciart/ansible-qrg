@@ -1,11 +1,11 @@
 ---
 # Limit output using the verbosity parameter
 # Usage:
-#   - ansible-playbook use_verbosity.yml
-#   - ansible-playbook use_verbosity.yml -v
-#   - ansible-playbook use_verbosity.yml -vv
-#   - ansible-playbook use_verbosity.yml -vvv
-- name: Use verbosity to limit debug output
+# ansible-playbook use_verbosity.yml
+# ansible-playbook use_verbosity.yml -v
+# ansible-playbook use_verbosity.yml -vv
+# ansible-playbook use_verbosity.yml -vvv
+- name: Use verbosity
   hosts: managed_node1
   gather_facts: false
   tasks:

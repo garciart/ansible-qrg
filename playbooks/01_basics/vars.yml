@@ -1,9 +1,9 @@
 ---
 # Initialize different data types used by Ansible
 # Usage:
-# ansible localhost --module-name ansible.builtin.debug /
+# ansible localhost --module-name ansible.builtin.debug \
 #   --args "var=planet" --extra-vars "@vars.yml"
-# ansible localhost -m debug -a "var=[planet,diameter]" /
+# ansible localhost -m debug -a "var=[planet,diameter]" \
 #   -e "@vars.yml"
 
 # Different types of scalar variables

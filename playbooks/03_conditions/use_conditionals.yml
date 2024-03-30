@@ -1,5 +1,5 @@
 ---
-# Uses conditionals to run a task
+# Check for a condition in a task
 # Usage: ansible-playbook use_conditionals.yml
 - name: Use conditionals
   hosts: managed_node1
