@@ -57,7 +57,7 @@
         undef_var is defined and undef_var != None and
         undef_var | trim | length != 0
 
-    - name: Display a default value if a var is undefined
+    - name: Show a default value if a var is undefined
       ansible.builtin.debug:
         msg: >-
           This variable is undefined; using the

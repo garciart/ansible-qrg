@@ -41,6 +41,7 @@ Link to [reserved keywords list](/reserved_keywords.md).
 - [transform_variables.yml](/playbooks/02_variables/transform_variables.yml "Transform variables using filters")
 - [concat_variables.yml](/playbooks/02_variables/concat_variables.yml "Concatenate different types of variables")
 - [slice_variables.yml](/playbooks/02_variables/slice_variables.yml "Show parts of a variable using slicing")
+- [use_special_chars.yml](/playbooks/02_variables/use_special_chars.yml "Use reserved and special characters")
 
 ### Conditions
 
@@ -71,3 +72,9 @@ Link to [reserved keywords list](/reserved_keywords.md).
 - [loop_dicts](/playbooks/05_loops/loop_dicts.yml "Loop over a dictionary")
 - [loop_list_dicts](/playbooks/05_loops/loop_list_dicts.yml "Loop over a list of dictionaries")
 - [loop_nested](/playbooks/05_loops/loop_nested.yml "Loop over nested lists")
+- [loop_until](/playbooks/05_loops/loop_until.yml "Loop until a condition is met")
+
+### File Operations
+
+- [include_files.yml](/playbooks/06_file_operations/include_files.yml "Access data in YAML files")
+- [create_directory.yml](/playbooks/06_file_operations/create_directory.yml "Create a subdirectory in the current working directory")

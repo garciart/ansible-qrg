@@ -1,0 +1,58 @@
+---
+# Use reserved and special characters
+# Usage: ansible-playbook use_special_chars.yml
+- name: Use reserved and special characters
+  hosts: managed_node1
+  gather_facts: false
+  tasks:
+    - name: Use anchors, aliases, tags, and block mapping
+      vars:
+        # Ampersands (&) prefix anchors used for a values
+        moon: &PH "Phobos"
+        # Asterisks (*) prefix aliases referring to values
+        list_of_moons: [*PH, 'Deimos']
+        # Double exclamations marks (!!) prefix
+        # type indicator tags
+        diameter: !!int 6792
+        # Question marks (?) prefix mapping keys in
+        # block mapping
+        ? planet
+        # Colons (:) prefix mapping values in block mapping
+        : "Mars"
+      ansible.builtin.debug:
+        msg:
+          - "{{ planet }} is {{ diameter }} km in diameter."
+          - "Its moons are {{ list_of_moons }}"
+          # You cannot use anchors in a template
+          - "{{ moon }} is the largest moon."
+
+    - name: Use double and single quotes in a string
+      ansible.builtin.debug:
+        msg:
+          - "Mars's nickname is \"The Red Planet\"."
+          - 'Mars''s nickname is "The Red Planet".'
+
+    - name: Show a string with special characters using msg
+      ansible.builtin.debug:
+        # msg implicitly encloses strings in quotes
+        msg: Hello, World!
+
+    - name: Show strings with a special characters using var
+      block:
+        - name: Try to show a string with a comma
+          ansible.builtin.debug:
+            # var thinks the string is a list and tries
+            # to show the values of Hello and World
+            var: Hello, World
+
+        - name: Try to show a string with an exclamation
+          ansible.builtin.debug:
+            # var tries to show the values of Hello and
+            # World, but fails at the start of a tag (!)
+            var: Hello, World!
+      rescue:
+        - name: Show the string correctly
+          vars:
+            greeting: "Hello, World!"
+          ansible.builtin.debug:
+            var: greeting
