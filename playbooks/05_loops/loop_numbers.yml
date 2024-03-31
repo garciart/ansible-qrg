@@ -1,0 +1,23 @@
+---
+# Loop over a range of numbers in reverse
+# Usage: ansible-playbook loop_numbers.yml
+- name: Loop over numbers
+  hosts: managed_node1
+  gather_facts: false
+  tasks:
+    - name: Loop numbers using loop and range
+      ansible.builtin.debug:
+        msg: >-
+          {{ 'T-minus ' ~ item if (item | int) > 0 else
+          'Lift-Off!' }}
+      loop: "{{ range(5, -1, -1) }}"
+
+    - name: Loop numbers using with_sequence
+      ansible.builtin.debug:
+        msg: >-
+          {{ 'T-minus ' ~ item if (item | int) > 0 else
+          'Lift-Off!' }}
+      with_sequence: start=5 end=-1 stride=-1
+...
+# code: language=ansible
+# vi: set noai nu ts=2 sw=2 sts=2 sta et:

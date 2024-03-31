@@ -1,0 +1,30 @@
+---
+# Loop over a list of items
+# Usage: ansible-playbook loop_lists.yml
+- name: Loop over lists
+  hosts: managed_node1
+  gather_facts: false
+  vars:
+    moons:
+      - "Phobos"
+      - "Deimos"
+  tasks:
+    - name: Loop over a list of items directly
+      ansible.builtin.debug:
+        msg: "{{ item }} is a moon."
+      loop:
+        - "Phobos"
+        - "Deimos"
+
+    - name: Loop over a list using loop
+      ansible.builtin.debug:
+        msg: "{{ item }} is a moon."
+      loop: "{{ moons }}"
+
+    - name: Loop over a list using with_items
+      ansible.builtin.debug:
+        msg: "{{ item }} is a moon."
+      with_items: "{{ moons }}"
+...
+# code: language=ansible
+# vi: set noai nu ts=2 sw=2 sts=2 sta et:

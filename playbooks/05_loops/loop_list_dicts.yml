@@ -1,0 +1,41 @@
+---
+# Loop over a list of dictionaries
+# Usage: ansible-playbook loop_list_dicts.yml
+- name: Loop over lists of dictionaries
+  hosts: managed_node1
+  gather_facts: false
+  vars:
+    planets:
+      - planet: "Earth"
+        diameter: 12756
+      - planet: "Mars"
+        diameter: 6792
+  tasks:
+    - name: Loop over a list of dictionaries directly
+      ansible.builtin.debug:
+        msg: >-
+          {{ item.planet }} is {{ item.diameter }} km
+          in diameter.
+      loop:
+        - planet: "Earth"
+          diameter: 12756
+        - planet: "Mars"
+          diameter: 6792
+
+    - name: Loop over a list of dictionaries using loop
+      ansible.builtin.debug:
+        msg: >-
+          {{ item.planet }} is {{ item.diameter }} km
+          in diameter.
+      loop: "{{ planets }}"
+
+    - name: Loop over a list of dictionaries using with_items
+      ansible.builtin.debug:
+        msg: >-
+          {{ item.planet }} is {{ item.diameter }} km
+          in diameter.
+      with_items: "{{ planets }}"
+
+...
+# code: language=ansible
+# vi: set noai nu ts=2 sw=2 sts=2 sta et:

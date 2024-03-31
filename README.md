@@ -29,6 +29,7 @@ Link to [reserved keywords list](/reserved_keywords.md).
 - [use_multiple_vars.yml](/playbooks/02_variables/use_multiple_vars.yml "Set and show different types of scalar variables")
 - [use_lists.yml](/playbooks/02_variables/use_lists.yml "Set and show lists of variables")
 - [use_dicts.yml](/playbooks/02_variables/use_dicts.yml "Set and show dictionaries of variables")
+- [use_list_dicts.yml](/playbooks/02_variables/use_list_dicts.yml "Set and show a list of dictionaries")
 - [get_var_type.yml](/playbooks/02_variables/get_var_type.yml "Show variables and their types")
 - [use_return_values.yml](/playbooks/02_variables/use_return_values.yml "Get and show the return values of a task")
 - [use_special_vars.yml](/playbooks/02_variables/use_special_vars.yml "Get and show special variables and facts")
@@ -62,3 +63,11 @@ Link to [reserved keywords list](/reserved_keywords.md).
 - [run_select_tasks.yml](/playbooks/04_debugging/run_select_tasks.yml "Run or skip tasks based on command line arguments")
 - [debug_plays.yml](/playbooks/04_debugging/debug_plays.yml "Debug a play using the Ansible debugger")
 - [end_plays.yml](/playbooks/04_debugging/end_plays.yml "End a play is a condition is met")
+
+### Loops
+
+- [loop_numbers](/playbooks/05_loops/loop_numbers.yml "Loop over a range of numbers in reverse")
+- [loop_lists](/playbooks/05_loops/loop_lists.yml "Loop over a list of items")
+- [loop_dicts](/playbooks/05_loops/loop_dicts.yml "Loop over a dictionary")
+- [loop_list_dicts](/playbooks/05_loops/loop_list_dicts.yml "Loop over a list of dictionaries")
+- [loop_nested](/playbooks/05_loops/loop_nested.yml "Loop over nested lists")
