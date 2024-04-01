@@ -7,7 +7,7 @@
   tasks:
     - name: Create a directory
       ansible.builtin.file:
-        path: demo
+        path: demo_dir
         state: directory
         # Allow directory traversal
         mode: '0755'

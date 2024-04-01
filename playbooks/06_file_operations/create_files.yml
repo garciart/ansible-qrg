@@ -1,0 +1,26 @@
+---
+# Create files
+# Usage: ansible-playbook create_files.yml
+- name: Ensure directory exists
+  ansible.builtin.import_playbook: create_directory.yml
+
+- name: Create files
+  hosts: managed_node1
+  gather_facts: false
+  tasks:
+    - name: Create an empty file
+      ansible.builtin.file:
+        path: demo_dir/empty_file.txt
+        state: touch
+        # Allow read and write
+        mode: '0644'
+
+    - name: Create a file with content
+      ansible.builtin.copy:
+        dest: demo_dir/file_with_content.txt
+        # Allow read and write
+        mode: '0644'
+        content: "Hello, World!"
+...
+# code: language=ansible
+# vi: set noai nu ts=2 sw=2 sts=2 sta et:

@@ -1,0 +1,38 @@
+---
+# Read the contents of files
+# Usage: ansible-playbook read_files.yml
+- name: Ensure directory exists
+  ansible.builtin.import_playbook: create_directory.yml
+
+- name: Ensure files exist
+  ansible.builtin.import_playbook: create_files.yml
+
+- name: Read files
+  hosts: managed_node1
+  gather_facts: false
+  tasks:
+    - name: Read and show the contents of a file - Method 1
+      ansible.builtin.debug:
+        msg: >-
+          {{ lookup('ansible.builtin.file',
+          'demo_dir/file_with_content.txt') }}
+
+    - name: Read and show the contents of a file - Method 2
+      # Can be used for multiple files
+      ansible.builtin.debug:
+        msg: "{{ item }}"
+      with_file:
+        - demo_dir/file_with_content.txt
+
+    - name: Read and store the contents of a file
+      ansible.builtin.set_fact:
+        file_contents: >-
+          {{ lookup('ansible.builtin.file',
+          'demo_dir/file_with_content.txt') }}
+
+    - name: Show the contents of the variable
+      ansible.builtin.debug:
+        var: file_contents
+...
+# code: language=ansible
+# vi: set noai nu ts=2 sw=2 sts=2 sta et:
