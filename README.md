@@ -67,14 +67,16 @@ Link to [reserved keywords list](/reserved_keywords.md).
 
 ### Loops
 
-- [loop_numbers](/playbooks/05_loops/loop_numbers.yml "Loop over a range of numbers in reverse")
-- [loop_lists](/playbooks/05_loops/loop_lists.yml "Loop over a list of items")
-- [loop_dicts](/playbooks/05_loops/loop_dicts.yml "Loop over a dictionary")
-- [loop_list_dicts](/playbooks/05_loops/loop_list_dicts.yml "Loop over a list of dictionaries")
-- [loop_nested](/playbooks/05_loops/loop_nested.yml "Loop over nested lists")
-- [loop_until](/playbooks/05_loops/loop_until.yml "Loop until a condition is met")
+- [loop_numbers.yml](/playbooks/05_loops/loop_numbers.yml "Loop over a range of numbers in reverse")
+- [loop_lists.yml](/playbooks/05_loops/loop_lists.yml "Loop over a list of items")
+- [loop_dicts.yml](/playbooks/05_loops/loop_dicts.yml "Loop over a dictionary")
+- [loop_list_dicts.yml](/playbooks/05_loops/loop_list_dicts.yml "Loop over a list of dictionaries")
+- [loop_nested.yml](/playbooks/05_loops/loop_nested.yml "Loop over nested lists")
+- [loop_until.yml](/playbooks/05_loops/loop_until.yml "Loop until a condition is met")
+- [show_loop_index.yml](/playbooks/05_loops/show_loop_index.yml "Show loop index with loop_control")
 
 ### File Operations
 
 - [include_files.yml](/playbooks/06_file_operations/include_files.yml "Access data in YAML files")
 - [create_directory.yml](/playbooks/06_file_operations/create_directory.yml "Create a subdirectory in the current working directory")
+- [create_files.yml](/playbooks/06_file_operations/create_files.yml "Create files")

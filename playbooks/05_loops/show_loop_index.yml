@@ -1,0 +1,29 @@
+---
+# Show loop index with loop_control
+# Usage: ansible-playbook control_loops.yml
+- name: Show loop index
+  hosts: managed_node1
+  gather_facts: false
+  vars:
+    planets:
+      - "Mercury"
+      - "Venus"
+      - "Earth"
+      - "Mars"
+  tasks:
+    - name: Show item index (Method 1)
+      ansible.builtin.debug:
+        msg: "{{ (idx | int) + 1 }}: {{ item }}"
+      loop: "{{ planets }}"
+      loop_control:
+        index_var: idx
+
+    - name: Show item index (Method 2)
+      ansible.builtin.debug:
+        msg: "{{ ansible_loop.index }}: {{ item }}"
+      loop: "{{ planets }}"
+      loop_control:
+        extended: true
+...
+# code: language=ansible
+# vi: set noai nu ts=2 sw=2 sts=2 sta et:
