@@ -13,9 +13,8 @@
   tasks:
     - name: Loop over a list of dictionaries directly
       ansible.builtin.debug:
-        msg: >-
-          {{ item.planet }} is {{ item.diameter }} km
-          in diameter.
+        msg: "{{ item.planet }} is {{ item.diameter }} km
+          in diameter."
       loop:
         - planet: "Earth"
           diameter: 12756
@@ -24,18 +23,15 @@
 
     - name: Loop over a list of dictionaries using loop
       ansible.builtin.debug:
-        msg: >-
-          {{ item.planet }} is {{ item.diameter }} km
-          in diameter.
+        msg: "{{ item.planet }} is {{ item.diameter }} km
+          in diameter."
       loop: "{{ planets }}"
 
     - name: Loop over a list of dictionaries using with_items
       ansible.builtin.debug:
-        msg: >-
-          {{ item.planet }} is {{ item.diameter }} km
-          in diameter.
+        msg: "{{ item.planet }} is {{ item.diameter }} km
+          in diameter."
       with_items: "{{ planets }}"
-
 ...
 # code: language=ansible
 # vi: set noai nu ts=2 sw=2 sts=2 sta et:

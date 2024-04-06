@@ -15,9 +15,8 @@
           - "Sentence Case: {{ greeting | capitalize }}"
           - "Title Case: {{ greeting | title }}"
           - "Uppercase: {{ greeting | upper }}"
-          - >-
-            Replace a Word:
-            {{ greeting | replace('hello', 'Yo') }}
+          - "Replace a Word: {{ greeting | replace('hello',
+            'Yo') }}"
           - "Reverse Characters: {{ greeting | reverse }}"
           - "Center: {{ greeting | center(40) }}"
           - "Length: {{ greeting | length }} characters."

@@ -14,12 +14,10 @@
       ansible.builtin.debug:
         msg:
           - "{{ mars }}"
-          - >-
-            {{ mars['planet'] }} is
-            {{ mars.diameter }} km in diameter.
-          - >-
-            One sol is {{ mars['hours_per_day'] }}
-            Earth hours.
+          - "{{ mars['planet'] }} is {{ mars.diameter }} km
+            in diameter."
+          - "One sol is {{ mars['hours_per_day'] }} Earth
+            hours."
 ...
 # code: language=ansible
 # vi: set noai nu ts=2 sw=2 sts=2 sta et:

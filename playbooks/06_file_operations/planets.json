@@ -1,0 +1,86 @@
+{
+    "planets": [
+        {
+            "planet": "Mercury",
+            "diameter": 4879,
+            "hours_per_day": 4222.6,
+            "rings": false,
+            "moons": null
+        },
+        {
+            "planet": "Venus",
+            "diameter": 12104,
+            "hours_per_day": 2802,
+            "rings": false,
+            "moons": null
+        },
+        {
+            "planet": "Earth",
+            "diameter": 12756,
+            "hours_per_day": 24,
+            "rings": false,
+            "moons": [
+                "Moon"
+            ]
+        },
+        {
+            "planet": "Mars",
+            "diameter": 6792,
+            "hours_per_day": 24.7,
+            "rings": false,
+            "moons": [
+                "Phobos",
+                "Deimos"
+            ]
+        },
+        {
+            "planet": "Jupiter",
+            "diameter": 142984,
+            "hours_per_day": 9.9,
+            "rings": true,
+            "moons": [
+                "Ganymede",
+                "Callisto",
+                "Europa",
+                "Io"
+            ]
+        },
+        {
+            "planet": "Saturn",
+            "diameter": 120536,
+            "hours_per_day": 10.7,
+            "rings": true,
+            "moons": [
+                "Titan",
+                "Rhea",
+                "Iapetus",
+                "Dione",
+                "Tethys",
+                "Enceladus",
+                "Mimas"
+            ]
+        },
+        {
+            "planet": "Uranus",
+            "diameter": 51118,
+            "hours_per_day": 17.2,
+            "rings": true,
+            "moons": [
+                "Titania",
+                "Oberon",
+                "Umbriel",
+                "Ariel",
+                "Miranda"
+            ]
+        },
+        {
+            "planet": "Neptune",
+            "diameter": 49528,
+            "hours_per_day": 16.1,
+            "rings": true,
+            "moons": [
+                "Triton"
+            ]
+        }
+    ]
+}

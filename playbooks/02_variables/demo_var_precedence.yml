@@ -14,9 +14,8 @@
 
     - name: Override play_var
       vars:
-        play_var: >-
-          Block level variables override play level
-          variables with the same name within the block.
+        play_var: "Block level variables override play level
+          variables with the same name within the block."
       block:
         - name: Override play_var at the block level
           ansible.builtin.debug:
@@ -24,9 +23,9 @@
 
         - name: Override play_var at the task level
           vars:
-            play_var: >-
-              Task level variables override block level
-              variables with the same name within the task.
+            play_var: "Task level variables override block
+              level variables with the same name within the
+              task."
           ansible.builtin.debug:
             msg: "{{ play_var }}"
 
@@ -36,9 +35,8 @@
 
     - name: Edit play_var using set_fact
       ansible.builtin.set_fact:
-        play_var: >-
-          The set_fact module overrides play, block, and
-          task assignments.
+        play_var: "The set_fact module overrides play,
+          block, and task assignments."
 
     - name: Show the new value of play_var
       ansible.builtin.debug:

@@ -1,9 +1,12 @@
 ---
 # Log the output of a play
-# Do not forget to enable logging in ansible.cfg
+# Note: Set 'log_path=a4p.log' in ansible.cfg or run
+#   'export ANSIBLE_LOG_PATH=a4p.log'. Run 'export -n \
+#   ANSIBLE_LOG_PATH' to unset
 # Usage:
-# ansible-playbook log_output.yml
-# ansible-playbook log_output.yml -v
+# ANSIBLE_LOG_PATH=a4p.log ansible-playbook log_output.yml
+# ANSIBLE_LOG_PATH=a4p.log ansible-playbook \
+#   log_output.yml -v
 - name: Log output
   hosts: managed_node1
   gather_facts: false

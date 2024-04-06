@@ -15,12 +15,10 @@
       ansible.builtin.debug:
         msg:
           - "{{ planets }}"
-          - >-
-            {{ planets[0]['planet'] }} is
-            {{ planets[0]['diameter'] }} km in diameter.
-          - >-
-            {{ planets[1].planet }} is
-            {{ planets[1].diameter }} km in diameter.
+          - "{{ planets[0]['planet'] }} is
+            {{ planets[0]['diameter'] }} km in diameter."
+          - "{{ planets[1].planet }} is
+            {{ planets[1].diameter }} km in diameter."
 ...
 # code: language=ansible
 # vi: set noai nu ts=2 sw=2 sts=2 sta et:

@@ -1,0 +1,8 @@
+---
+# Import and run another playbook
+# Usage: ansible-playbook import_playbook.yml
+- name: Import and run another playbook
+  ansible.builtin.import_playbook: playbook.yml
+...
+# code: language=ansible
+# vi: set noai nu ts=2 sw=2 sts=2 sta et:

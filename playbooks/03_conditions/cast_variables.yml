@@ -5,7 +5,7 @@
   hosts: managed_node1
   gather_facts: false
   tasks:
-    - name: Recast variables at the point of use (always works)
+    - name: Cast variables at point of use (always works)
       vars:
         str_value: "1"
         int_value: 0
@@ -13,26 +13,22 @@
         bool_value: false
       ansible.builtin.debug:
         msg:
-          - >-
-            string ('{{ str_value }}') temporarily beomes
+          - "string ('{{ str_value }}') temporarily beomes
             integer ({{ str_value | int }}),
             float ({{ str_value | float }}),
-            or boolean ({{ str_value | bool }}).
-          - >-
-            integer ({{ int_value }}) temporarily becomes
+            or boolean ({{ str_value | bool }})."
+          - "integer ({{ int_value }}) temporarily becomes
             string ('{{ int_value | string }}'),
             float ({{ int_value | float }}),
-            or boolean ({{ int_value | bool }}).
-          - >-
-            float ({{ float_value }}) temporarily becomes
+            or boolean ({{ int_value | bool }})."
+          - "float ({{ float_value }}) temporarily becomes
             string ('{{ float_value | string }}'),
             integer ({{ float_value | int }}),
-            or boolean ({{ float_value | bool }}).
-          - >-
-            boolean ({{ bool_value }}) temporarily becomes
+            or boolean ({{ float_value | bool }})."
+          - "boolean ({{ bool_value }}) temporarily becomes
             string ('{{ bool_value | string }}'),
             integer ({{ bool_value | int }}),
-            or float ({{ bool_value | float }}).
+            or float ({{ bool_value | float }})."
 
     - name: Convert vars before use (does not always work)
       vars:
@@ -48,30 +44,24 @@
       ansible.builtin.debug:
         msg:
           # Jinja2 templating returns a string, unless converting to boolean
-          - >-
-            {{ int_value }} ({{ int_value | type_debug }})
+          - "{{ int_value }} ({{ int_value | type_debug }})
             to bool becomes {{ bool_from_int }}
-            ({{ bool_from_int | type_debug }}).
-          - >-
-            {{ int_value }} ({{ int_value | type_debug }})
+            ({{ bool_from_int | type_debug }})."
+          - "{{ int_value }} ({{ int_value | type_debug }})
             to float becomes {{ float_from_int }}
-            ({{ float_from_int | type_debug }}), not float.
-          - >-
-            {{ int_value }} ({{ int_value | type_debug }})
+            ({{ float_from_int | type_debug }}), not float."
+          - "{{ int_value }} ({{ int_value | type_debug }})
             to str becomes {{ str_from_int }}
-            ({{ str_from_int | type_debug }}), not str.
-          - >-
-            {{ str_value }} ({{ str_value | type_debug }})
+            ({{ str_from_int | type_debug }}), not str."
+          - "{{ str_value }} ({{ str_value | type_debug }})
             to bool becomes {{ bool_from_str }}
-            ({{ bool_from_str | type_debug }}).
-          - >-
-            {{ str_value }} ({{ str_value | type_debug }})
+            ({{ bool_from_str | type_debug }})."
+          - "{{ str_value }} ({{ str_value | type_debug }})
             to float becomes {{ float_from_str }}
-            ({{ float_from_str | type_debug }}), not float.
-          - >-
-            {{ str_value }} ({{ str_value | type_debug }})
+            ({{ float_from_str | type_debug }}), not float."
+          - "{{ str_value }} ({{ str_value | type_debug }})
             to int becomes {{ int_from_str }}
-            ({{ int_from_str | type_debug }}), not int.
+            ({{ int_from_str | type_debug }}), not int."
 
     - name: Use set_fact to recast vars (does not always work)
       block:

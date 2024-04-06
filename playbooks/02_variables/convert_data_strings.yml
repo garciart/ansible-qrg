@@ -1,0 +1,32 @@
+---
+# Convert data strings to structures
+# Usage: ansible-playbook convert_data_strings.yml
+- name: Convert data strings
+  hosts: managed_node1
+  gather_facts: false
+  vars:
+    flow_string: '{"planet": "Mars", "diameter": 6792,
+      "hours_per_day": 24.7, "rings": false, "moons":
+      ["Phobos", "Deimos"]}'
+    # Use double quotes with escaped characters
+    block_string: "planet: \"Mars\"\ndiameter:
+      6792\nhours_per_day: 24.7\nrings:
+      false\nmoons:\n- \"Phobos\"\n- \"Deimos\""
+  tasks:
+    - name: Convert a JSON string to a dictionary
+      ansible.builtin.set_fact:
+        dict_from_json: "{{ flow_string | from_json }}"
+        dict_from_yaml: "{{ block_string | from_yaml }}"
+
+    - name: Show the structures and their types
+      ansible.builtin.debug:
+        msg:
+          - "{{ dict_from_json }}"
+          - "{{ dict_from_json | type_debug }}"
+          - "{{ dict_from_yaml }}"
+          - "{{ dict_from_yaml | type_debug }}"
+          - "{{ dict_from_yaml['moons'] }}"
+          - "{{ dict_from_yaml['moons'] | type_debug }}"
+...
+# code: language=ansible
+# vi: set noai nu ts=2 sw=2 sts=2 sta et:

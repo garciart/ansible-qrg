@@ -13,9 +13,8 @@
   tasks:
     - name: Read and show the contents of a file - Method 1
       ansible.builtin.debug:
-        msg: >-
-          {{ lookup('ansible.builtin.file',
-          'demo_dir/file_with_content.txt') }}
+        msg: "{{ lookup('ansible.builtin.file',
+          'demo_dir/file_with_content.txt') }}"
 
     - name: Read and show the contents of a file - Method 2
       # Can be used for multiple files
@@ -26,9 +25,8 @@
 
     - name: Read and store the contents of a file
       ansible.builtin.set_fact:
-        file_contents: >-
-          {{ lookup('ansible.builtin.file',
-          'demo_dir/file_with_content.txt') }}
+        file_contents: "{{ lookup('ansible.builtin.file',
+          'demo_dir/file_with_content.txt') }}"
 
     - name: Show the contents of the variable
       ansible.builtin.debug:

@@ -27,9 +27,8 @@
 
     - name: Use multiple variables in a parameter
       ansible.builtin.debug:
-        msg: >-
-          A day on {{ planet }} is
-          {{ hours_per_day }} Earth hours.
+        msg: "A day on {{ planet }} is {{ hours_per_day }}
+          Earth hours."
 ...
 # code: language=ansible
 # vi: set noai nu ts=2 sw=2 sts=2 sta et:

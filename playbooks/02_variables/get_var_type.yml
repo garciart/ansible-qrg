@@ -25,18 +25,16 @@
           order_no: 3
       ansible.builtin.debug:
         msg:
-          - "{{ planet }}: {{ planet | type_debug }}."
-          - "{{ diameter }}: {{ diameter | type_debug }}."
-          - >-
-            {{ hours_per_day }}:
-            {{ hours_per_day | type_debug }}.
-          - "{{ rings }}: {{ rings | type_debug }}."
-          - "{{ moons }}: {{ moons | type_debug }}."
-          - "{{ moons[0] }}: {{ moons[0] | type_debug }}."
-          - "{{ other }}: {{ other | type_debug }}."
-          - >-
-            {{ other['au'] }}:
-            {{ other['au'] | type_debug }}.
+          - "'{{ planet }}' ({{ planet | type_debug }})"
+          - "{{ diameter }} ({{ diameter | type_debug }})"
+          - "{{ hours_per_day }} ({{ hours_per_day |
+            type_debug }})"
+          - "{{ rings }} ({{ rings | type_debug }})"
+          - "{{ moons }} ({{ moons | type_debug }})"
+          - "'{{ moons[0] }}' ({{ moons[0] | type_debug }})"
+          - "{{ other }} ({{ other | type_debug }})"
+          - "{{ other['au'] }} ({{ other['au'] |
+            type_debug }})"
 ...
 # code: language=ansible
 # vi: set noai nu ts=2 sw=2 sts=2 sta et:

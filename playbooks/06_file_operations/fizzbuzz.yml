@@ -1,0 +1,18 @@
+---
+# Run FizzBuzz using include_tasks
+# Note: Set 'display_skipped_hosts=False' in ansible.cfg or
+#   run 'export ANSIBLE_DISPLAY_SKIPPED_HOSTS=False' first.
+#   Run 'export -n ANSIBLE_DISPLAY_SKIPPED_HOSTS' to unset.
+# Usage: ANSIBLE_DISPLAY_SKIPPED_HOSTS=False \
+#   ansible-playbook fizzbuzz.yml
+- name: FizzBuzz
+  hosts: managed_node1
+  gather_facts: false
+  tasks:
+    - name: Loop over FizzBuzz tasks
+      ansible.builtin.include_tasks:
+        file: fizzbuzz_tasks.yml
+      loop: "{{ range(1, 20) }}"
+...
+# code: language=ansible
+# vi: set noai nu ts=2 sw=2 sts=2 sta et:

@@ -42,6 +42,7 @@ Link to [reserved keywords list](/reserved_keywords.md).
 - [concat_variables.yml](/playbooks/02_variables/concat_variables.yml "Concatenate different types of variables")
 - [slice_variables.yml](/playbooks/02_variables/slice_variables.yml "Show parts of a variable using slicing")
 - [use_special_chars.yml](/playbooks/02_variables/use_special_chars.yml "Use reserved and special characters")
+- [convert_data_strings.yml](/playbooks/02_variables/convert_data_strings.yml "Convert data strings to structures")
 
 ### Conditions
 
@@ -77,6 +78,10 @@ Link to [reserved keywords list](/reserved_keywords.md).
 
 ### File Operations
 
-- [include_files.yml](/playbooks/06_file_operations/include_files.yml "Access data in YAML files")
+- [include_vars.yml](/playbooks/06_file_operations/include_vars.yml "Use variables from external files")
+- [import_tasks.yml](/playbooks/06_file_operations/import_tasks.yml "Import and run tasks from external YAML files")
+- [include_tasks.yml](/playbooks/06_file_operations/include_tasks.yml "Include and run tasks from external YAML files")
+- [fizzbuzz.yml](/playbooks/06_file_operations/fizzbuzz.yml "Run FizzBuzz using include_tasks")
+- [import_playbook.yml](/playbooks/06_file_operations/import_playbook.yml "Import and run another playbook")
 - [create_directory.yml](/playbooks/06_file_operations/create_directory.yml "Create a subdirectory in the current working directory")
 - [create_files.yml](/playbooks/06_file_operations/create_files.yml "Create files")

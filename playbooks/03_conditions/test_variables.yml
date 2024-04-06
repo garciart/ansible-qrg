@@ -27,12 +27,11 @@
           - "'r' in 'Mars': {{ 'r' in planet }}"
           - "'t' in 'Mars': {{ 't' in planet }}"
           - "No 't' in 'Mars': {{ 't' not in planet }}"
-          - >-
-            Phobos is a Martian moon: {{ 'Phobos' in moons }}
+          - "Phobos is a Martian moon: {{ 'Phobos' in
+            moons }}"
           - "Titan is a Martian moon: {{ 'Titan' in moons }}"
-          - >-
-            Titan is not a Martian moon:
-            {{ 'Titan' not in moons }}
+          - "Titan is not a Martian moon: {{ 'Titan' not in
+            moons }}"
 
     - name: Perform other tests
       ansible.builtin.debug:

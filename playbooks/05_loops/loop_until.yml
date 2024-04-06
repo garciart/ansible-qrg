@@ -12,9 +12,8 @@
     - name: Display current time
       ansible.builtin.debug:
         msg:
-          - >-
-            The current time is {{ '%H:%M:%S' |
-            strftime(time_check) }}.
+          - "The current time is {{ '%H:%M:%S' |
+            strftime(time_check) }}."
           - "Waiting for 8 seconds..."
 
     - name: Wait until 8 seconds have passed by
@@ -29,9 +28,8 @@
 
     - name: Display a new time check
       ansible.builtin.debug:
-        msg: >-
-          The time is now {{ '%H:%M:%S' |
-          strftime(new_time_check.time_poll) }}.
+        msg: "The time is now {{ '%H:%M:%S' |
+          strftime(new_time_check.time_poll) }}."
 ...
 # code: language=ansible
 # vi: set noai nu ts=2 sw=2 sts=2 sta et:

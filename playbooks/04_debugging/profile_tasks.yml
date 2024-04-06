@@ -1,7 +1,13 @@
 ---
 # Get the time it takes to run tasks
-# Do not forget to enable profiling in ansible.cfg
-# Usage: ansible-playbook profile_tasks.yml
+# Note: Set 'callbacks_enabled=ansible.posix.profile_tasks'
+#   in ansible.cfg or run 'export \
+#   ANSIBLE_CALLBACKS_ENABLED=ansible.posix.profile_tasks'
+#   first. Run 'export -n ANSIBLE_CALLBACKS_ENABLED' to
+#   unset
+# Usage: ANSIBLE_CALLBACKS_ENABLED= \
+#   ansible.posix.profile_tasks ansible-playbook \
+#   profile_tasks.yml
 - name: Profile tasks
   hosts: managed_node1
   gather_facts: false

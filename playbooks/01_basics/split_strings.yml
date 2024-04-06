@@ -9,6 +9,12 @@
       ansible.builtin.debug:
         msg: "Happy Birthday to You, Happy Birthday to You, Happy Birthday, Happy Birthday, Happy Birthday to You!"
 
+    - name: Split a quoted string
+      ansible.builtin.debug:
+        msg: "Happy Birthday to You, Happy Birthday to You,
+          Happy Birthday, Happy Birthday, Happy Birthday to
+          You!"
+
     - name: Split a string with a literal block scalar
       # A literal block scalar (|) preserves newlines
       # in a multiline string

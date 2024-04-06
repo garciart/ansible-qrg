@@ -1,0 +1,27 @@
+---
+# List of FizzBuzz tasks
+# Usage:
+# ansible.builtin.include_tasks:
+#   file: fizzbuzz_tasks.yml
+- name: Show number
+  ansible.builtin.debug:
+    msg: "{{ item }}"
+  when: (item | int) % 3 != 0 and (item | int) % 5 != 0
+
+- name: Show fizz
+  ansible.builtin.debug:
+    msg: "fizz"
+  when: (item | int) % 3 == 0 and (item | int) % 5 != 0
+
+- name: Show buzz
+  ansible.builtin.debug:
+    msg: "buzz"
+  when: (item | int) % 3 != 0 and (item | int) % 5 == 0
+
+- name: Show fizzbuzz
+  ansible.builtin.debug:
+    msg: "fizzbuzz"
+  when: (item | int) % 3 == 0 and (item | int) % 5 == 0
+...
+# code: language=ansible
+# vi: set noai nu ts=2 sw=2 sts=2 sta et:
