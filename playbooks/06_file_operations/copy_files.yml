@@ -1,0 +1,25 @@
+---
+# Copy files to another file or location
+# Usage: ansible-playbook copy_files.yml
+- name: Add content
+  ansible.builtin.import_playbook: add_content.yml
+
+- name: Copy files
+  hosts: managed_node1
+  gather_facts: false
+  tasks:
+    - name: Copy a file to another file
+      ansible.builtin.copy:
+        src: demo_dir/file_with_content.txt
+        dest: demo_dir/file_with_content.bak
+        mode: '0644'
+
+    - name: Read and show the contents of the files
+      ansible.builtin.debug:
+        msg: "{{ item }}"
+      with_file:
+        - demo_dir/file_with_content.txt
+        - demo_dir/file_with_content.bak
+...
+# code: language=ansible
+# vi: set noai nu ts=2 sw=2 sts=2 sta et:

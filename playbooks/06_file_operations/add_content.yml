@@ -1,0 +1,29 @@
+---
+# Add content to files
+# Usage: ansible-playbook add_content.yml
+- name: Ensure files exist
+  ansible.builtin.import_playbook: create_files.yml
+
+- name: Add content
+  hosts: managed_node1
+  gather_facts: false
+  tasks:
+    - name: Read and show the contents of a file
+      ansible.builtin.debug:
+        msg: "{{ item }}"
+      with_file:
+        - demo_dir/file_with_content.txt
+
+    - name: Add content to a file
+      ansible.builtin.lineinfile:
+        path: demo_dir/file_with_content.txt
+        line: "How yur duin?"
+
+    - name: Read and show the contents of a file again
+      ansible.builtin.debug:
+        msg: "{{ item }}"
+      with_file:
+        - demo_dir/file_with_content.txt
+...
+# code: language=ansible
+# vi: set noai nu ts=2 sw=2 sts=2 sta et:

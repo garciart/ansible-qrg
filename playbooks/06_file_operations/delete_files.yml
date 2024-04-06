@@ -1,0 +1,21 @@
+---
+# Delete files
+# Usage: ansible-playbook delete_files.yml
+- name: Copy files
+  ansible.builtin.import_playbook: copy_files.yml
+
+- name: Delete files
+  hosts: managed_node1
+  gather_facts: false
+  tasks:
+    - name: Delete files
+      ansible.builtin.file:
+        path: "{{ item }}"
+        state: absent
+      loop:
+        - demo_dir/empty_file.txt
+        - demo_dir/file_with_content.bak
+        - demo_dir/file_with_content.txt
+...
+# code: language=ansible
+# vi: set noai nu ts=2 sw=2 sts=2 sta et:

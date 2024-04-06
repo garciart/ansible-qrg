@@ -9,7 +9,7 @@
       ansible.builtin.set_fact:
         time_check: "{{ now(false, '%s') }}"
 
-    - name: Display current time
+    - name: Show current time
       ansible.builtin.debug:
         msg:
           - "The current time is {{ '%H:%M:%S' |
@@ -26,7 +26,7 @@
       delay: 1
       register: new_time_check
 
-    - name: Display a new time check
+    - name: Show a new time check
       ansible.builtin.debug:
         msg: "The time is now {{ '%H:%M:%S' |
           strftime(new_time_check.time_poll) }}."

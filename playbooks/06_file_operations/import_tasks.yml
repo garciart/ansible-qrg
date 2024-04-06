@@ -4,6 +4,8 @@
 - name: Import tasks
   hosts: managed_node1
   gather_facts: false
+  vars:
+    shared_var: "World"
   tasks:
     - name: Run tasks from an external file
       ansible.builtin.import_tasks:

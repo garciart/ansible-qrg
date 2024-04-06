@@ -1,0 +1,17 @@
+---
+# Delete directory
+# Usage: ansible-playbook delete_directory.yml
+- name: Delete files
+  ansible.builtin.import_playbook: delete_files.yml
+
+- name: Delete directory
+  hosts: managed_node1
+  gather_facts: false
+  tasks:
+    - name: Delete a directory
+      ansible.builtin.file:
+        path: demo_dir
+        state: absent
+...
+# code: language=ansible
+# vi: set noai nu ts=2 sw=2 sts=2 sta et:

@@ -1,9 +1,6 @@
 ---
 # Read the contents of files
 # Usage: ansible-playbook read_files.yml
-- name: Ensure directory exists
-  ansible.builtin.import_playbook: create_directory.yml
-
 - name: Ensure files exist
   ansible.builtin.import_playbook: create_files.yml
 
@@ -12,6 +9,9 @@
   gather_facts: false
   tasks:
     - name: Read and show the contents of a file - Method 1
+      # Any with_* statement that requires using lookup
+      # within a loop should not be converted to use the
+      # loop keyword
       ansible.builtin.debug:
         msg: "{{ lookup('ansible.builtin.file',
           'demo_dir/file_with_content.txt') }}"
@@ -21,12 +21,14 @@
       ansible.builtin.debug:
         msg: "{{ item }}"
       with_file:
+        - demo_dir/empty_file.txt
         - demo_dir/file_with_content.txt
 
     - name: Read and store the contents of a file
       ansible.builtin.set_fact:
-        file_contents: "{{ lookup('ansible.builtin.file',
-          'demo_dir/file_with_content.txt') }}"
+        file_contents: "{{ item }}"
+      with_file:
+        - demo_dir/file_with_content.txt
 
     - name: Show the contents of the variable
       ansible.builtin.debug:

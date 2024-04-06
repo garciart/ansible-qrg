@@ -2,6 +2,8 @@
 # Import and run another playbook
 # Usage: ansible-playbook import_playbook.yml
 - name: Import and run another playbook
+  vars:
+    shared_var: "World"
   ansible.builtin.import_playbook: playbook.yml
 ...
 # code: language=ansible

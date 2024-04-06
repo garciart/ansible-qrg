@@ -8,6 +8,7 @@
 - name: Show a message
   ansible.builtin.debug:
     msg:
+      - "Hello, {{ shared_var }}!"
       - "I am an external task."
       - "{{ item | default('Earth') }} is a planet."
 ...
