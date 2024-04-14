@@ -7,7 +7,7 @@
   tasks:
     - name: Include a YAML file in a play
       ansible.builtin.include_vars:
-        file: planets.yml
+        file: planets_info.yml
 
     - name: Access data from the YAML file
       ansible.builtin.debug:
@@ -17,7 +17,7 @@
 
     - name: Include a JSON file in a play
       ansible.builtin.include_vars:
-        file: planets.json
+        file: planets_info.json
 
     - name: Access data from the JSON file
       ansible.builtin.debug:

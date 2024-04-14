@@ -1,0 +1,22 @@
+---
+# Use templates to create formatted files
+# Usage: ansible-playbook use_template.yml
+- name: Use templates
+  hosts: managed_node1
+  gather_facts: false
+  vars:
+    planets:
+      - "Mercury"
+      - "Venus"
+      - "Earth"
+      - "Mars"
+      - "Jupiter"
+      - "Saturn"
+      - "Uranus"
+      - "Neptune"
+  tasks:
+    - name: Fill a template with data
+      ansible.builtin.template:
+        src: planets_template.j2
+        dest: planets.html
+        mode: '0644'

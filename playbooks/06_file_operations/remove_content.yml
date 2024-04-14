@@ -11,7 +11,7 @@
     - name: Remove content from a file
       ansible.builtin.replace:
         path: demo_dir/file_with_content.txt
-        regexp: '(^H|\nH)ow.*$'
+        regexp: '(^H|\nH)ello.*$'
         replace: ''
 
     - name: Read and show the contents of a file

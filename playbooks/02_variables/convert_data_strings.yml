@@ -5,20 +5,34 @@
   hosts: managed_node1
   gather_facts: false
   vars:
-    flow_string: '{"planet": "Mars", "diameter": 6792,
-      "hours_per_day": 24.7, "rings": false, "moons":
-      ["Phobos", "Deimos"]}'
-    # Use double quotes with escaped characters
-    block_string: "planet: \"Mars\"\ndiameter:
-      6792\nhours_per_day: 24.7\nrings:
-      false\nmoons:\n- \"Phobos\"\n- \"Deimos\""
+    mars:
+      planet: "Mars"
+      diameter: 6792
+      hours_per_day: 24.7
+      rings: false
+      moons:
+        - "Phobos"
+        - "Deimos"
   tasks:
-    - name: Convert a JSON string to a dictionary
+    - name: Convert a structure to strings
       ansible.builtin.set_fact:
-        dict_from_json: "{{ flow_string | from_json }}"
-        dict_from_yaml: "{{ block_string | from_yaml }}"
+        yaml_str: "{{ mars | to_yaml | string }}"
+        json_str: "{{ mars | to_json }}"
 
-    - name: Show the structures and their types
+    - name: Show the strings
+      ansible.builtin.debug:
+        msg:
+          - "{{ yaml_str }}"
+          - "{{ yaml_str | type_debug }}"
+          - "{{ json_str }}"
+          - "{{ json_str | type_debug }}"
+
+    - name: Convert strings back to structures
+      ansible.builtin.set_fact:
+        dict_from_yaml: "{{ yaml_str | from_yaml }}"
+        dict_from_json: "{{ json_str | from_json }}"
+
+    - name: Show the structures
       ansible.builtin.debug:
         msg:
           - "{{ dict_from_json }}"

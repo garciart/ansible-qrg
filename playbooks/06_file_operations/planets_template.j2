@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>List of Planets</title>
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+</head>
+<body>
+  <h1>List of Planets</h1>
+  {% for p in planets %}
+    <p>{{ loop.index }}. {{ p }}</p>
+  {% endfor %}
+</body>
+</html>
+
+

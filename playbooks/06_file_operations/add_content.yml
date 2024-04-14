@@ -14,10 +14,18 @@
       with_file:
         - demo_dir/file_with_content.txt
 
-    - name: Add content to a file
+    - name: Add a line to a file
       ansible.builtin.lineinfile:
         path: demo_dir/file_with_content.txt
-        line: "How yur duin?"
+        line: "Welcome to Ansible."
+
+    - name: Add a block of text to a file
+      ansible.builtin.lineinfile:
+        path: demo_dir/file_with_content.txt
+        line: |
+          I'm doing well.
+          How yur duin?
+        insertafter: "Welcome to Ansible."
 
     - name: Read and show the contents of a file again
       ansible.builtin.debug:

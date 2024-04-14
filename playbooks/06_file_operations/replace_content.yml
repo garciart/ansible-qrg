@@ -1,6 +1,6 @@
 ---
-# Edit content in files
-# Usage: ansible-playbook edit_content.yml
+# Replace content in files
+# Usage: ansible-playbook replace_content.yml
 - name: Add content
   ansible.builtin.import_playbook: add_content.yml
 
@@ -8,7 +8,7 @@
   hosts: managed_node1
   gather_facts: false
   tasks:
-    - name: Edit content in a file
+    - name: Replace content in a file
       ansible.builtin.lineinfile:
         path: demo_dir/file_with_content.txt
         regexp: '(^H|\nH)ow.*$'
