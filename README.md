@@ -18,7 +18,7 @@ Link to [reserved keywords list](/reserved_keywords.md).
 - [run_multiple_tasks.yml](/playbooks/01_basics/run_multiple_tasks.yml "Run multiple tasks in a play")
 - [run_multiple_plays.yml](/playbooks/01_basics/run_multiple_plays.yml "Run multiple plays in a playbook")
 - [target_multiple_nodes.yml](/playbooks/01_basics/target_multiple_nodes.yml "Target multiple nodes nodes in a playbook")
-- [split_strings.yml](/playbooks/01_basics/split_strings.yml "Split long strings to improve readability")
+- [line_continuation.yml](/playbooks/01_basics/line_continuation.yml "Split long strings to improve readability")
 - [group_tasks.yml](/playbooks/01_basics/group_tasks.yml "Group tasks using blocks")
 - [handle_errors.yml](/playbooks/01_basics/handle_errors.yml "Handle errors using blocks")
 

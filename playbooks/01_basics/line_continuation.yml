@@ -1,7 +1,7 @@
 ---
-# Split long strings to improve readability
-# Usage: ansible-playbook split_strings.yml
-- name: Split strings
+# Break up long strings to improve readability
+# Usage: ansible-playbook line_continuation.yml
+- name: Line continuation
   hosts: managed_node1
   gather_facts: false
   tasks:
@@ -9,13 +9,13 @@
       ansible.builtin.debug:
         msg: "Happy Birthday to You, Happy Birthday to You, Happy Birthday, Happy Birthday, Happy Birthday to You!"
 
-    - name: Split a quoted string
+    - name: Break up a quoted string
       ansible.builtin.debug:
         msg: "Happy Birthday to You, Happy Birthday to You,
           Happy Birthday, Happy Birthday, Happy Birthday to
           You!"
 
-    - name: Split a string with a literal block scalar
+    - name: Break up a string with a literal block scalar
       # A literal block scalar (|) preserves newlines
       # in a multiline string
       ansible.builtin.debug:
@@ -25,7 +25,7 @@
           Happy Birthday, Happy Birthday,
           Happy Birthday to You!
 
-    - name: Split a string with a folded block scalar
+    - name: Break up a string with a folded block scalar
       # A folded block scalar (>) collapses a multiline
       # string into a single line
       ansible.builtin.debug:

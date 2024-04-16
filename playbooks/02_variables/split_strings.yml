@@ -1,0 +1,19 @@
+---
+# Split strings
+# Usage: ansible-playbook split_strings.yml
+- name: Split strings
+  hosts: managed_node1
+  gather_facts: false
+  vars:
+    sentence: "The planet Earth is 12756 km in diameter."
+  tasks:
+    - name: Split a string into a list
+      ansible.builtin.debug:
+        msg: "{{ sentence | split }}"
+
+    - name: Get the username from an email address
+      ansible.builtin.debug:
+        msg: "{{ ('alice@example.com' | split('@'))[0] }}"
+...
+# code: language=ansible
+# vi: set noai nu ts=2 sw=2 sts=2 sta et:
