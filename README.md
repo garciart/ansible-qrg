@@ -37,18 +37,47 @@ Link to [reserved keywords list](/reserved_keywords.md).
 - [use_cmd_line_vars.yml](/playbooks/02_variables/use_cmd_line_vars.yml "Get and show command line variables")
 - [demo_var_scope.yml](/playbooks/02_variables/demo_var_scope.yml "Demonstrate variable scope in a playbook")
 - [demo_var_precedence.yml](/playbooks/02_variables/demo_var_precedence.yml "Demonstrate variable precedence in a play")
+
+### Manipulating Variables
+
 - [format_variables.yml](/playbooks/02_variables/format_variables.yml "Format output using filters")
 - [transform_variables.yml](/playbooks/02_variables/transform_variables.yml "Transform variables using filters")
 - [concat_variables.yml](/playbooks/02_variables/concat_variables.yml "Concatenate different types of variables")
 - [slice_variables.yml](/playbooks/02_variables/slice_variables.yml "Show parts of a variable using slicing")
 - [use_special_chars.yml](/playbooks/02_variables/use_special_chars.yml "Use reserved and special characters")
+- [cast_variables.yml](/playbooks/02_variables/cast_variables.yml "Cast variables to other types")
 - [convert_data_strings.yml](/playbooks/02_variables/convert_data_strings.yml "Convert data strings to structures")
+
+### Working with Lists
+
+- [find_in_lists.yml](find_in_lists.yml "Find items in a list")
+- [add_to_lists.yml](add_to_lists.yml "Add items to a list")
+- [update_lists.yml](update_lists.yml "Update items in a list")
+- [remove_from_lists.yml](remove_from_lists.yml "Remove items from a list")
+- [join_lists.yml](join_lists.yml "Join lists into a single list")
+- [split_lists.yml](split_lists.yml "Split a list into multiple lists")
+- [copy_lists.yml](copy_lists.yml "Copy lists fully or in part")
+- [get_list_diff.yml](get_list_diff.yml "Get the differences between lists")
+- [list_to_dict.yml](list_to_dict.yml "Convert a list to a dictionary")
+
+### Working with Dictionaries
+
+- [find_in_dicts.yml](find_in_dicts.yml "Find items in a dictionary")
+- [get_dict_keys.yml](get_dict_keys.yml "Get a list of keys in a dictionary")
+- [get_dict_values.yml](get_dict_values.yml "Get a list of values in a dictionary")
+- [add_to_dicts.yml](add_to_dicts.yml "Add items to a dictionary")
+- [update_dicts.yml](update_dicts.yml "Update items in a dictionary")
+- [remove_from_dicts.yml](remove_from_dicts.yml "Remove items from a dictionary")
+- [join_dicts.yml](join_dicts.yml "Join dictionaries into a single dictionary")
+- [split_dicts.yml](split_dicts.yml "Split a dictionary into multiple dictionaries")
+- [copy_dicts.yml](copy_dicts.yml "Copy dictionaries fully or in part")
+- [get_dict_diff.yml](get_dict_diff.yml "Get the differences between dictionaries")
+- [dict_to_list.yml](dict_to_list.yml "Convert a dictionary to a list")
 
 ### Conditions
 
 - [perform_math.yml](/playbooks/03_conditions/perform_math.yml "Perform calculations using constants and variables")
 - [demo_order_of_ops.yml](/playbooks/03_conditions/demo_order_of_ops.yml "Demonstrate the order of operations")
-- [cast_variables.yml](/playbooks/03_conditions/cast_variables.yml "Cast variables to other types")
 - [check_equality.yml](/playbooks/03_conditions/check_equality.yml "Check if values are equal")
 - [test_variables.yml](/playbooks/03_conditions/test_variables.yml "Test if an expression is true or false")
 - [use_conditionals.yml](/playbooks/03_conditions/use_conditionals.yml "Check for a condition in a task")

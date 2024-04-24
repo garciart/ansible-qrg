@@ -1,0 +1,13 @@
+---
+# Use a role in a playbook
+# Usage: ansible-playbook use_roles.yml
+- name: Use roles
+  hosts: all
+  gather_facts: false
+  vars:
+    play_var: "Yoda!"
+  roles:
+    - demo_role
+...
+# code: language=ansible
+# vi: set noai nu ts=2 sw=2 sts=2 sta et:
