@@ -101,4 +101,3 @@ Add a callback plugin directory:
 cd ~/a4p
 mkdir -p roles/demo_role/callback_plugins
 ```
-

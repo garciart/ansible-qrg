@@ -5,9 +5,29 @@
   hosts: all
   gather_facts: false
   vars:
-    play_var: "Yoda!"
+    play_var: "I am a play-level variable."
   roles:
     - demo_role
+
+  # tasks:
+  #   - name: Say hello
+  #     ansible.builtin.debug:
+  #       msg: "Hello World!"
+
+  #   - name: Run handler
+  #     ansible.builtin.command: /bin/true
+  #     notify: Foo
+  #     changed_when: true
+
+  # post_tasks:
+  #   - name: Say goodbye
+  #     ansible.builtin.debug:
+  #       msg: "Good-bye!"
+
+  # handlers:
+  #   - name: Foo
+  #     ansible.builtin.debug:
+  #       msg: "I am the handler."
 ...
 # code: language=ansible
 # vi: set noai nu ts=2 sw=2 sts=2 sta et:

@@ -3,13 +3,22 @@
 # GNU General Public License v3.0+ (see COPYING or https://www.gnu.org/licenses/gpl-3.0.txt)
 from __future__ import annotations
 import sys
+import inspect  # RTG
+# Import for type hints with more than one type of arg or return value
+from typing import Union  # noqa: F401 RTG
 from ansible import constants as C
 from ansible import context
 from ansible.playbook.task_include import TaskInclude
 from ansible.plugins.callback import CallbackBase
 from ansible.utils.color import colorize, hostcolor
 from ansible.utils.fqcn import add_internal_fqcns
-from ansible.playbook import (Playbook, Play)  # noqa: F401
+
+# Import these classes for type hints, input validation, and debugging
+from ansible.playbook import (Playbook, Play)  # RTG
+from ansible.playbook.task import (Task)  # RTG
+
+# Pylint overrides
+# pylint: disable=locally-disabled, protected-access, consider-using-f-string
 
 DOCUMENTATION = '''
     name: default
@@ -17,7 +26,7 @@ DOCUMENTATION = '''
     short_description: default Ansible screen output
     version_added: historical
     description:
-        - This is the default output callback for ansible-playbook.
+      - This is the default output callback for ansible-playbook.
     extends_documentation_fragment:
       - default_callback
       - result_format_callback
@@ -37,6 +46,12 @@ class CallbackModule(CallbackBase):
     CALLBACK_TYPE = 'stdout'
     CALLBACK_NAME = 'new_default'
 
+    # Additional constants
+
+    DEMO_MODE = True
+
+    # Added to prevent Pylint E1101-no-member error
+    # Module 'ansible.constants' has no 'COLOR_<type>' member
     C.COLOR_CHANGED = 'yellow'
     C.COLOR_DEBUG = 'dark gray'
     C.COLOR_ERROR = 'red'
@@ -48,12 +63,20 @@ class CallbackModule(CallbackBase):
     C.DISPLAY_ARGS_TO_STDOUT = 'false'
 
     TRACE_COLOR = 'bright cyan'
+    ARG_NOT_DEFINED = ' is not defined.'
+
+    PYTHON_VERSION = float(f'{sys.version_info.major}.{sys.version_info.minor:02d}')
+
+    # Python 2 'str' type = Python 3 'bytes' type
+    # Python 2 'unicode' type = Python 3 'str' type
+    # noqa: Python 3 no longer recognizes unicode as a type
+    UNICODE_TYPE = str if PYTHON_VERSION >= 3 else unicode  # noqa
 
     def __init__(self):
         # type: () -> None
-        """Default.py override. Creates class instance and initializes variables.
+        """Creates class instance and initializes variables (Default.py override).
 
-        :returns: None
+        :return: None
         """
         self._play = None
         self._last_task_banner = None
@@ -61,18 +84,38 @@ class CallbackModule(CallbackBase):
         self._task_type_cache = {}
         super(CallbackModule, self).__init__()
 
-        self._display.display('>>> ' + (sys._getframe().f_code.co_name), color=self.TRACE_COLOR)
+        if self.DEMO_MODE:
+            self._display.display('>>> ' + (sys._getframe().f_code.co_name),
+                                  color=self.TRACE_COLOR)
 
     def v2_playbook_on_start(self, playbook):
         # type: (Playbook) -> None
-        """Default.py override.
+        """Handle output when starting the playbook (Default.py override).
 
-        Note: Playbook methods defined in lib/ansible/playbook/__init__.py
+        Notes:
+        - ansible.playbook.Playbook class defined in lib/ansible/playbook/__init__.py
+        - You can access Playbook class methods and attributes like playbook.get_plays()
+          and playbook._file_name
 
-        :param Playbook playbook: The running playbook.
-        :returns: None
+        :param Playbook playbook: The running playbook as an object
+        :return: None
         """
-        self._display.display('>>> ' + (sys._getframe().f_code.co_name), color=self.TRACE_COLOR)
+        if self.DEMO_MODE:
+            self._display.display('>>> ' + (sys._getframe().f_code.co_name),
+                                  color=self.TRACE_COLOR)
+
+            # Validate inputs
+            self._validate_input('playbook', playbook, Playbook)
+
+            # try:
+            #     # Get and show the plays in the playbook
+            #     _plays = playbook.get_plays()
+            #     self._peek_inside('_plays', _plays)
+            #
+            #     # Get the name of the playbook
+            #     self._peek_inside('playbook._file_name', playbook._file_name)
+            # except KeyError as e:
+            #     self._display.display(self.UNICODE_TYPE(e) + self.ARG_NOT_DEFINED)
 
         if self._display.verbosity > 1:
             from os.path import basename
@@ -94,19 +137,58 @@ class CallbackModule(CallbackBase):
         if context.CLIARGS['check'] and self.get_option('check_mode_markers'):
             self._display.banner("DRY RUN")
 
-        # Additional
-        self._peek_inside('playbook', playbook)
-
     def v2_playbook_on_play_start(self, play):
         # type: (Play) -> None
-        """Default.py override.
+        """Handle output when starting a play (Default.py override).
 
-        Note: Play methods defined in lib/ansible/playbook/play.py
+        Notes:
+        - ansible.playbook.Play class defined in lib/ansible/playbook/play.py
+        - You can access Play class methods and attributes like play.get_tasks() and play.hosts
+        - You can access play-level vars using play.get_vars()
+        - You can access extra_vars using play.get_variable_manager().extra_vars
+        - You can access roles using play.get_roles()
+        - You can access role vars by getting the role object and using role[0].get_default_vars()
 
-        :param Playbook playbook: The running play.
+        :param Play play: The running play as an object
         :returns: None
         """
-        self._display.display('>>> ' + (sys._getframe().f_code.co_name), color=self.TRACE_COLOR)
+        if self.DEMO_MODE:
+            self._display.display('>>> ' + (sys._getframe().f_code.co_name),
+                                  color=self.TRACE_COLOR)
+
+            # Validate inputs
+            self._validate_input('play', play, Play)
+
+            # try:
+            #     # Get the tasks in the play
+            #     _tasks = play.get_tasks()
+            #     self._peek_inside('_tasks', _tasks)
+
+            #     # Get the hosts targeted by the play
+            #     self._peek_inside('play.hosts', play.hosts)
+
+            #     # Get play-level vars
+            #     _vars = play.get_vars()
+            #     self._peek_inside('_vars', _vars)
+            #     self._peek_inside("_vars['play_var']", _vars['play_var'])
+
+            #     # Get extra vars from the command line
+            #     _extra_vars = play.get_variable_manager().extra_vars
+            #     self._peek_inside('_extra_vars', _extra_vars)
+
+            #     # Get a list of the names of the roles included in the play
+            #     _roles = play.get_roles()
+            #     self._peek_inside('_roles', _roles)
+            #     self._peek_inside('_roles[0]', _roles[0])
+
+            #     # Get the default vars of a role
+            #     _default_vars = _roles[0].get_default_vars()
+            #     self._peek_inside('_default_vars', _default_vars)
+            #     self._peek_inside("_default_vars['default_role_var']",
+            #                       _default_vars['default_role_var'])
+            # except KeyError as e:
+            #     self._display.display(self.UNICODE_TYPE(e) + self.ARG_NOT_DEFINED)
+
         name = play.get_name().strip()
         if play.check_mode and self.get_option('check_mode_markers'):
             checkmsg = " [CHECK MODE]"
@@ -121,20 +203,165 @@ class CallbackModule(CallbackBase):
 
         self._display.banner(msg)
 
-        # Additional
-        # Get a list of the names of the roles included in the play
-        _roles = self._play.get_roles()
-        self._peek_inside('_roles', _roles)
+    def v2_playbook_on_task_start(self, task, is_conditional):
+        # type: (Task, bool) -> None
+        """Wrapper for handling output when starting a normal task (Default.py override).
 
-        # lib/ansible/playbook/role/__init__.py
-        _default_vars = _roles[0].get_default_vars()
-        self._peek_inside('_default_vars', _default_vars)
+        Notes:
+        - ansible.playbook.task.Task class defined in lib/ansible/playbook/task.py
+        - You can access Task class methods and attributes like task.get_name() and task.action
+        - You can access task-level vars using task.get_vars()
+        - You can access extra_vars using task.get_variable_manager().extra_vars
 
-        _vars = self._play.get_vars()
-        self._peek_inside('_vars', _vars)
+        :param Task task: The running task as an object
+        :param bool is_conditional: Not currently used by Ansible
+        :returns: None
+        """
+        if self.DEMO_MODE:
+            self._display.display('>>> ' + (sys._getframe().f_code.co_name),
+                                  color=self.TRACE_COLOR)
+            # Validate inputs
+            self._validate_input('task', task, Task)
+
+            # try:
+            #     # Get task actions and arguments
+            #     self._peek_inside('task.action', task.action)
+            #     self._peek_inside('task.args', task.args)
+            #     self._peek_inside("task.args['msg']", task.args['msg'])
+
+            #     # Get task-level vars
+            #     _vars = task.get_vars()
+            #     self._peek_inside('_vars', _vars)
+
+            #     # Get extra vars from the command line
+            #     _extra_vars = task.get_variable_manager().extra_vars
+            #     self._peek_inside('_extra_vars', _extra_vars)
+            # except KeyError as e:
+            #     self._display.display(self.UNICODE_TYPE(e) + self.ARG_NOT_DEFINED)
+
+        self._task_start(task, prefix='TASK')
+
+    def v2_playbook_on_handler_task_start(self, task):
+        # type: (Task) -> None
+        """Wrapper for handling when calling a handler (Default.py override).
+
+        Notes:
+        - ansible.playbook.task.Task class defined in lib/ansible/playbook/task.py
+        - You can access Task class methods and attributes like task.get_name() and task.action
+        - You can access task-level vars using task.get_vars()
+        - You can access extra_vars using task.get_variable_manager().extra_vars
+
+        :param Task task: The running task as an object
+        :returns: None
+        """
+        if self.DEMO_MODE:
+            self._display.display('>>> ' + (sys._getframe().f_code.co_name),
+                                  color=self.TRACE_COLOR)
+
+        self._display.display('>>> ' + (sys._getframe().f_code.co_name), color=self.TRACE_COLOR)
+        self._task_start(task, prefix='RUNNING HANDLER')
+
+    def v2_playbook_on_cleanup_task_start(self, task):
+        # type: (Task) -> None
+        """Not currently used by Ansible (Default.py override).
+
+        Notes:
+        - ansible.playbook.task.Task class defined in lib/ansible/playbook/task.py
+        - You can access Task class methods and attributes like task.get_name() and task.action
+        - You can access task-level vars using task.get_vars()
+        - You can access extra_vars using task.get_variable_manager().extra_vars
+
+        :param Task task: The running task as an object
+        :returns: None
+        """
+        if self.DEMO_MODE:
+            self._display.display('>>> ' + (sys._getframe().f_code.co_name),
+                                  color=self.TRACE_COLOR)
+
+        self._task_start(task, prefix='CLEANUP TASK')
+
+    def _task_start(self, task, prefix=None):
+        # type: (Task, Union[str, None]) -> None
+        """Handle output when running a task (Default.py override).
+
+        Notes:
+        - ansible.playbook.task.Task class defined in lib/ansible/playbook/task.py
+        - You can access Task class methods and attributes like task.get_name() and task.action
+        - You can access task-level vars using task.get_vars()
+        - You can access extra_vars using task.get_variable_manager().extra_vars
+
+        :param Task task: The running task as an object
+        :param self.UNICODE_TYPE/None prefix: The type of task being performed (TASK, CLEANUP TASK,
+        RUNNING HANDLER)
+
+        :returns: None
+        """
+        if self.DEMO_MODE:
+            self._display.display('>>> ' + (sys._getframe().f_code.co_name),
+                                  color=self.TRACE_COLOR)
+
+            # Validate inputs
+            self._validate_input('task', task, Task)
+            self._validate_input('prefix', prefix, self.UNICODE_TYPE)
+
+        # Cache output prefix for task if provided
+        # This is needed to properly display 'RUNNING HANDLER' and similar
+        # when hiding skipped/ok task results
+        if prefix is not None:
+            self._task_type_cache[task._uuid] = prefix
+
+        # Preserve task name, as all vars may not be available for templating
+        # when we need it later
+        if self._play.strategy in add_internal_fqcns(('free', 'host_pinned')):
+            # Explicitly set to None for strategy free/host_pinned to account for any cached
+            # task title from a previous non-free play
+            self._last_task_name = None
+        else:
+            self._last_task_name = task.get_name().strip()
+
+            # Display the task banner immediately if we're not doing any filtering based on task
+            # result
+            if self.get_option('display_skipped_hosts') and self.get_option('display_ok_hosts'):
+                self._print_task_banner(task)
+
+    def _print_task_banner(self, task):
+        self._display.display('>>> ' + (sys._getframe().f_code.co_name), color=self.TRACE_COLOR)
+        # args can be specified as no_log in several places: in the task or in
+        # the argument spec.  We can check whether the task is no_log but the
+        # argument spec can't be because that is only run on the target
+        # machine and we haven't run it there yet at this time.
+        #
+        # So we give people a config option to affect display of the args so
+        # that they can secure this if they feel that their stdout is insecure
+        # (shoulder surfing, logging stdout straight to a file, etc).
+        args = ''
+        if not task.no_log and C.DISPLAY_ARGS_TO_STDOUT:
+            args = u', '.join(u'%s=%s' % a for a in task.args.items())
+            args = u' %s' % args
+
+        prefix = self._task_type_cache.get(task._uuid, 'TASK')
+
+        # Use cached task name
+        task_name = self._last_task_name
+        if task_name is None:
+            task_name = task.get_name().strip()
+
+        if task.check_mode and self.get_option('check_mode_markers'):
+            checkmsg = " [CHECK MODE]"
+        else:
+            checkmsg = ""
+        self._display.banner(u"%s [%s%s]%s" %
+                             (prefix, task_name, args, checkmsg))
+
+        if self._display.verbosity >= 2:
+            self._print_task_path(task)
+
+        self._last_task_banner = task._uuid
 
     def v2_runner_on_failed(self, result, ignore_errors=False):
-        self._display.display('>>> ' + (sys._getframe().f_code.co_name), color=self.TRACE_COLOR)
+        if self.DEMO_MODE:
+            self._display.display('>>> ' + (sys._getframe().f_code.co_name),
+                                  color=self.TRACE_COLOR)
 
         host_label = self.host_label(result)
         self._clean_results(result._result, result._task.action)
@@ -236,74 +463,6 @@ class CallbackModule(CallbackBase):
     def v2_playbook_on_no_hosts_remaining(self):
         self._display.display('>>> ' + (sys._getframe().f_code.co_name), color=self.TRACE_COLOR)
         self._display.banner("NO MORE HOSTS LEFT")
-
-    def v2_playbook_on_task_start(self, task, is_conditional):
-        self._display.display('>>> ' + (sys._getframe().f_code.co_name), color=self.TRACE_COLOR)
-        self._task_start(task, prefix='TASK')
-
-    def _task_start(self, task, prefix=None):
-        self._display.display('>>> ' + (sys._getframe().f_code.co_name), color=self.TRACE_COLOR)
-        # Cache output prefix for task if provided
-        # This is needed to properly display 'RUNNING HANDLER' and similar
-        # when hiding skipped/ok task results
-        if prefix is not None:
-            self._task_type_cache[task._uuid] = prefix
-
-        # Preserve task name, as all vars may not be available for templating
-        # when we need it later
-        if self._play.strategy in add_internal_fqcns(('free', 'host_pinned')):
-            # Explicitly set to None for strategy free/host_pinned to account for any cached
-            # task title from a previous non-free play
-            self._last_task_name = None
-        else:
-            self._last_task_name = task.get_name().strip()
-
-            # Display the task banner immediately if we're not doing any filtering based on task
-            # result
-            if self.get_option('display_skipped_hosts') and self.get_option('display_ok_hosts'):
-                self._print_task_banner(task)
-
-    def _print_task_banner(self, task):
-        self._display.display('>>> ' + (sys._getframe().f_code.co_name), color=self.TRACE_COLOR)
-        # args can be specified as no_log in several places: in the task or in
-        # the argument spec.  We can check whether the task is no_log but the
-        # argument spec can't be because that is only run on the target
-        # machine and we haven't run it there yet at this time.
-        #
-        # So we give people a config option to affect display of the args so
-        # that they can secure this if they feel that their stdout is insecure
-        # (shoulder surfing, logging stdout straight to a file, etc).
-        args = ''
-        if not task.no_log and C.DISPLAY_ARGS_TO_STDOUT:
-            args = u', '.join(u'%s=%s' % a for a in task.args.items())
-            args = u' %s' % args
-
-        prefix = self._task_type_cache.get(task._uuid, 'TASK')
-
-        # Use cached task name
-        task_name = self._last_task_name
-        if task_name is None:
-            task_name = task.get_name().strip()
-
-        if task.check_mode and self.get_option('check_mode_markers'):
-            checkmsg = " [CHECK MODE]"
-        else:
-            checkmsg = ""
-        self._display.banner(u"%s [%s%s]%s" %
-                             (prefix, task_name, args, checkmsg))
-
-        if self._display.verbosity >= 2:
-            self._print_task_path(task)
-
-        self._last_task_banner = task._uuid
-
-    def v2_playbook_on_cleanup_task_start(self, task):
-        self._display.display('>>> ' + (sys._getframe().f_code.co_name), color=self.TRACE_COLOR)
-        self._task_start(task, prefix='CLEANUP TASK')
-
-    def v2_playbook_on_handler_task_start(self, task):
-        self._display.display('>>> ' + (sys._getframe().f_code.co_name), color=self.TRACE_COLOR)
-        self._task_start(task, prefix='RUNNING HANDLER')
 
     def v2_runner_on_start(self, host, task):
         self._display.display('>>> ' + (sys._getframe().f_code.co_name), color=self.TRACE_COLOR)
@@ -507,6 +666,44 @@ class CallbackModule(CallbackBase):
                 handler.get_name(), host), color=C.COLOR_VERBOSE, screen_only=True)
 
     def _peek_inside(self, _object_name, _object):
-        # type: (str, any) -> None
-        self._display.display(f'>>> {_object_name} is type {type(_object)}: { _object}.',
-                              'bright green')
+        # type: (self.UNICODE_TYPE, any) -> None
+        """Display the value and type of an object.
+
+        :param self.UNICODE_TYPE _object_name: The name of the argument, parameter, or variable
+        :param any _object: The actual argument or variable
+        :return: None
+        """
+        self._display.display('>>> {0} is type {1}: {2}.'.format(
+            _object_name, type(_object), _object), 'bright green')
+
+    def _validate_input(self, _object_name, _object, _expected_type):
+        # type: (self.UNICODE_TYPE, any, type) -> None
+        """Ensure inputs are the correct type and not empty.
+
+        :param self.UNICODE_TYPE _object_name: The name of the argument, parameter, or variable
+        :param any _object: The actual argument or variable
+        :param type _expected_type: The expected type for the argument or variable
+        :return: None
+        """
+        try:
+            # Validate inputs
+            if not isinstance(_object_name, self.UNICODE_TYPE):
+                raise TypeError('_object_name arg must be a string.')
+
+            if not isinstance(_expected_type, type):
+                raise TypeError('_expected_type arg must be a valid Python data type.')
+
+            # Check that the input is the correct type and not empty
+            if not isinstance(_object, _expected_type):
+                raise TypeError('{0} is not type <{1}>.'.format(_object_name, _expected_type))
+
+            if isinstance(_object, self.UNICODE_TYPE) and _object.strip() == '':
+                raise ValueError('{0} cannot be empty.'.format(_object_name))
+        except (TypeError, ValueError) as e:
+            _calling_method = inspect.currentframe().f_back
+            _msg = '{0} ({1}(), line {2}).'.format(e,
+                                                   _calling_method.f_code.co_name,
+                                                   _calling_method.f_lineno)
+            self._display.error('Invalid input or variable:')
+            self._display.error(_msg)
+            sys.exit(1)

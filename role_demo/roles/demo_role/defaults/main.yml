@@ -1,3 +1,3 @@
 ---
 # defaults file for demo_role
-test_var: "This is a test."  # noqa: var-naming[no-role-prefix]
+default_role_var: "I am a default role variable."  # noqa: var-naming[no-role-prefix]

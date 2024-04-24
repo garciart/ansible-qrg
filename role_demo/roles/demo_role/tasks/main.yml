@@ -1,33 +1,47 @@
 ---
 # tasks file for demo_role
 - name: Show a greeting
+  vars:
+    task_var: "I am a task-level variable."
   ansible.builtin.debug:
     msg: "Hello from the role!"
 
-- name: Test v2_runner_on_failed  # noqa ignore-errors
-  ansible.builtin.fail:
-    msg: "I failed this task on purpose."
-  ignore_errors: true
+# - name: Test cleanup
+#   block:
+#     - name: Test v2_runner_on_failed  # noqa ignore-errors
+#       ansible.builtin.fail:
+#         msg: "I failed this task on purpose."
+#       # ignore_errors: true
 
-- name: Test v2_runner_on_ok
-  ansible.builtin.debug:
-    msg: "I'm OK!"
+#   rescue:
+#     - name: Rescue task
+#       ansible.builtin.debug:
+#         msg: "I'm rescued!"
 
-- name: Test v2_runner_on_skipped
-  ansible.builtin.debug:
-    msg: "I skipped this task."
-  when: false
+#   always:
+#     - name: Always task
+#       ansible.builtin.debug:
+#         msg: "I'm always!"
 
-- name: Test v2_runner_on_unreachable
-  ansible.builtin.ping:
-  # when: "inventory_hostname == 'unreachable'"
-  delegate_to: bob
-  ignore_unreachable: true
+# - name: Test v2_runner_on_ok
+#   ansible.builtin.debug:
+#     msg: "I'm OK!"
 
-- name: Test v2_playbook_on_no_hosts_matched
-  ansible.builtin.command: ls
-  delegate_to: bob
-  changed_when: false
+# - name: Test v2_runner_on_skipped
+#   ansible.builtin.debug:
+#     msg: "I skipped this task."
+#   when: false
+
+# - name: Test v2_runner_on_unreachable
+#   ansible.builtin.ping:
+#   # when: "inventory_hostname == 'unreachable'"
+#   delegate_to: bob
+#   ignore_unreachable: true
+
+# - name: Test v2_playbook_on_no_hosts_matched
+#   ansible.builtin.command: ls
+#   delegate_to: bob
+#   changed_when: false
 ...
 # code: language=ansible
 # vi: set noai nu ts=2 sw=2 sts=2 sta et:
