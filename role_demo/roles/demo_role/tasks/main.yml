@@ -6,6 +6,10 @@
   ansible.builtin.debug:
     msg: "Hello from the role!"
 
+- name: Run handler
+  ansible.builtin.command: ls
+  changed_when: false
+
 # - name: Test cleanup
 #   block:
 #     - name: Test v2_runner_on_failed  # noqa ignore-errors

@@ -1,3 +1,28 @@
+"""This is an annotated copy of Ansible's default stdout callback plugin.
+
+If you do not tell Ansible to use another callback (e.g., minimal, oneline, etc.),
+Ansible will use this callback to display output to the screen.
+
+You can customize output by changing the code or by changing settings in ansible.cfg.
+See https://docs.ansible.com/ansible/latest/collections/ansible/builtin/default_callback.html
+for ansible.cfg settings.
+
+Order of operations:
+__init__
+v2_playbook_on_start
+├── v2_playbook_on_play_start
+│   └── v2_playbook_on_play_start
+│       ├── v2_playbook_on_task_start -or-
+│       ├── v2_playbook_on_handler_task_start -or-
+│       └── v2_playbook_on_cleanup_task_start -or-
+│           └── _task_start
+│               └── _print_task_banner
+│                   └── v2_runner_on_start
+│                       ├── v2_runner_on_ok -or-
+│                       ├── v2_runner_on_unreachable -or-
+│                       ├── v2_runner_on_failed -or-
+│                       └── v2_runner_on_skipped
+"""
 # (c) 2012-2014, Michael DeHaan <michael.dehaan@gmail.com>
 # (c) 2017 Ansible Project
 # GNU General Public License v3.0+ (see COPYING or https://www.gnu.org/licenses/gpl-3.0.txt)
@@ -14,14 +39,17 @@ from ansible.utils.color import colorize, hostcolor
 from ansible.utils.fqcn import add_internal_fqcns
 
 # Import these classes for type hints, input validation, and debugging
-from ansible.playbook import (Playbook, Play)  # RTG
+from ansible.playbook import (Playbook)  # RTG
+from ansible.playbook.play import (Play)  # RTG
 from ansible.playbook.task import (Task)  # RTG
+from ansible.inventory.host import (Host)  # RTG
+from ansible.executor.task_result import (TaskResult)  # RTG
 
 # Pylint overrides
 # pylint: disable=locally-disabled, protected-access, consider-using-f-string
 
 DOCUMENTATION = '''
-    name: default
+    name: defaultunicode
     type: stdout
     short_description: default Ansible screen output
     version_added: historical
@@ -69,12 +97,13 @@ class CallbackModule(CallbackBase):
 
     # Python 2 'str' type = Python 3 'bytes' type
     # Python 2 'unicode' type = Python 3 'str' type
-    # noqa: Python 3 no longer recognizes unicode as a type
-    UNICODE_TYPE = str if PYTHON_VERSION >= 3 else unicode  # noqa
+    # noqa: Python 3 no longer recognizes unicode as a type and it is undefined
+    # pylint: disable-next=undefined-variable
+    UNICODE_TYPE = str if PYTHON_VERSION >= 3 else unicode  # noqa:F821 # type:ignore
 
     def __init__(self):
         # type: () -> None
-        """Creates class instance and initializes variables (Default.py override).
+        """Creates class instance and initializes variables.
 
         :return: None
         """
@@ -90,7 +119,8 @@ class CallbackModule(CallbackBase):
 
     def v2_playbook_on_start(self, playbook):
         # type: (Playbook) -> None
-        """Handle output when starting the playbook (Default.py override).
+        """Show optional information, based on verbosity and ansible.cfg settings,
+        when starting the playbook.
 
         Notes:
         - ansible.playbook.Playbook class defined in lib/ansible/playbook/__init__.py
@@ -139,7 +169,8 @@ class CallbackModule(CallbackBase):
 
     def v2_playbook_on_play_start(self, play):
         # type: (Play) -> None
-        """Handle output when starting a play (Default.py override).
+        """Show the play name and optional information, based on ansible.cfg settings,
+        when starting a play.
 
         Notes:
         - ansible.playbook.Play class defined in lib/ansible/playbook/play.py
@@ -205,7 +236,8 @@ class CallbackModule(CallbackBase):
 
     def v2_playbook_on_task_start(self, task, is_conditional):
         # type: (Task, bool) -> None
-        """Wrapper for handling output when starting a normal task (Default.py override).
+        """Wrapper for showing output when starting a normal task
+        and adds a 'TASK' prefix to the task banner.
 
         Notes:
         - ansible.playbook.task.Task class defined in lib/ansible/playbook/task.py
@@ -243,7 +275,8 @@ class CallbackModule(CallbackBase):
 
     def v2_playbook_on_handler_task_start(self, task):
         # type: (Task) -> None
-        """Wrapper for handling when calling a handler (Default.py override).
+        """Wrapper for showing output when calling a handler
+        and adds a 'RUNNING HANDLER' prefix to the task banner.
 
         Notes:
         - ansible.playbook.task.Task class defined in lib/ansible/playbook/task.py
@@ -263,7 +296,7 @@ class CallbackModule(CallbackBase):
 
     def v2_playbook_on_cleanup_task_start(self, task):
         # type: (Task) -> None
-        """Not currently used by Ansible (Default.py override).
+        """Not currently used by Ansible.
 
         Notes:
         - ansible.playbook.task.Task class defined in lib/ansible/playbook/task.py
@@ -282,7 +315,7 @@ class CallbackModule(CallbackBase):
 
     def _task_start(self, task, prefix=None):
         # type: (Task, Union[str, None]) -> None
-        """Handle output when running a task (Default.py override).
+        """Wrapper for showing output, based on ansible.cfg settings, when running a task.
 
         Notes:
         - ansible.playbook.task.Task class defined in lib/ansible/playbook/task.py
@@ -325,7 +358,25 @@ class CallbackModule(CallbackBase):
                 self._print_task_banner(task)
 
     def _print_task_banner(self, task):
-        self._display.display('>>> ' + (sys._getframe().f_code.co_name), color=self.TRACE_COLOR)
+        # type: (Task) -> None
+        """Show task information, like prefix, task name, and arguments,
+        and optional information based on verbosity and ansible.cfg settings.
+
+        Notes:
+        - ansible.playbook.task.Task class defined in lib/ansible/playbook/task.py
+        - You can access Task class methods and attributes like task.get_name() and task.action
+        - You can access task-level vars using task.get_vars()
+        - You can access extra_vars using task.get_variable_manager().extra_vars
+
+        :param Task task: The running task as an object
+        :returns: None
+        """
+        if self.DEMO_MODE:
+            self._display.display('>>> ' + (sys._getframe().f_code.co_name),
+                                  color=self.TRACE_COLOR)
+            # Validate inputs
+            self._validate_input('task', task, Task)
+
         # args can be specified as no_log in several places: in the task or in
         # the argument spec.  We can check whether the task is no_log but the
         # argument spec can't be because that is only run on the target
@@ -358,37 +409,53 @@ class CallbackModule(CallbackBase):
 
         self._last_task_banner = task._uuid
 
-    def v2_runner_on_failed(self, result, ignore_errors=False):
+    def v2_runner_on_start(self, host, task):
+        # type: (Host, Task) -> None
+        """Show a 'started TASK' message; disabled by default.
+
+        Notes:
+        - ansible.playbook.host.Host class defined in lib/ansible/inventory/host.py
+        - ansible.playbook.task.Task class defined in lib/ansible/playbook/task.py
+        - You can access Host class methods and attributes like host.get_name() and host.address
+        - You can access Task class methods and attributes like task.get_name() and task.action
+        - You can access task-level vars using task.get_vars()
+        - You can access extra_vars using task.get_variable_manager().extra_vars
+
+        :param Host host: The target host as an object
+        :param Task task: The running task as an object
+        :returns: None
+        """
+        if self.DEMO_MODE:
+            self._display.display('>>> ' + (sys._getframe().f_code.co_name),
+                                  color=self.TRACE_COLOR)
+            # Validate inputs
+            self._validate_input('task', host, Host)
+            self._validate_input('task', task, Task)
+
+        if self.get_option('show_per_host_start'):
+            self._display.display(" [started %s on %s]" %
+                                  (task, host), color=C.COLOR_OK)
+
+    def v2_runner_on_ok(self, result):
+        # type: (TaskResult) -> None
+        """Show result, output, and optional information, based on ansible.cfg settings,
+        if a task passed.
+
+        Notes:
+        - ansible.executor.task_result.TaskResult class defined in
+          lib/ansible/executor/task_result.py
+        - You can access TaskResult class methods and attributes like task_result.is_changed()
+          and task_result.task_name
+
+        :param TaskResult result: The result and output of a task
+        :returns: None
+        """
         if self.DEMO_MODE:
             self._display.display('>>> ' + (sys._getframe().f_code.co_name),
                                   color=self.TRACE_COLOR)
 
-        host_label = self.host_label(result)
-        self._clean_results(result._result, result._task.action)
-
-        if self._last_task_banner != result._task._uuid:
-            self._print_task_banner(result._task)
-
-        self._handle_exception(
-            result._result, use_stderr=self.get_option('display_failed_stderr'))
-        self._handle_warnings(result._result)
-
-        if result._task.loop and 'results' in result._result:
-            self._process_items(result)
-
-        else:
-            if self._display.verbosity < 2 and self.get_option('show_task_path_on_failure'):
-                self._print_task_path(result._task)
-            msg = "fatal: [%s]: FAILED! => %s" % (
-                host_label, self._dump_results(result._result))
-            self._display.display(msg, color=C.COLOR_ERROR, stderr=self.get_option(
-                'display_failed_stderr'))
-
-        if ignore_errors:
-            self._display.display("...ignoring", color=C.COLOR_SKIP)
-
-    def v2_runner_on_ok(self, result):
-        self._display.display('>>> ' + (sys._getframe().f_code.co_name), color=self.TRACE_COLOR)
+            # Validate inputs
+            self._validate_input('result', result, TaskResult)
 
         host_label = self.host_label(result)
 
@@ -423,8 +490,106 @@ class CallbackModule(CallbackBase):
                 msg += " => %s" % (self._dump_results(result._result),)
             self._display.display(msg, color=color)
 
+    def v2_runner_on_unreachable(self, result):
+        # type: (TaskResult) -> None
+        """Show result, output, and optional information, based on ansible.cfg settings,
+        if a host is unreachable.
+
+        Notes:
+        - ansible.executor.task_result.TaskResult class defined in
+          lib/ansible/executor/task_result.py
+        - You can access TaskResult class methods and attributes like task_result.is_changed()
+          and task_result.task_name
+
+        :param TaskResult result: The result and output of a task
+        :returns: None
+        """
+        if self.DEMO_MODE:
+            self._display.display('>>> ' + (sys._getframe().f_code.co_name),
+                                  color=self.TRACE_COLOR)
+
+            # Validate inputs
+            self._validate_input('result', result, TaskResult)
+
+        if self._last_task_banner != result._task._uuid:
+            self._print_task_banner(result._task)
+
+        host_label = self.host_label(result)
+        msg = "fatal: [%s]: UNREACHABLE! => %s" % (
+            host_label, self._dump_results(result._result))
+        self._display.display(msg, color=C.COLOR_UNREACHABLE, stderr=self.get_option(
+            'display_failed_stderr'))
+
+        if result._task.ignore_unreachable:
+            self._display.display("...ignoring", color=C.COLOR_SKIP)
+
+    def v2_runner_on_failed(self, result, ignore_errors=False):
+        # type: (TaskResult, bool) -> None
+        """Show result, output, and optional information, based on verbosity and
+        ansible.cfg settings, if a task failed.
+
+        Notes:
+        - ansible.executor.task_result.TaskResult class defined in
+          lib/ansible/executor/task_result.py
+        - You can access TaskResult class methods and attributes like task_result.is_changed()
+          and task_result.task_name
+
+        :param TaskResult result: The result and output of a task
+        :param bool ignore_errors: The value of the ignore_errors keyword
+        :returns: None
+        """
+        if self.DEMO_MODE:
+            self._display.display('>>> ' + (sys._getframe().f_code.co_name),
+                                  color=self.TRACE_COLOR)
+
+            # Validate inputs
+            self._validate_input('result', result, TaskResult)
+            self._validate_input('ignore_errors', ignore_errors, bool)
+
+        host_label = self.host_label(result)
+        self._clean_results(result._result, result._task.action)
+
+        if self._last_task_banner != result._task._uuid:
+            self._print_task_banner(result._task)
+
+        self._handle_exception(
+            result._result, use_stderr=self.get_option('display_failed_stderr'))
+        self._handle_warnings(result._result)
+
+        if result._task.loop and 'results' in result._result:
+            self._process_items(result)
+
+        else:
+            if self._display.verbosity < 2 and self.get_option('show_task_path_on_failure'):
+                self._print_task_path(result._task)
+            msg = "fatal: [%s]: FAILED! => %s" % (
+                host_label, self._dump_results(result._result))
+            self._display.display(msg, color=C.COLOR_ERROR, stderr=self.get_option(
+                'display_failed_stderr'))
+
+        if ignore_errors:
+            self._display.display("...ignoring", color=C.COLOR_SKIP)
+
     def v2_runner_on_skipped(self, result):
-        self._display.display('>>> ' + (sys._getframe().f_code.co_name), color=self.TRACE_COLOR)
+        # type: (TaskResult) -> None
+        """Show result, output, and optional information, based on ansible.cfg settings,
+        if a task is skipped.
+
+        Notes:
+        - ansible.executor.task_result.TaskResult class defined in
+          lib/ansible/executor/task_result.py
+        - You can access TaskResult class methods and attributes like task_result.is_changed()
+          and task_result.task_name
+
+        :param TaskResult result: The result and output of a task
+        :returns: None
+        """
+        if self.DEMO_MODE:
+            self._display.display('>>> ' + (sys._getframe().f_code.co_name),
+                                  color=self.TRACE_COLOR)
+
+            # Validate inputs
+            self._validate_input('result', result, TaskResult)
 
         if self.get_option('display_skipped_hosts'):
 
@@ -441,21 +606,6 @@ class CallbackModule(CallbackBase):
                 msg += " => %s" % self._dump_results(result._result)
             self._display.display(msg, color=C.COLOR_SKIP)
 
-    def v2_runner_on_unreachable(self, result):
-        self._display.display('>>> ' + (sys._getframe().f_code.co_name), color=self.TRACE_COLOR)
-
-        if self._last_task_banner != result._task._uuid:
-            self._print_task_banner(result._task)
-
-        host_label = self.host_label(result)
-        msg = "fatal: [%s]: UNREACHABLE! => %s" % (
-            host_label, self._dump_results(result._result))
-        self._display.display(msg, color=C.COLOR_UNREACHABLE, stderr=self.get_option(
-            'display_failed_stderr'))
-
-        if result._task.ignore_unreachable:
-            self._display.display("...ignoring", color=C.COLOR_SKIP)
-
     def v2_playbook_on_no_hosts_matched(self):
         self._display.display('>>> ' + (sys._getframe().f_code.co_name), color=self.TRACE_COLOR)
         self._display.display("skipping: no hosts matched", color=C.COLOR_SKIP)
@@ -463,12 +613,6 @@ class CallbackModule(CallbackBase):
     def v2_playbook_on_no_hosts_remaining(self):
         self._display.display('>>> ' + (sys._getframe().f_code.co_name), color=self.TRACE_COLOR)
         self._display.banner("NO MORE HOSTS LEFT")
-
-    def v2_runner_on_start(self, host, task):
-        self._display.display('>>> ' + (sys._getframe().f_code.co_name), color=self.TRACE_COLOR)
-        if self.get_option('show_per_host_start'):
-            self._display.display(" [started %s on %s]" %
-                                  (task, host), color=C.COLOR_OK)
 
     def v2_on_file_diff(self, result):
         self._display.display('>>> ' + (sys._getframe().f_code.co_name), color=self.TRACE_COLOR)
