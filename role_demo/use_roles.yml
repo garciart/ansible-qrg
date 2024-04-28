@@ -6,28 +6,38 @@
   gather_facts: false
   vars:
     play_var: "I am a play-level variable."
+  # max_fail_percentage: 33
+  # any_errors_fatal: true
   roles:
     - demo_role
 
-  # tasks:
-  #   - name: Say hello
-  #     ansible.builtin.debug:
-  #       msg: "Hello World!"
+#   tasks:
+#     - name: Say hello
+#       ansible.builtin.debug:
+#         msg: "Hello World!"
 
-  #   - name: Run handler
-  #     ansible.builtin.command: /bin/true
-  #     notify: Foo
-  #     changed_when: true
+#     - name: Run handler
+#       ansible.builtin.command: /bin/true
+#       notify: Foo
+#       changed_when: true
 
-  # post_tasks:
-  #   - name: Say goodbye
-  #     ansible.builtin.debug:
-  #       msg: "Good-bye!"
+#   post_tasks:
+#     - name: Say goodbye
+#       ansible.builtin.debug:
+#         msg: "Good-bye!"
 
-  # handlers:
-  #   - name: Foo
-  #     ansible.builtin.debug:
-  #       msg: "I am the handler."
+#   handlers:
+#     - name: Foo
+#       ansible.builtin.debug:
+#         msg: "I am the handler."
+
+# - name: Use roles
+#   hosts: all
+#   gather_facts: false
+#   tasks:
+#     - name: Say hello from the second play
+#       ansible.builtin.debug:
+#         msg: "Hello from the second play!"
 ...
 # code: language=ansible
 # vi: set noai nu ts=2 sw=2 sts=2 sta et:

@@ -1,14 +1,24 @@
 ---
 # tasks file for demo_role
+# - name: Test ping
+#   ansible.builtin.ping:
+
+# - name: Test v2_runner_on_failed
+#   ansible.builtin.fail:
+#     msg: "I failed this task on purpose."
+#   when: >-
+#     inventory_hostname == 'managed_node1'
+#   retries: 3
+
 - name: Show a greeting
   vars:
     task_var: "I am a task-level variable."
   ansible.builtin.debug:
     msg: "Hello from the role!"
 
-- name: Include a task
-  ansible.builtin.include_tasks:
-    file: sub_tasks.yml
+# - name: Include a task
+#   ansible.builtin.include_tasks:
+#     file: sub_tasks.yml
 
 # - name: Loop over a list of items directly
 #   ansible.builtin.debug:
