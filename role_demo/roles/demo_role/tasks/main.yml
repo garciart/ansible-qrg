@@ -6,9 +6,29 @@
   ansible.builtin.debug:
     msg: "Hello from the role!"
 
-- name: Run handler
-  ansible.builtin.command: ls
-  changed_when: false
+- name: Include a task
+  ansible.builtin.include_tasks:
+    file: sub_tasks.yml
+
+# - name: Loop over a list of items directly
+#   ansible.builtin.debug:
+#     msg: "{{ item }} is a planet."
+#   when: item != "Phobos" and item != "Deimos"
+#   loop:
+#     - "Mercury"
+#     - "Venus"
+#     - "Earth"
+#     - "Mars"
+#     - "Phobos"
+#     - "Jupiter"
+#     - "Saturn"
+#     - "Deimos"
+#     - "Uranus"
+#     - "Neptune"
+
+# - name: Run handler
+#   ansible.builtin.command: ls
+#   changed_when: false
 
 # - name: Test cleanup
 #   block:

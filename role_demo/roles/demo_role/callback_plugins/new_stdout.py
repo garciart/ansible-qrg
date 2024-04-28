@@ -8,20 +8,37 @@ See https://docs.ansible.com/ansible/latest/collections/ansible/builtin/default_
 for ansible.cfg settings.
 
 Order of operations:
-__init__
-v2_playbook_on_start
-├── v2_playbook_on_play_start
-│   └── v2_playbook_on_play_start
-│       ├── v2_playbook_on_task_start -or-
-│       ├── v2_playbook_on_handler_task_start -or-
-│       └── v2_playbook_on_cleanup_task_start -or-
-│           └── _task_start
-│               └── _print_task_banner
-│                   └── v2_runner_on_start
-│                       ├── v2_runner_on_ok -or-
-│                       ├── v2_runner_on_unreachable -or-
-│                       ├── v2_runner_on_failed -or-
-│                       └── v2_runner_on_skipped
+.
+├── __init__
+│
+├── v2_playbook_on_start
+│   │
+│   ├── v2_playbook_on_play_start
+│   │   │
+│   │   ├── v2_playbook_on_no_hosts_matched
+│   │   │
+│   │   ├── v2_playbook_on_include -and/or-
+│   │   │   v2_playbook_on_task_start -or-
+│   │   │   v2_playbook_on_notify -and-
+│   │   │   └── v2_playbook_on_handler_task_start -or-
+│   │   │   v2_playbook_on_cleanup_task_start -or-
+│   │   │   |
+│   │   │   └── _task_start
+│   │   │       |
+│   │   │       └── _print_task_banner
+│   │   │           |
+│   │   │           └── v2_runner_on_start
+│   │   │               |
+│   │   │               └── v2_runner_on_ok -or-
+│   │   │                   v2_runner_on_unreachable -or-
+│   │   │                   v2_runner_on_failed -or-
+│   │   │                   v2_runner_on_skipped
+│   │   │
+│   │   └── v2_playbook_on_task_start...
+│   │
+│   └── v2_playbook_on_play_start...
+│
+└── v2_playbook_on_stats
 """
 # (c) 2012-2014, Michael DeHaan <michael.dehaan@gmail.com>
 # (c) 2017 Ansible Project
@@ -39,11 +56,13 @@ from ansible.utils.color import colorize, hostcolor
 from ansible.utils.fqcn import add_internal_fqcns
 
 # Import these classes for type hints, input validation, and debugging
-from ansible.playbook import (Playbook)  # RTG
-from ansible.playbook.play import (Play)  # RTG
-from ansible.playbook.task import (Task)  # RTG
-from ansible.inventory.host import (Host)  # RTG
-from ansible.executor.task_result import (TaskResult)  # RTG
+from ansible.playbook import Playbook  # RTG
+from ansible.playbook.play import Play  # RTG
+from ansible.playbook.task import Task  # RTG
+from ansible.inventory.host import Host  # RTG
+from ansible.executor.task_result import TaskResult  # RTG
+from ansible.playbook.handler import Handler  # RTG
+from ansible.playbook.included_file import IncludedFile  # RTG
 
 # Pylint overrides
 # pylint: disable=locally-disabled, protected-access, consider-using-f-string
@@ -234,6 +253,44 @@ class CallbackModule(CallbackBase):
 
         self._display.banner(msg)
 
+    def v2_playbook_on_no_hosts_matched(self):
+        # type: () -> None
+        """Show a message if a target node is not in the inventory.
+
+        :returns: None
+        """
+        if self.DEMO_MODE:
+            self._display.display('>>> ' + (sys._getframe().f_code.co_name),
+                                  color=self.TRACE_COLOR)
+
+        self._display.display("skipping: no hosts matched", color=C.COLOR_SKIP)
+
+    def v2_playbook_on_include(self, included_file):
+        # type (IncludedFile) -> None
+        """Show a message if a task file is included.
+
+        Notes:
+        - ansible.playbook.included_file.IncludedFile class defined in
+          lib/ansible/playbook/included_file.py
+        - You can access IncludedFile class methods like included_file.add_host()
+
+        :param IncludedFile included_file: The included task file as an object
+        :returns: None
+        """
+        if self.DEMO_MODE:
+            self._display.display('>>> ' + (sys._getframe().f_code.co_name),
+                                  color=self.TRACE_COLOR)
+
+            # Validate inputs
+            self._validate_input('included_file', included_file, IncludedFile)
+
+        msg = 'included: %s for %s' % (included_file._filename, ", ".join(
+            [h.name for h in included_file._hosts]))
+        label = self._get_item_label(included_file._vars)
+        if label:
+            msg += " => (item=%s)" % label
+        self._display.display(msg, color=C.COLOR_SKIP)
+
     def v2_playbook_on_task_start(self, task, is_conditional):
         # type: (Task, bool) -> None
         """Wrapper for showing output when starting a normal task
@@ -252,6 +309,7 @@ class CallbackModule(CallbackBase):
         if self.DEMO_MODE:
             self._display.display('>>> ' + (sys._getframe().f_code.co_name),
                                   color=self.TRACE_COLOR)
+
             # Validate inputs
             self._validate_input('task', task, Task)
 
@@ -273,6 +331,34 @@ class CallbackModule(CallbackBase):
 
         self._task_start(task, prefix='TASK')
 
+    def v2_playbook_on_notify(self, handler, host):
+        # type: (Handler, Host) -> None
+        """Wrapper for showing output when calling a handler
+        and adds a 'RUNNING HANDLER' prefix to the task banner.
+
+        Notes:
+        - ansible.playbook.handler,Handler class defined in lib/ansible/playbook/handler.py
+        - ansible.playbook.host.Host class defined in lib/ansible/inventory/host.py
+        - You can access Handler class methods and attributes like handler.is_host_notified()
+          and handler.notified_hosts
+        - You can access Host class methods and attributes like host.get_name() and host.address
+
+        :param Handler handler: The handler task as an object
+        :param Host host: The target host as an object
+        :returns: None
+        """
+        if self.DEMO_MODE:
+            self._display.display('>>> ' + (sys._getframe().f_code.co_name),
+                                  color=self.TRACE_COLOR)
+
+            # Validate inputs
+            self._validate_input('handler', handler, Handler)
+            self._validate_input('host', host, Host)
+
+        if self._display.verbosity > 1:
+            self._display.display("NOTIFIED HANDLER %s for %s" % (
+                handler.get_name(), host), color=C.COLOR_VERBOSE, screen_only=True)
+
     def v2_playbook_on_handler_task_start(self, task):
         # type: (Task) -> None
         """Wrapper for showing output when calling a handler
@@ -291,8 +377,11 @@ class CallbackModule(CallbackBase):
             self._display.display('>>> ' + (sys._getframe().f_code.co_name),
                                   color=self.TRACE_COLOR)
 
-        self._display.display('>>> ' + (sys._getframe().f_code.co_name), color=self.TRACE_COLOR)
+            # Validate inputs
+            self._validate_input('task', task, Task)
+
         self._task_start(task, prefix='RUNNING HANDLER')
+
 
     def v2_playbook_on_cleanup_task_start(self, task):
         # type: (Task) -> None
@@ -310,6 +399,9 @@ class CallbackModule(CallbackBase):
         if self.DEMO_MODE:
             self._display.display('>>> ' + (sys._getframe().f_code.co_name),
                                   color=self.TRACE_COLOR)
+
+            # Validate inputs
+            self._validate_input('task', task, Task)
 
         self._task_start(task, prefix='CLEANUP TASK')
 
@@ -438,8 +530,8 @@ class CallbackModule(CallbackBase):
 
     def v2_runner_on_ok(self, result):
         # type: (TaskResult) -> None
-        """Show result, output, and optional information, based on ansible.cfg settings,
-        if a task passed.
+        """Show result, output, and optional information, based on verbosity and
+        ansible.cfg settings, if a task passed.
 
         Notes:
         - ansible.executor.task_result.TaskResult class defined in
@@ -544,6 +636,11 @@ class CallbackModule(CallbackBase):
 
             # Validate inputs
             self._validate_input('result', result, TaskResult)
+
+            # Unfortunately, some methods may call v2_runner_on_failed()
+            # with ignore_errors explicitly set to None
+            # Set to False if that is the case
+            ignore_errors = False if ignore_errors is None else ignore_errors
             self._validate_input('ignore_errors', ignore_errors, bool)
 
         host_label = self.host_label(result)
@@ -572,8 +669,8 @@ class CallbackModule(CallbackBase):
 
     def v2_runner_on_skipped(self, result):
         # type: (TaskResult) -> None
-        """Show result, output, and optional information, based on ansible.cfg settings,
-        if a task is skipped.
+        """Show result, output, and optional information,, based on verbosity and
+        ansible.cfg settings, if a task is skipped.
 
         Notes:
         - ansible.executor.task_result.TaskResult class defined in
@@ -606,34 +703,26 @@ class CallbackModule(CallbackBase):
                 msg += " => %s" % self._dump_results(result._result)
             self._display.display(msg, color=C.COLOR_SKIP)
 
-    def v2_playbook_on_no_hosts_matched(self):
-        self._display.display('>>> ' + (sys._getframe().f_code.co_name), color=self.TRACE_COLOR)
-        self._display.display("skipping: no hosts matched", color=C.COLOR_SKIP)
-
-    def v2_playbook_on_no_hosts_remaining(self):
-        self._display.display('>>> ' + (sys._getframe().f_code.co_name), color=self.TRACE_COLOR)
-        self._display.banner("NO MORE HOSTS LEFT")
-
-    def v2_on_file_diff(self, result):
-        self._display.display('>>> ' + (sys._getframe().f_code.co_name), color=self.TRACE_COLOR)
-        if result._task.loop and 'results' in result._result:
-            for res in result._result['results']:
-                if 'diff' in res and res['diff'] and res.get('changed', False):
-                    diff = self._get_diff(res['diff'])
-                    if diff:
-                        if self._last_task_banner != result._task._uuid:
-                            self._print_task_banner(result._task)
-                        self._display.display(diff)
-        elif 'diff' in result._result and result._result['diff'] and result._result.get('changed',
-                                                                                        False):
-            diff = self._get_diff(result._result['diff'])
-            if diff:
-                if self._last_task_banner != result._task._uuid:
-                    self._print_task_banner(result._task)
-                self._display.display(diff)
-
     def v2_runner_item_on_ok(self, result):
-        self._display.display('>>> ' + (sys._getframe().f_code.co_name), color=self.TRACE_COLOR)
+        # type: (TaskResult) -> None
+        """Show result, output, and optional information, based on verbosity and
+        ansible.cfg settings, if a task passed using an item from a loop.
+
+        Notes:
+        - ansible.executor.task_result.TaskResult class defined in
+          lib/ansible/executor/task_result.py
+        - You can access TaskResult class methods and attributes like task_result.is_changed()
+          and task_result.task_name
+
+        :param TaskResult result: The result and output of a task
+        :returns: None
+        """
+        if self.DEMO_MODE:
+            self._display.display('>>> ' + (sys._getframe().f_code.co_name),
+                                  color=self.TRACE_COLOR)
+
+            # Validate inputs
+            self._validate_input('result', result, TaskResult)
 
         host_label = self.host_label(result)
         if isinstance(result._task, TaskInclude):
@@ -662,7 +751,27 @@ class CallbackModule(CallbackBase):
         self._display.display(msg, color=color)
 
     def v2_runner_item_on_failed(self, result):
-        self._display.display('>>> ' + (sys._getframe().f_code.co_name), color=self.TRACE_COLOR)
+        # type: (TaskResult, bool) -> None
+        """Show result, output, and optional information, based on ansible.cfg settings,
+        if a task failed using an item from a loop.
+
+        Notes:
+        - ansible.executor.task_result.TaskResult class defined in
+          lib/ansible/executor/task_result.py
+        - You can access TaskResult class methods and attributes like task_result.is_changed()
+          and task_result.task_name
+
+        :param TaskResult result: The result and output of a task
+        :param bool ignore_errors: The value of the ignore_errors keyword
+        :returns: None
+        """
+        if self.DEMO_MODE:
+            self._display.display('>>> ' + (sys._getframe().f_code.co_name),
+                                  color=self.TRACE_COLOR)
+
+            # Validate inputs
+            self._validate_input('result', result, TaskResult)
+
         if self._last_task_banner != result._task._uuid:
             self._print_task_banner(result._task)
 
@@ -681,7 +790,26 @@ class CallbackModule(CallbackBase):
         )
 
     def v2_runner_item_on_skipped(self, result):
-        self._display.display('>>> ' + (sys._getframe().f_code.co_name), color=self.TRACE_COLOR)
+        # type: (TaskResult) -> None
+        """Show result, output, and optional information, based on verbosity and
+        ansible.cfg settings, if a task is skipped using an item from a loop.
+
+        Notes:
+        - ansible.executor.task_result.TaskResult class defined in
+          lib/ansible/executor/task_result.py
+        - You can access TaskResult class methods and attributes like task_result.is_changed()
+          and task_result.task_name
+
+        :param TaskResult result: The result and output of a task
+        :returns: None
+        """
+        if self.DEMO_MODE:
+            self._display.display('>>> ' + (sys._getframe().f_code.co_name),
+                                  color=self.TRACE_COLOR)
+
+            # Validate inputs
+            self._validate_input('result', result, TaskResult)
+
         if self.get_option('display_skipped_hosts'):
             if self._last_task_banner != result._task._uuid:
                 self._print_task_banner(result._task)
@@ -693,14 +821,27 @@ class CallbackModule(CallbackBase):
                 msg += " => %s" % self._dump_results(result._result)
             self._display.display(msg, color=C.COLOR_SKIP)
 
-    def v2_playbook_on_include(self, included_file):
+    def v2_playbook_on_no_hosts_remaining(self):
         self._display.display('>>> ' + (sys._getframe().f_code.co_name), color=self.TRACE_COLOR)
-        msg = 'included: %s for %s' % (included_file._filename, ", ".join(
-            [h.name for h in included_file._hosts]))
-        label = self._get_item_label(included_file._vars)
-        if label:
-            msg += " => (item=%s)" % label
-        self._display.display(msg, color=C.COLOR_SKIP)
+        self._display.banner("NO MORE HOSTS LEFT")
+
+    def v2_on_file_diff(self, result):
+        self._display.display('>>> ' + (sys._getframe().f_code.co_name), color=self.TRACE_COLOR)
+        if result._task.loop and 'results' in result._result:
+            for res in result._result['results']:
+                if 'diff' in res and res['diff'] and res.get('changed', False):
+                    diff = self._get_diff(res['diff'])
+                    if diff:
+                        if self._last_task_banner != result._task._uuid:
+                            self._print_task_banner(result._task)
+                        self._display.display(diff)
+        elif 'diff' in result._result and result._result['diff'] and result._result.get('changed',
+                                                                                        False):
+            diff = self._get_diff(result._result['diff'])
+            if diff:
+                if self._last_task_banner != result._task._uuid:
+                    self._print_task_banner(result._task)
+                self._display.display(diff)
 
     def v2_playbook_on_stats(self, stats):
         self._display.display('>>> ' + (sys._getframe().f_code.co_name), color=self.TRACE_COLOR)
@@ -802,12 +943,6 @@ class CallbackModule(CallbackBase):
             jid = result._result['async_result'].get('ansible_job_id')
         self._display.display("ASYNC FAILED on %s: jid=%s" %
                               (host, jid), color=C.COLOR_DEBUG)
-
-    def v2_playbook_on_notify(self, handler, host):
-        self._display.display('>>> ' + (sys._getframe().f_code.co_name), color=self.TRACE_COLOR)
-        if self._display.verbosity > 1:
-            self._display.display("NOTIFIED HANDLER %s for %s" % (
-                handler.get_name(), host), color=C.COLOR_VERBOSE, screen_only=True)
 
     def _peek_inside(self, _object_name, _object):
         # type: (self.UNICODE_TYPE, any) -> None
