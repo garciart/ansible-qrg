@@ -11,25 +11,25 @@
   roles:
     - demo_role
 
-#   tasks:
-#     - name: Say hello
-#       ansible.builtin.debug:
-#         msg: "Hello World!"
+  # tasks:
+  #   - name: Say hello
+  #     ansible.builtin.debug:
+  #       msg: "Hello World!"
 
-#     - name: Run handler
-#       ansible.builtin.command: /bin/true
-#       notify: Foo
-#       changed_when: true
+  #   - name: Run handler
+  #     ansible.builtin.command: /bin/true
+  #     notify: Foo
+  #     changed_when: true
 
-#   post_tasks:
-#     - name: Say goodbye
-#       ansible.builtin.debug:
-#         msg: "Good-bye!"
+  # post_tasks:
+  #   - name: Say goodbye
+  #     ansible.builtin.debug:
+  #       msg: "Good-bye!"
 
-#   handlers:
-#     - name: Foo
-#       ansible.builtin.debug:
-#         msg: "I am the handler."
+  # handlers:
+  #   - name: Foo
+  #     ansible.builtin.debug:
+  #       msg: "I am the handler."
 
 # - name: Use roles
 #   hosts: all
