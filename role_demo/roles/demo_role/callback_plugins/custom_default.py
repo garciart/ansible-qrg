@@ -1,4 +1,4 @@
-"""This is an annotated copy of Ansible's default stdout callback plugin.
+"""This is a annotated and customized version of Ansible's default stdout callback plugin.
 
 If you do not tell Ansible to use another callback (e.g., minimal, oneline, etc.),
 Ansible will use the default callback to display output to the screen.
@@ -23,7 +23,7 @@ Order of operations:
 │   │   |               ├── v2_runner_on_async_poll (if running in asynchronous mode)
 │   │   |               |   ├── v2_runner_on_async_ok
 │   │   |               |   └── v2_runner_on_async_failed
-│   │   |               ├── v2_on_file_diff (if --diff is passed)
+│   │   |               ├── v2_on_file_diff (if --diff arg is used)
 │   │   │               └── v2_runner_on_ok
 │   │   │                   or v2_runner_on_unreachable
 │   │   │                   or v2_runner_on_failed
@@ -43,26 +43,26 @@ Order of operations:
 # (c) 2017 Ansible Project
 # GNU General Public License v3.0+ (see COPYING or https://www.gnu.org/licenses/gpl-3.0.txt)
 from __future__ import annotations
+
+# ADDED imports used for type hints, input validation, and debugging
+import inspect  # ADDED
 import sys
-import inspect  # RTG
-# Import for type hints with more than one type of arg or return value
-from typing import Union  # noqa: F401 RTG
+from typing import Union  # noqa: F401 ADDED
+
 from ansible import constants as C
 from ansible import context
+from ansible.executor.stats import AggregateStats  # ADDED
+from ansible.executor.task_result import TaskResult  # ADDED
+from ansible.inventory.host import Host  # ADDED
+from ansible.playbook import Playbook  # ADDED
+from ansible.playbook.handler import Handler  # ADDED
+from ansible.playbook.included_file import IncludedFile  # ADDED
+from ansible.playbook.play import Play  # ADDED
+from ansible.playbook.task import Task  # ADDED
 from ansible.playbook.task_include import TaskInclude
 from ansible.plugins.callback import CallbackBase
 from ansible.utils.color import colorize, hostcolor
 from ansible.utils.fqcn import add_internal_fqcns
-
-# Import these classes for type hints, input validation, and debugging
-from ansible.playbook import Playbook  # RTG
-from ansible.playbook.play import Play  # RTG
-from ansible.playbook.task import Task  # RTG
-from ansible.inventory.host import Host  # RTG
-from ansible.executor.task_result import TaskResult  # RTG
-from ansible.playbook.handler import Handler  # RTG
-from ansible.playbook.included_file import IncludedFile  # RTG
-from ansible.executor.stats import AggregateStats  # RTG
 
 # Pylint overrides
 # pylint: disable=locally-disabled, protected-access, consider-using-f-string
@@ -83,15 +83,14 @@ DOCUMENTATION = '''
 
 
 class CallbackModule(CallbackBase):
-
     """
     This is the default callback interface, which simply prints messages
-    to stdout when new callback events are received.
+    to stdout when ADDED callback events are received.
     """
 
     CALLBACK_VERSION = 2.0
     CALLBACK_TYPE = 'stdout'
-    CALLBACK_NAME = 'new_default'
+    CALLBACK_NAME = 'ADDED_default'
 
     # Added to prevent Pylint E1101-no-member error during development
     # Module 'ansible.constants' has no 'COLOR_<type>' member
@@ -111,7 +110,7 @@ class CallbackModule(CallbackBase):
     ARG_NOT_DEFINED = ' is not defined.'
     TRACE_COLOR = 'bright cyan'
 
-    PYTHON_VERSION = float(f'{sys.version_info.major}.{sys.version_info.minor:02d}')
+    PYTHON_VERSION = float('{0}.{1:02d}'.format(sys.version_info.major, sys.version_info.minor))
 
     # Python 2 'str' type = Python 3 'bytes' type
     # Python 2 'unicode' type = Python 3 'str' type
@@ -140,10 +139,10 @@ class CallbackModule(CallbackBase):
         """Inform the user the playbook has started and show additional information
         based on verbosity level, CLI args, and ansible.cfg settings, like check_mode_markers.
 
-        Notes:
-        - The ansible.playbook.Playbook class is defined in lib/ansible/playbook/__init__.py
+        Customization Notes - In this method:
         - You can access Playbook class methods and attributes like playbook.get_plays()
           and playbook._file_name
+        - The ansible.playbook.Playbook class is defined in lib/ansible/playbook/__init__.py
 
         :param Playbook playbook: The running playbook instance
         :return: None
@@ -190,13 +189,14 @@ class CallbackModule(CallbackBase):
         """Inform the user a play has started and show additional information
         based on CLI args and ansible.cfg settings, like check_mode_markers.
 
-        Notes:
-        - The ansible.playbook.Play class is defined in lib/ansible/playbook/play.py
+        Customization Notes - In this method:
         - You can access Play class methods and attributes like play.get_tasks() and play.hosts
-        - You can access extra_vars using play.get_variable_manager().extra_vars
+        - You can access extra-vars using play.get_variable_manager().extra_vars
         - You can access play-level vars using play.get_vars()
         - You can access roles using play.get_roles()
         - You can access role vars by getting the role object and using role[0].get_default_vars()
+        - The ansible.playbook.Play class is defined in lib/ansible/playbook/play.py
+        - The ansible.playbook.role.Role class is defined in lib/ansible/playbook/role/__init__.py
 
         :param Play play: The running play instance
         :returns: None
@@ -270,11 +270,11 @@ class CallbackModule(CallbackBase):
         """Wrapper for showing output when starting a normal task.
         Adds a 'TASK' prefix to the task banner.
 
-        Notes:
-        - The ansible.playbook.task.Task class is defined in lib/ansible/playbook/task.py
+        Customization Notes - In this method:
         - You can access Task class methods and attributes like task.get_name() and task.action
         - You can access task-level vars using task.get_vars()
         - You can access extra_vars using task.get_variable_manager().extra_vars
+        - The ansible.playbook.task.Task class is defined in lib/ansible/playbook/task.py
 
         :param Task task: The running task instance
         :param bool is_conditional: Not currently used by Ansible
@@ -309,12 +309,12 @@ class CallbackModule(CallbackBase):
         # type: (Handler, Host) -> None
         """Inform the user a handler was notified if the verbosity level is met.
 
-        Notes:
-        - The ansible.playbook.handler,Handler class is defined in lib/ansible/playbook/handler.py
-        - The ansible.playbook.host.Host class is defined in lib/ansible/inventory/host.py
+        Customization Notes - In this method:
         - You can access Handler class methods and attributes like handler.is_host_notified()
           and handler.notified_hosts
         - You can access Host class methods and attributes like host.get_name() and host.address
+        - The ansible.playbook.handler.Handler class is defined in lib/ansible/playbook/handler.py
+        - The ansible.playbook.host.Host class is defined in lib/ansible/inventory/host.py
 
         :param Handler handler: The handler task instance
         :param Host host: The target host instance
@@ -337,11 +337,11 @@ class CallbackModule(CallbackBase):
         """Wrapper for showing output when calling a handler.
         Adds a 'RUNNING HANDLER' prefix to the task banner.
 
-        Notes:
-        - The ansible.playbook.task.Task class is defined in lib/ansible/playbook/task.py
+        Customization Notes - In this method:
         - You can access Task class methods and attributes like task.get_name() and task.action
         - You can access task-level vars using task.get_vars()
         - You can access extra_vars using task.get_variable_manager().extra_vars
+        - The ansible.playbook.task.Task class is defined in lib/ansible/playbook/task.py
 
         :param Task task: The running task instance
         :returns: None
@@ -359,11 +359,11 @@ class CallbackModule(CallbackBase):
         # type: (Task) -> None
         """Not currently used by Ansible.
 
-        Notes:
-        - The ansible.playbook.task.Task class is defined in lib/ansible/playbook/task.py
+        Customization Notes - In this method:
         - You can access Task class methods and attributes like task.get_name() and task.action
         - You can access task-level vars using task.get_vars()
         - You can access extra_vars using task.get_variable_manager().extra_vars
+        - The ansible.playbook.task.Task class is defined in lib/ansible/playbook/task.py
 
         :param Task task: The running task as an object
         :returns: None
@@ -382,11 +382,11 @@ class CallbackModule(CallbackBase):
         """Wrapper for showing task output, based on strategy and ansible.cfg settings,
         like display_ok_hosts.
 
-        Notes:
-        - The ansible.playbook.task.Task class is defined in lib/ansible/playbook/task.py
+        Customization Notes - In this method:
         - You can access Task class methods and attributes like task.get_name() and task.action
         - You can access task-level vars using task.get_vars()
         - You can access extra_vars using task.get_variable_manager().extra_vars
+        - The ansible.playbook.task.Task class is defined in lib/ansible/playbook/task.py
 
         :param Task task: The running task instance
         :param str/None prefix: The type of task being performed (TASK, CLEANUP TASK,
@@ -427,11 +427,11 @@ class CallbackModule(CallbackBase):
         """Show task information, like prefix, task name, and arguments, and optional information,
         based on verbosity level, CLI args, and ansible.cfg settings, like check_mode_markers.
 
-        Notes:
-        - The ansible.playbook.task.Task class is defined in lib/ansible/playbook/task.py
+        Customization Notes - In this method:
         - You can access Task class methods and attributes like task.get_name() and task.action
         - You can access task-level vars using task.get_vars()
         - You can access extra_vars using task.get_variable_manager().extra_vars
+        - The ansible.playbook.task.Task class is defined in lib/ansible/playbook/task.py
 
         :param Task task: The running task instance
         :returns: None
@@ -479,13 +479,13 @@ class CallbackModule(CallbackBase):
         """Inform the user a task has started, based on ansible.cfg settings,
         like show_per_host_start. Disabled by default.
 
-        Notes:
-        - The ansible.playbook.host.Host class is defined in lib/ansible/inventory/host.py
-        - The ansible.playbook.task.Task class is defined in lib/ansible/playbook/task.py
+        Customization Notes - In this method:
         - You can access Host class methods and attributes like host.get_name() and host.address
         - You can access Task class methods and attributes like task.get_name() and task.action
+        - You can access extra-vars using task.get_variable_manager().extra_vars
         - You can access task-level vars using task.get_vars()
-        - You can access extra_vars using task.get_variable_manager().extra_vars
+        - The ansible.playbook.host.Host class is defined in lib/ansible/inventory/host.py
+        - The ansible.playbook.task.Task class is defined in lib/ansible/playbook/task.py
 
         :param Host host: The target host instance
         :param Task task: The running task instance
@@ -507,11 +507,11 @@ class CallbackModule(CallbackBase):
         """Inform the user that Ansible is polling a target host
         if the task is running in asynchronous mode.
 
-        Notes:
-        - The ansible.executor.task_result.TaskResult class is defined in
-          lib/ansible/executor/task_result.py
+        Customization Notes - In this method:
         - You can access TaskResult class methods and attributes like result.is_changed()
           and result.task_name
+        - The ansible.executor.task_result.TaskResult class is defined in
+          lib/ansible/executor/task_result.py
 
         :param TaskResult result: The result and output of a task
         :returns: None
@@ -538,11 +538,11 @@ class CallbackModule(CallbackBase):
         """Show result, output, and optional information, based on verbosity level and
         ansible.cfg settings, if an asynchronous task passed on a target host.
 
-        Notes:
-        - The ansible.executor.task_result.TaskResult class is defined in
-          lib/ansible/executor/task_result.py
+        Customization Notes - In this method:
         - You can access TaskResult class methods and attributes like result.is_changed()
           and result.task_name
+        - The ansible.executor.task_result.TaskResult class is defined in
+          lib/ansible/executor/task_result.py
 
         :param TaskResult result: The result and output of a task
         :returns: None
@@ -564,11 +564,11 @@ class CallbackModule(CallbackBase):
         """Show result, output, and optional information, based on verbosity level and
         ansible.cfg settings, if an asynchronous task failed on a target host.
 
-        Notes:
-        - The ansible.executor.task_result.TaskResult class is defined in
-          lib/ansible/executor/task_result.py
+        Customization Notes - In this method:
         - You can access TaskResult class methods and attributes like result.is_changed()
           and result.task_name
+        - The ansible.executor.task_result.TaskResult class is defined in
+          lib/ansible/executor/task_result.py
 
         :param TaskResult result: The result and output of a task
         :returns: None
@@ -595,11 +595,11 @@ class CallbackModule(CallbackBase):
         """Show changes made by tasks with supported modules, like ansible.builtin.file,
         if the --diff arg is passed.
 
-        Notes:
-        - The ansible.executor.task_result.TaskResult class is defined in
-          lib/ansible/executor/task_result.py
+        Customization Notes - In this method:
         - You can access TaskResult class methods and attributes like result.is_changed()
           and result.task_name
+        - The ansible.executor.task_result.TaskResult class is defined in
+          lib/ansible/executor/task_result.py
 
         :param TaskResult result: The result and output of a task
         :returns: None
@@ -632,11 +632,11 @@ class CallbackModule(CallbackBase):
         """Show result, output, and optional information, based on verbosity level and
         ansible.cfg settings, if a task passed.
 
-        Notes:
-        - The ansible.executor.task_result.TaskResult class is defined in
-          lib/ansible/executor/task_result.py
+        Customization Notes - In this method:
         - You can access TaskResult class methods and attributes like result.is_changed()
           and result.task_name
+        - The ansible.executor.task_result.TaskResult class is defined in
+          lib/ansible/executor/task_result.py
 
         :param TaskResult result: The result and output of a task
         :returns: None
@@ -686,11 +686,11 @@ class CallbackModule(CallbackBase):
         """Show result, output, and optional information, based on ansible.cfg settings,
         if a host is unreachable.
 
-        Notes:
-        - The ansible.executor.task_result.TaskResult class is defined in
-          lib/ansible/executor/task_result.py
+        Customization Notes - In this method:
         - You can access TaskResult class methods and attributes like result.is_changed()
           and result.task_name
+        - The ansible.executor.task_result.TaskResult class is defined in
+          lib/ansible/executor/task_result.py
 
         :param TaskResult result: The result and output of a task
         :returns: None
@@ -719,11 +719,11 @@ class CallbackModule(CallbackBase):
         """Show result, output, and optional information, based on verbosity level and
         ansible.cfg settings, if a task failed.
 
-        Notes:
-        - The ansible.executor.task_result.TaskResult class is defined in
-          lib/ansible/executor/task_result.py
+        Customization Notes - In this method:
         - You can access TaskResult class methods and attributes like result.is_changed()
           and result.task_name
+        - The ansible.executor.task_result.TaskResult class is defined in
+          lib/ansible/executor/task_result.py
 
         :param TaskResult result: The result and output of a task
         :param bool ignore_errors: The value of the ignore_errors vars
@@ -771,11 +771,11 @@ class CallbackModule(CallbackBase):
         """Show result, output, and optional information, based on verbosity level and
         ansible.cfg settings, if a task is skipped.
 
-        Notes:
-        - The ansible.executor.task_result.TaskResult class is defined in
-          lib/ansible/executor/task_result.py
+        Customization Notes - In this method:
         - You can access TaskResult class methods and attributes like result.is_changed()
           and result.task_name
+        - The ansible.executor.task_result.TaskResult class is defined in
+          lib/ansible/executor/task_result.py
 
         :param TaskResult result: The result and output of a task
         :returns: None
@@ -806,10 +806,10 @@ class CallbackModule(CallbackBase):
         # type (IncludedFile) -> None
         """Inform the user a file was included in the play.
 
-        Notes:
+        Customization Notes - In this method:
+        - You can access IncludedFile class methods like included_file.add_host()
         - The ansible.playbook.included_file.IncludedFile class is defined in
           lib/ansible/playbook/included_file.py
-        - You can access IncludedFile class methods like included_file.add_host()
 
         :param IncludedFile included_file: The included task file instance
         :returns: None
@@ -833,11 +833,11 @@ class CallbackModule(CallbackBase):
         """Show result, output, and optional information, based on verbosity level and
         ansible.cfg settings, if a task passed using an item from a loop.
 
-        Notes:
-        - The ansible.executor.task_result.TaskResult class is defined in
-          lib/ansible/executor/task_result.py
+        Customization Notes - In this method:
         - You can access TaskResult class methods and attributes like result.is_changed()
           and result.task_name
+        - The ansible.executor.task_result.TaskResult class is defined in
+          lib/ansible/executor/task_result.py
 
         :param TaskResult result: The result and output of a task
         :returns: None
@@ -880,11 +880,11 @@ class CallbackModule(CallbackBase):
         """Show result, output, and optional information, based on ansible.cfg settings,
         if a task failed using an item from a loop.
 
-        Notes:
-        - The ansible.executor.task_result.TaskResult class is defined in
-          lib/ansible/executor/task_result.py
+        Customization Notes - In this method:
         - You can access TaskResult class methods and attributes like result.is_changed()
           and result.task_name
+        - The ansible.executor.task_result.TaskResult class is defined in
+          lib/ansible/executor/task_result.py
 
         :param TaskResult result: The result and output of a task
         :returns: None
@@ -918,11 +918,11 @@ class CallbackModule(CallbackBase):
         """Show result, output, and optional information, based on verbosity level and
         ansible.cfg settings, if a task is skipped using an item from a loop.
 
-        Notes:
-        - The ansible.executor.task_result.TaskResult class is defined in
-          lib/ansible/executor/task_result.py
+        Customization Notes - In this method:
         - You can access TaskResult class methods and attributes like result.is_changed()
           and result.task_name
+        - The ansible.executor.task_result.TaskResult class is defined in
+          lib/ansible/executor/task_result.py
 
         :param TaskResult result: The result and output of a task
         :returns: None
@@ -948,7 +948,7 @@ class CallbackModule(CallbackBase):
     def v2_playbook_on_no_hosts_remaining(self):
         # type() -> None
         """Inform the user that Ansible has finished performing a task,
-        which failed on one or more hosts, on all the hosts in the queue.
+        which failed on one or more hosts, on the remaining hosts in the queue.
 
         If any_errors_fatal is true or the max_fail_percentage is met,
         Ansible will continue to run the current task on any remaining hosts,
@@ -966,11 +966,11 @@ class CallbackModule(CallbackBase):
         # type: (TaskResult) -> None
         """Inform the user that Ansible is retrying a task if retries has a value.
 
-        Notes:
-        - The ansible.executor.task_result.TaskResult class is defined in
-          lib/ansible/executor/task_result.py
+        Customization Notes - In this method:
         - You can access TaskResult class methods and attributes like result.is_changed()
           and result.task_name
+        - The ansible.executor.task_result.TaskResult class is defined in
+          lib/ansible/executor/task_result.py
 
         :param TaskResult result: The result and output of a task
         :returns: None
@@ -995,11 +995,11 @@ class CallbackModule(CallbackBase):
         """Show a summary of the task results per host, broken down ok, changed,
         unreachable, failed, skipped, rescued, and ignored.
 
-        Notes:
-        - The ansible.executor.stats.AggregateStats class is defined
-          in lib/ansible/executor/stats.py
+        Customization Notes - In this method:
         - You can access AggregateStats class methods and attributes like stats.summarize()
           and stats.processed
+        - The ansible.executor.stats.AggregateStats class is defined
+          in lib/ansible/executor/stats.py
 
         :param AggregateStats stats: The playbook results instance
         :returns: None
@@ -1069,20 +1069,9 @@ class CallbackModule(CallbackBase):
         if context.CLIARGS['check'] and self.get_option('check_mode_markers'):
             self._display.banner("DRY RUN")
 
-    def _peek_inside(self, _object_name, _object):
-        # type: (str, any) -> None
-        """Display an object's value and type.
-
-        :param str _object_name: The name of the argument, object, or variable
-        :param any _object: The actual argument, object, or variable
-        :return: None
-        """
-        self._display.display('>>> {0} is type {1}: {2}.'.format(
-            _object_name, type(_object), _object), 'bright green')
-
     def _validate_input(self, _object_name, _object, _expected_type):
         # type: (str, any, type) -> None
-        """Ensure inputs are the correct type and not empty.
+        """Check that inputs are the correct type and not empty.
 
         :param str _object_name: The name of the argument, object, or variable
         :param any _object: The actual argument, object, or variable
@@ -1097,17 +1086,34 @@ class CallbackModule(CallbackBase):
             if not isinstance(_expected_type, type):
                 raise TypeError('_expected_type arg must be a valid Python data type.')
 
-            # Check that the input is the correct type and not empty
+            # Check that the argument is the correct type and not empty
             if not isinstance(_object, _expected_type):
                 raise TypeError('{0} is not type <{1}>.'.format(_object_name, _expected_type))
 
             if isinstance(_object, self.UNICODE_TYPE) and str(_object).strip() == '':
+                raise ValueError('{0} cannot be blank.'.format(_object_name))
+
+            if (isinstance(_object, list) and len(_object) == 0) or (
+                    isinstance(_object, dict) and len(_object) == 0):
                 raise ValueError('{0} cannot be empty.'.format(_object_name))
+
         except (TypeError, ValueError) as e:
+            # Warn the user that an input is invalid
             _calling_method = inspect.currentframe().f_back
             _msg = '{0} ({1}(), line {2}).'.format(e,
                                                    _calling_method.f_code.co_name,
                                                    _calling_method.f_lineno)
-            self._display.error('Invalid input or variable:')
+            self._display.error('Invalid input or value:')
             self._display.error(_msg)
             sys.exit(1)
+
+    def _peek_inside(self, _object_name, _object):
+        # type: (str, any) -> None
+        """Display an object's value and type.
+
+        :param str _object_name: The name of the argument, object, or variable
+        :param any _object: The actual argument, object, or variable
+        :return: None
+        """
+        self._display.display('>>> {0} is type {1}: {2}.'.format(
+            _object_name, type(_object), _object), 'bright green')
