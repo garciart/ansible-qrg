@@ -199,7 +199,7 @@ class CallbackModule(CallbackBase):
         - The ansible.playbook.role.Role class is defined in lib/ansible/playbook/role/__init__.py
 
         :param Play play: The running play instance
-        :returns: None
+        :return: None
         """
         if self.DEV_MODE:
             self._display.display('>>> ' + sys._getframe().f_code.co_name,
@@ -257,7 +257,7 @@ class CallbackModule(CallbackBase):
         """Inform the user that Ansible is skipping the play because
         none of the target nodes are in the inventory.
 
-        :returns: None
+        :return: None
         """
         if self.DEV_MODE:
             self._display.display('>>> ' + sys._getframe().f_code.co_name,
@@ -278,7 +278,7 @@ class CallbackModule(CallbackBase):
 
         :param Task task: The running task instance
         :param bool is_conditional: Not currently used by Ansible
-        :returns: None
+        :return: None
         """
         if self.DEV_MODE:
             self._display.display('>>> ' + sys._getframe().f_code.co_name,
@@ -318,7 +318,7 @@ class CallbackModule(CallbackBase):
 
         :param Handler handler: The handler task instance
         :param Host host: The target host instance
-        :returns: None
+        :return: None
         """
         if self.DEV_MODE:
             self._display.display('>>> ' + sys._getframe().f_code.co_name,
@@ -344,7 +344,7 @@ class CallbackModule(CallbackBase):
         - The ansible.playbook.task.Task class is defined in lib/ansible/playbook/task.py
 
         :param Task task: The running task instance
-        :returns: None
+        :return: None
         """
         if self.DEV_MODE:
             self._display.display('>>> ' + sys._getframe().f_code.co_name,
@@ -366,7 +366,7 @@ class CallbackModule(CallbackBase):
         - The ansible.playbook.task.Task class is defined in lib/ansible/playbook/task.py
 
         :param Task task: The running task as an object
-        :returns: None
+        :return: None
         """
         if self.DEV_MODE:
             self._display.display('>>> ' + sys._getframe().f_code.co_name,
@@ -392,7 +392,7 @@ class CallbackModule(CallbackBase):
         :param str/None prefix: The type of task being performed (TASK, CLEANUP TASK,
         RUNNING HANDLER)
 
-        :returns: None
+        :return: None
         """
         if self.DEV_MODE:
             self._display.display('>>> ' + sys._getframe().f_code.co_name,
@@ -434,7 +434,7 @@ class CallbackModule(CallbackBase):
         - The ansible.playbook.task.Task class is defined in lib/ansible/playbook/task.py
 
         :param Task task: The running task instance
-        :returns: None
+        :return: None
         """
         if self.DEV_MODE:
             self._display.display('>>> ' + sys._getframe().f_code.co_name,
@@ -489,7 +489,7 @@ class CallbackModule(CallbackBase):
 
         :param Host host: The target host instance
         :param Task task: The running task instance
-        :returns: None
+        :return: None
         """
         if self.DEV_MODE:
             self._display.display('>>> ' + sys._getframe().f_code.co_name,
@@ -514,7 +514,7 @@ class CallbackModule(CallbackBase):
           lib/ansible/executor/task_result.py
 
         :param TaskResult result: The result and output of a task
-        :returns: None
+        :return: None
         """
         if self.DEV_MODE:
             self._display.display('>>> ' + sys._getframe().f_code.co_name,
@@ -545,7 +545,7 @@ class CallbackModule(CallbackBase):
           lib/ansible/executor/task_result.py
 
         :param TaskResult result: The result and output of a task
-        :returns: None
+        :return: None
         """
         if self.DEV_MODE:
             self._display.display('>>> ' + sys._getframe().f_code.co_name,
@@ -571,7 +571,7 @@ class CallbackModule(CallbackBase):
           lib/ansible/executor/task_result.py
 
         :param TaskResult result: The result and output of a task
-        :returns: None
+        :return: None
         """
         if self.DEV_MODE:
             self._display.display('>>> ' + sys._getframe().f_code.co_name,
@@ -602,7 +602,7 @@ class CallbackModule(CallbackBase):
           lib/ansible/executor/task_result.py
 
         :param TaskResult result: The result and output of a task
-        :returns: None
+        :return: None
         """
         if self.DEV_MODE:
             self._display.display('>>> ' + sys._getframe().f_code.co_name,
@@ -639,7 +639,7 @@ class CallbackModule(CallbackBase):
           lib/ansible/executor/task_result.py
 
         :param TaskResult result: The result and output of a task
-        :returns: None
+        :return: None
         """
         if self.DEV_MODE:
             self._display.display('>>> ' + sys._getframe().f_code.co_name,
@@ -693,7 +693,7 @@ class CallbackModule(CallbackBase):
           lib/ansible/executor/task_result.py
 
         :param TaskResult result: The result and output of a task
-        :returns: None
+        :return: None
         """
         if self.DEV_MODE:
             self._display.display('>>> ' + sys._getframe().f_code.co_name,
@@ -727,7 +727,7 @@ class CallbackModule(CallbackBase):
 
         :param TaskResult result: The result and output of a task
         :param bool ignore_errors: The value of the ignore_errors vars
-        :returns: None
+        :return: None
         """
         if self.DEV_MODE:
             self._display.display('>>> ' + sys._getframe().f_code.co_name,
@@ -778,7 +778,7 @@ class CallbackModule(CallbackBase):
           lib/ansible/executor/task_result.py
 
         :param TaskResult result: The result and output of a task
-        :returns: None
+        :return: None
         """
         if self.DEV_MODE:
             self._display.display('>>> ' + sys._getframe().f_code.co_name,
@@ -812,7 +812,7 @@ class CallbackModule(CallbackBase):
           lib/ansible/playbook/included_file.py
 
         :param IncludedFile included_file: The included task file instance
-        :returns: None
+        :return: None
         """
         if self.DEV_MODE:
             self._display.display('>>> ' + sys._getframe().f_code.co_name,
@@ -840,7 +840,7 @@ class CallbackModule(CallbackBase):
           lib/ansible/executor/task_result.py
 
         :param TaskResult result: The result and output of a task
-        :returns: None
+        :return: None
         """
         if self.DEV_MODE:
             self._display.display('>>> ' + sys._getframe().f_code.co_name,
@@ -887,7 +887,7 @@ class CallbackModule(CallbackBase):
           lib/ansible/executor/task_result.py
 
         :param TaskResult result: The result and output of a task
-        :returns: None
+        :return: None
         """
         if self.DEV_MODE:
             self._display.display('>>> ' + sys._getframe().f_code.co_name,
@@ -925,7 +925,7 @@ class CallbackModule(CallbackBase):
           lib/ansible/executor/task_result.py
 
         :param TaskResult result: The result and output of a task
-        :returns: None
+        :return: None
         """
         if self.DEV_MODE:
             self._display.display('>>> ' + sys._getframe().f_code.co_name,
@@ -954,7 +954,7 @@ class CallbackModule(CallbackBase):
         Ansible will continue to run the current task on any remaining hosts,
         but it will not perform any further tasks in the play.
 
-        :returns: None
+        :return: None
         """
         if self.DEV_MODE:
             self._display.display('>>> ' + sys._getframe().f_code.co_name,
@@ -973,7 +973,7 @@ class CallbackModule(CallbackBase):
           lib/ansible/executor/task_result.py
 
         :param TaskResult result: The result and output of a task
-        :returns: None
+        :return: None
         """
         if self.DEV_MODE:
             self._display.display('>>> ' + sys._getframe().f_code.co_name,
@@ -1002,7 +1002,7 @@ class CallbackModule(CallbackBase):
           in lib/ansible/executor/stats.py
 
         :param AggregateStats stats: The playbook results instance
-        :returns: None
+        :return: None
         """
         if self.DEV_MODE:
             self._display.display('>>> ' + sys._getframe().f_code.co_name,
