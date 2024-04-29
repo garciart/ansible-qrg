@@ -1,4 +1,4 @@
-"""This is a annotated and customized version of Ansible's default stdout callback plugin.
+"""This is an annotated and customized version of Ansible's default stdout callback plugin.
 
 If you do not tell Ansible to use another callback (e.g., minimal, oneline, etc.),
 Ansible will use the default callback to display output to the screen.
@@ -85,12 +85,12 @@ DOCUMENTATION = '''
 class CallbackModule(CallbackBase):
     """
     This is the default callback interface, which simply prints messages
-    to stdout when ADDED callback events are received.
+    to stdout when new callback events are received.
     """
 
     CALLBACK_VERSION = 2.0
     CALLBACK_TYPE = 'stdout'
-    CALLBACK_NAME = 'ADDED_default'
+    CALLBACK_NAME = 'custom_default'
 
     # Added to prevent Pylint E1101-no-member error during development
     # Module 'ansible.constants' has no 'COLOR_<type>' member
