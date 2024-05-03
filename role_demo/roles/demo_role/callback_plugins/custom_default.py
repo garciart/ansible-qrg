@@ -716,10 +716,10 @@ class CallbackModule(CallbackBase):
 
     def v2_runner_on_failed(self, result, ignore_errors=False):
         # type: (TaskResult, bool) -> None
-        """Show result, output, and optional information, based on verbosity level and
+        """Show result, output, and optional information, based on verbosity level, vars, and
         ansible.cfg settings, if a task failed.
 
-        Customization Notes - In this method:
+        Customization notes - In this method:
         - You can access TaskResult class methods and attributes like result.is_changed()
           and result.task_name
         - The ansible.executor.task_result.TaskResult class is defined in
