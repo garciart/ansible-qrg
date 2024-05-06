@@ -25,7 +25,7 @@
           - "Rings: {{ rings }}"
           - "Moons: {{ moons | default('None', true) }}"
 
-    - name: Use multiple variables in a parameter
+    - name: Use different variable types in a string
       ansible.builtin.debug:
         msg: "A day on {{ planet }} is {{ hours_per_day }}
           Earth hours."

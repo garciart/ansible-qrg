@@ -1,5 +1,5 @@
 ---
-# Split strings
+# Split strings into lists of items
 # Usage: ansible-playbook split_strings.yml
 - name: Split strings
   hosts: managed_node1

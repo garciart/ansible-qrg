@@ -9,30 +9,30 @@
     - name: Use printf style formatting
       vars:
         pi: 3.1415926536
-        degrees: 360
+        deg: 360
       ansible.builtin.debug:
         msg:
           - "{{ pi }}: {{ '%0.2f' % pi }}"
-          - "{{ degrees }}: {{ '%x' % degrees }}"
+          - "{{ deg }}: {{ '%x' % deg }} (hex)"
 
 
     - name: Use format filter
       vars:
         pi: 3.1415926536
-        degrees: 360
+        deg: 360
       ansible.builtin.debug:
         msg:
           - "{{ pi }}: {{ '%0.2f' | format(pi) }}"
-          - "{{ degrees }}: {{ '%x' | format(degrees) }}"
+          - "{{ deg }}: {{ '%x' | format(deg) }} (hex)"
 
     - name: Use str.format() method
       vars:
         pi: 3.1415926536
-        degrees: 360
+        deg: 360
       ansible.builtin.debug:
         msg:
           - "{{ pi }}: {{ '{:.2f}'.format(pi) }}"
-          - "{{ degrees }}: {{ '{:#x}'.format(degrees) }}"
+          - "{{ deg }}: {{ '{:#x}'.format(deg) }}"
 ...
 # code: language=ansible
 # vi: set noai nu ts=2 sw=2 sts=2 sta et:

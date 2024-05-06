@@ -1,7 +1,7 @@
 ---
 # Break up long strings to improve readability
-# Usage: ansible-playbook line_continuation.yml
-- name: Line continuation
+# Usage: ansible-playbook continue_lines.yml
+- name: Continue lines
   hosts: managed_node1
   gather_facts: false
   tasks:
@@ -27,7 +27,7 @@
 
     - name: Break up a string with a folded block scalar
       # A folded block scalar (>) collapses a multiline
-      # string into a single line
+      # string into a single line with a newline at the end
       ansible.builtin.debug:
         msg: >
           Happy Birthday to You,
@@ -36,6 +36,8 @@
           Happy Birthday to You!
 
     - name: Chomp the last newline of a literal block scalar
+      # A chomped literal block scalar (|) preserves
+      # newlines, but removes the terminating newline
       ansible.builtin.debug:
         msg: |-
           Happy Birthday to You,
@@ -44,6 +46,9 @@
           Happy Birthday to You!
 
     - name: Chomp the last newline of a folded block scalar
+      # A chomped folded block scalar (>) collapses
+      # a multiline string into a single line
+      # without a terminating newline
       ansible.builtin.debug:
         msg: >-
           Happy Birthday to You,

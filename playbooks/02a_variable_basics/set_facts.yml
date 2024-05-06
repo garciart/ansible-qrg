@@ -1,0 +1,42 @@
+---
+# Set a fact usable by the plays and tasks in a playbook
+# Usage: ansible-playbook set_facts.yml
+- name: Set facts
+  hosts: managed_node1
+  gather_facts: false
+  tasks:
+    - name: Set a fact
+      ansible.builtin.set_fact:
+        new_fact: "This is a new fact"
+
+    - name: Show the fact
+      ansible.builtin.debug:
+        msg: "{{ new_fact }}"
+
+- name: Show a fact set in a previous play on the same node
+  hosts: managed_node1
+  gather_facts: false
+  tasks:
+    - name: Show the fact
+      ansible.builtin.debug:
+        msg: "{{ new_fact }}"
+
+- name: "Try to show a fact set in a previous play on a
+    different node"
+  hosts: managed_node2
+  gather_facts: false
+  tasks:
+    - name: Attempt to show a fact
+      block:
+        - name: Show the fact
+          ansible.builtin.debug:
+            msg: "{{ new_fact }}"
+
+      rescue:
+        - name: Show an error message
+          ansible.builtin.debug:
+            msg: "{{ new_fact | default('That fact is not
+              defined on this node') }}"
+...
+# code: language=ansible
+# vi: set noai nu ts=2 sw=2 sts=2 sta et:

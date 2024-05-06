@@ -1,6 +1,6 @@
 ---
 # Demonstrate variable precedence in a play
-# Note: No command line vars since you cannot override them
+# Note: You cannot override command line vars
 # Usage: ansible-playbook demo_var_precedence.yml
 - name: Demonstrate variable precedence
   hosts: managed_node1

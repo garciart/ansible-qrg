@@ -1,0 +1,335 @@
+---
+# ansible-playbook full/02b_variable_output_full.yml
+
+# Format output using filters
+# https://cplusplus.com/reference/cstdio/printf/
+# Usage: ansible-playbook format_variables.yml
+- name: Format variables
+  hosts: managed_node1
+  gather_facts: false
+  tasks:
+    - name: Use printf style formatting
+      vars:
+        pi: 3.1415926536
+        deg: 360
+      ansible.builtin.debug:
+        msg:
+          - "{{ pi }}: {{ '%0.2f' % pi }}"
+          - "{{ deg }}: {{ '%x' % deg }} (hex)"
+
+
+    - name: Use format filter
+      vars:
+        pi: 3.1415926536
+        deg: 360
+      ansible.builtin.debug:
+        msg:
+          - "{{ pi }}: {{ '%0.2f' | format(pi) }}"
+          - "{{ deg }}: {{ '%x' | format(deg) }} (hex)"
+
+    - name: Use str.format() method
+      vars:
+        pi: 3.1415926536
+        deg: 360
+      ansible.builtin.debug:
+        msg:
+          - "{{ pi }}: {{ '{:.2f}'.format(pi) }}"
+          - "{{ deg }}: {{ '{:#x}'.format(deg) }}"
+
+# Transform variables using filters
+# https://jinja.palletsprojects.com/en/3.1.x/templates/#list-of-builtin-filters
+# Usage: ansible-playbook transform_variables.yml
+- name: Transform variables
+  hosts: managed_node1
+  gather_facts: false
+  tasks:
+    - name: Transform variables
+      vars:
+        greeting: "hello, world"
+      ansible.builtin.debug:
+        msg:
+          - "Original: {{ greeting }}"
+          - "Sentence Case: {{ greeting | capitalize }}"
+          - "Title Case: {{ greeting | title }}"
+          - "Uppercase: {{ greeting | upper }}"
+          - "Replace a Word: {{ greeting | replace('hello',
+            'Yo') }}"
+          - "Reverse Characters: {{ greeting | reverse }}"
+          - "Center: {{ greeting | center(40) }}"
+          - "Length: {{ greeting | length }} characters."
+
+# Concatenate different types of variables
+# Usage: ansible-playbook concat_variables.yml
+- name: Concatenate variables
+  hosts: managed_node1
+  gather_facts: false
+  tasks:
+    - name: Concatenate intergers
+      vars:
+        int1: 3
+        int2: 8
+      ansible.builtin.debug:
+        msg:
+          - "3 ~ 8: {{ int1 ~ int2 }}"
+          - "[3, 8] | join: {{ [int1, int2] | join }}"
+          # The plus sign adds! It does not concatenate
+          - "3 + 8: {{ int1 + int2 }}"
+
+    - name: Concatenate string variables
+      vars:
+        str1: "Mars"
+        str2: " is a planet."
+      ansible.builtin.debug:
+        msg:
+          - "{{ str1 ~ str2 }}"
+          - "{{ [str1, str2] | join }}"
+
+# Show parts of a variable using slicing
+# Usage: ansible-playbook slice_variables.yml
+- name: Slice variables
+  hosts: managed_node1
+  gather_facts: false
+  vars:
+    planet: "Saturn"
+    moons:
+      - "Titan"
+      - "Rhea"
+      - "Iapetus"
+      - "Dione"
+      - "Tethys"
+      - "Enceladus"
+      - "Mimas"
+  tasks:
+    - name: Show elements of a string using slicing
+      ansible.builtin.debug:
+        msg:
+          - "The planet name is {{ planet }}."
+          - "First letter (index): {{ planet[0] }}"
+          - "First letter (filter): {{ planet | first }}"
+          - "First two letters: {{ planet[:2] }}"
+          - "Remaining letters: {{ planet[2:] }}"
+          - "Third and fourth letters: {{ planet[2:4] }}"
+          - "Last letter (index): {{ planet[-1] }}"
+          - "Last letter (filter): {{ planet | last }}"
+
+    - name: Show elements of a list using slicing
+      ansible.builtin.debug:
+        msg:
+          - "The moons are {{ moons }}."
+          - "First moon (index): {{ moons[0] }}"
+          - "First moon (filter): {{ moons | first }}"
+          - "First two moons: {{ moons[:2] }}"
+          - "Remaining moons: {{ moons[2:] }}"
+          - "Third and fourth moons: {{ moons[2:4] }}"
+          - "Last moon (index): {{ moons[-1] }}"
+          - "Last moon (filter): {{ moons | last }}"
+
+# Use reserved and special characters
+# Usage: ansible-playbook use_special_chars.yml
+- name: Use reserved and special characters
+  hosts: managed_node1
+  gather_facts: false
+  tasks:
+    - name: Use anchors, aliases, tags, and block mapping
+      vars:
+        # Ampersands (&) prefix anchors used for a values
+        moon: &PH "Phobos"
+        # Asterisks (*) prefix aliases referring to values
+        list_of_moons: [*PH, 'Deimos']
+        # Double exclamations marks (!!) prefix
+        # type indicator tags
+        diameter: !!int 6792
+        # Question marks (?) prefix mapping keys in
+        # block mapping
+        ? planet
+        # Colons (:) prefix mapping values in block mapping
+        : "Mars"
+      ansible.builtin.debug:
+        msg:
+          - "{{ planet }} is {{ diameter }} km in diameter."
+          - "Its moons are {{ list_of_moons }}"
+          # You cannot use anchors in a template
+          - "{{ PH | default(moon) }} is the largest moon."
+
+    - name: Use double and single quotes in a string
+      ansible.builtin.debug:
+        msg:
+          - "Mars's nickname is \"The Red Planet\"."
+          - 'Mars''s nickname is "The Red Planet".'
+
+    - name: Show a string with special characters using msg
+      ansible.builtin.debug:
+        # msg implicitly encloses strings in quotes
+        msg: Hello, World!
+
+    - name: Show strings with a special characters using var
+      block:
+        - name: Try to show a string with a comma
+          ansible.builtin.debug:
+            # var thinks the string is a list and tries
+            # to show the values of Hello and World
+            var: Hello, World
+
+        - name: Try to show a string with an exclamation
+          ansible.builtin.debug:
+            # var tries to show the values of Hello and
+            # World, but fails at the start of a tag (!)
+            var: Hello, World!
+      rescue:
+        - name: Show the string correctly
+          vars:
+            greeting: "Hello, World!"
+          ansible.builtin.debug:
+            var: greeting
+
+# Cast variables to other types
+# Usage: ansible-playbook cast_variables.yml
+- name: Cast variables
+  hosts: managed_node1
+  gather_facts: false
+  tasks:
+    - name: Cast variables at point of use (always works)
+      vars:
+        str_value: "1"
+        int_value: 0
+        float_value: 1.0
+        bool_value: false
+      ansible.builtin.debug:
+        msg:
+          - "string ('{{ str_value }}') temporarily beomes
+            integer ({{ str_value | int }}),
+            float ({{ str_value | float }}),
+            or boolean ({{ str_value | bool }})."
+          - "integer ({{ int_value }}) temporarily becomes
+            string ('{{ int_value | string }}'),
+            float ({{ int_value | float }}),
+            or boolean ({{ int_value | bool }})."
+          - "float ({{ float_value }}) temporarily becomes
+            string ('{{ float_value | string }}'),
+            integer ({{ float_value | int }}),
+            or boolean ({{ float_value | bool }})."
+          - "boolean ({{ bool_value }}) temporarily becomes
+            string ('{{ bool_value | string }}'),
+            integer ({{ bool_value | int }}),
+            or float ({{ bool_value | float }})."
+
+    - name: Convert vars before use (does not always work)
+      vars:
+        int_value: 1
+        bool_from_int: "{{ int_value | bool }}"
+        float_from_int: "{{ int_value | float }}"
+        str_from_int: "{{ int_value | string }}"
+
+        str_value: "0"
+        bool_from_str: "{{ str_value | bool }}"
+        float_from_str: "{{ str_value | float }}"
+        int_from_str: "{{ str_value | int }}"
+      ansible.builtin.debug:
+        msg:
+          # Jinja2 templating returns a string, unless converting to boolean
+          - "{{ int_value }} ({{ int_value | type_debug }})
+            to bool becomes {{ bool_from_int }}
+            ({{ bool_from_int | type_debug }})."
+          - "{{ int_value }} ({{ int_value | type_debug }})
+            to float becomes {{ float_from_int }}
+            ({{ float_from_int | type_debug }}), not float."
+          - "{{ int_value }} ({{ int_value | type_debug }})
+            to str becomes {{ str_from_int }}
+            ({{ str_from_int | type_debug }}), not str."
+          - "{{ str_value }} ({{ str_value | type_debug }})
+            to bool becomes {{ bool_from_str }}
+            ({{ bool_from_str | type_debug }})."
+          - "{{ str_value }} ({{ str_value | type_debug }})
+            to float becomes {{ float_from_str }}
+            ({{ float_from_str | type_debug }}), not float."
+          - "{{ str_value }} ({{ str_value | type_debug }})
+            to int becomes {{ int_from_str }}
+            ({{ int_from_str | type_debug }}), not int."
+
+    - name: Use set_fact to recast vars (does not always work)
+      block:
+        - name: Set a string fact
+          ansible.builtin.set_fact:
+            str_value: "1"
+
+        - name: Show the fact and its type
+          ansible.builtin.debug:
+            var: str_value, str_value | type_debug
+
+        - name: Try to recast string fact to int
+          ansible.builtin.set_fact:
+            str_value: "{{ str_value | int }}"
+
+        - name: Show the recast fact and its type
+          ansible.builtin.debug:
+            var: str_value, str_value | type_debug
+
+        - name: Try to cast a new fact from an old fact
+          ansible.builtin.set_fact:
+            int_value: "{{ str_value | int }}"
+
+        - name: Show the new fact and its type
+          ansible.builtin.debug:
+            var: int_value, int_value | type_debug
+
+# Convert data strings to structures
+# Usage: ansible-playbook convert_data_strings.yml
+- name: Convert data strings
+  hosts: managed_node1
+  gather_facts: false
+  vars:
+    mars:
+      planet: "Mars"
+      diameter: 6792
+      hours_per_day: 24.7
+      rings: false
+      moons:
+        - "Phobos"
+        - "Deimos"
+  tasks:
+    - name: Convert a structure to strings
+      ansible.builtin.set_fact:
+        yaml_str: "{{ mars | to_yaml | string }}"
+        json_str: "{{ mars | to_json }}"
+
+    - name: Show the strings
+      ansible.builtin.debug:
+        msg:
+          - "{{ yaml_str }}"
+          - "{{ yaml_str | type_debug }}"
+          - "{{ json_str }}"
+          - "{{ json_str | type_debug }}"
+
+    - name: Convert strings back to structures
+      ansible.builtin.set_fact:
+        dict_from_yaml: "{{ yaml_str | from_yaml }}"
+        dict_from_json: "{{ json_str | from_json }}"
+
+    - name: Show the structures
+      ansible.builtin.debug:
+        msg:
+          - "{{ dict_from_json }}"
+          - "{{ dict_from_json | type_debug }}"
+          - "{{ dict_from_yaml }}"
+          - "{{ dict_from_yaml | type_debug }}"
+          - "{{ dict_from_yaml['moons'] }}"
+          - "{{ dict_from_yaml['moons'] | type_debug }}"
+
+# Split strings into lists of items
+# Usage: ansible-playbook split_strings.yml
+- name: Split strings
+  hosts: managed_node1
+  gather_facts: false
+  vars:
+    sentence: "The planet Earth is 12756 km in diameter."
+  tasks:
+    - name: Split a string into a list
+      ansible.builtin.debug:
+        msg: "{{ sentence | split }}"
+
+    - name: Get the username from an email address
+      ansible.builtin.debug:
+        msg: "{{ ('alice@example.com' | split('@'))[0] }}"
+...
+# code: language=ansible
+# vi: set noai nu ts=2 sw=2 sts=2 sta et:

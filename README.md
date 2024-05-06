@@ -18,35 +18,36 @@ Link to [reserved keywords list](/reserved_keywords.md).
 - [run_multiple_tasks.yml](/playbooks/01_basics/run_multiple_tasks.yml "Run multiple tasks in a play")
 - [run_multiple_plays.yml](/playbooks/01_basics/run_multiple_plays.yml "Run multiple plays in a playbook")
 - [target_multiple_nodes.yml](/playbooks/01_basics/target_multiple_nodes.yml "Target multiple nodes nodes in a playbook")
-- [line_continuation.yml](/playbooks/01_basics/line_continuation.yml "Split long strings to improve readability")
+- [continue_lines.yml](/playbooks/01_basics/continue_lines.yml "Split long strings to improve readability")
 - [group_tasks.yml](/playbooks/01_basics/group_tasks.yml "Group tasks using blocks")
 - [handle_errors.yml](/playbooks/01_basics/handle_errors.yml "Handle errors using blocks")
 
 ### Variable Basics
 
-- [use_variables.yml](/playbooks/02_variables/use_variables.yml "Set and show the value of a scalar variable")
-- [use_default_values.yml](/playbooks/02_variables/use_default_values.yml "Use default values if variables are undefined or empty")
-- [use_multiple_vars.yml](/playbooks/02_variables/use_multiple_vars.yml "Set and show different types of scalar variables")
-- [use_lists.yml](/playbooks/02_variables/use_lists.yml "Set and show lists of variables")
-- [use_dicts.yml](/playbooks/02_variables/use_dicts.yml "Set and show dictionaries of variables")
-- [use_list_dicts.yml](/playbooks/02_variables/use_list_dicts.yml "Set and show a list of dictionaries")
-- [get_var_type.yml](/playbooks/02_variables/get_var_type.yml "Show variables and their types")
-- [use_return_values.yml](/playbooks/02_variables/use_return_values.yml "Get and show the return values of a task")
-- [use_special_vars.yml](/playbooks/02_variables/use_special_vars.yml "Get and show special variables and facts")
-- [set_facts.yml](/playbooks/02_variables/set_facts.yml "Set a fact usable by the plays and tasks in a playbook")
-- [use_cmd_line_vars.yml](/playbooks/02_variables/use_cmd_line_vars.yml "Get and show command line variables")
-- [demo_var_scope.yml](/playbooks/02_variables/demo_var_scope.yml "Demonstrate variable scope in a playbook")
-- [demo_var_precedence.yml](/playbooks/02_variables/demo_var_precedence.yml "Demonstrate variable precedence in a play")
+- [use_variables.yml](/playbooks/02a_variable_basics/use_variables.yml "Set and show the value of a scalar variable")
+- [use_default_values.yml](/playbooks/02a_variable_basics/use_default_values.yml "Use default values if variables are undefined or empty")
+- [use_different_types.yml](/playbooks/02a_variable_basics/use_different_types.yml "Set and show different types of scalar variables")
+- [use_lists.yml](/playbooks/02a_variable_basics/use_lists.yml "Set and show lists of variables")
+- [use_dicts.yml](/playbooks/02a_variable_basics/use_dicts.yml "Set and show dictionaries of variables")
+- [use_list_dicts.yml](/playbooks/02a_variable_basics/use_list_dicts.yml "Set and show a list of dictionaries")
+- [get_var_type.yml](/playbooks/02a_variable_basics/get_var_type.yml "Show variables and their types")
+- [use_return_values.yml](/playbooks/02a_variable_basics/use_return_values.yml "Get and show the return values of a task")
+- [use_special_vars.yml](/playbooks/02a_variable_basics/use_special_vars.yml "Get and show special variables and facts")
+- [use_cmd_line_vars.yml](/playbooks/02a_variable_basics/use_cmd_line_vars.yml "Get and show command line variables")
+- [demo_var_scope.yml](/playbooks/02a_variable_basics/demo_var_scope.yml "Demonstrate variable scope in a playbook")
+- [set_facts.yml](/playbooks/02a_variable_basics/set_facts.yml "Set a fact usable by the plays and tasks in a playbook")
+- [demo_var_precedence.yml](/playbooks/02a_variable_basics/demo_var_precedence.yml "Demonstrate variable precedence in a play")
 
-### Manipulating Variables
+### Variable Output
 
-- [format_variables.yml](/playbooks/02_variables/format_variables.yml "Format output using filters")
-- [transform_variables.yml](/playbooks/02_variables/transform_variables.yml "Transform variables using filters")
-- [concat_variables.yml](/playbooks/02_variables/concat_variables.yml "Concatenate different types of variables")
-- [slice_variables.yml](/playbooks/02_variables/slice_variables.yml "Show parts of a variable using slicing")
-- [use_special_chars.yml](/playbooks/02_variables/use_special_chars.yml "Use reserved and special characters")
-- [cast_variables.yml](/playbooks/02_variables/cast_variables.yml "Cast variables to other types")
-- [convert_data_strings.yml](/playbooks/02_variables/convert_data_strings.yml "Convert data strings to structures")
+- [format_variables.yml](/playbooks/02b_variable_output/format_variables.yml "Format output using filters")
+- [transform_variables.yml](/playbooks/02b_variable_output/transform_variables.yml "Transform variables using filters")
+- [concat_variables.yml](/playbooks/02b_variable_output/concat_variables.yml "Concatenate different types of variables")
+- [slice_variables.yml](/playbooks/02b_variable_output/slice_variables.yml "Show parts of a variable using slicing")
+- [use_special_chars.yml](/playbooks/02b_variable_output/use_special_chars.yml "Use reserved and special characters")
+- [cast_variables.yml](/playbooks/02b_variable_output/cast_variables.yml "Cast variables to other types")
+- [convert_data_strings.yml](/playbooks/02b_variable_output/convert_data_strings.yml "Convert data strings to structures")
+- [split_strings.yml](/playbooks/02b_variable_output/split_strings.yml "Split strings into lists of items")
 
 ### Working with Lists
 

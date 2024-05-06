@@ -8,6 +8,8 @@
     - name: Set and show a dictionary
       vars:
         planets:
+          - planet: "Venus"
+            diameter: 12104
           - planet: "Earth"
             diameter: 12756
           - planet: "Mars"
@@ -19,6 +21,8 @@
             {{ planets[0]['diameter'] }} km in diameter."
           - "{{ planets[1].planet }} is
             {{ planets[1].diameter }} km in diameter."
+          - "{{ planets[2]['planet'] }} is
+            {{ planets[2].diameter }} km in diameter."
 ...
 # code: language=ansible
 # vi: set noai nu ts=2 sw=2 sts=2 sta et:
