@@ -1,0 +1,13 @@
+---
+# Get and display facts
+# Usage: ansible-playbook get_facts.yml
+- name: Get facts
+  hosts: control_node
+  gather_facts: true
+  tasks:
+    - name: Display facts gathered by default
+      ansible.builtin.debug:
+        msg: "{{ hostvars }}"
+...
+# code: language=ansible
+# vi: set noai nu ts=2 sw=2 sts=2 sta et:

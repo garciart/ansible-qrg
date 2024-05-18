@@ -1,0 +1,47 @@
+{
+    "ansible_check_mode": false,
+    "ansible_config_file": "/home/a4p/ansible.cfg",
+    "ansible_connection": "local",
+    "ansible_diff_mode": false,
+    "ansible_facts": {},
+    "ansible_forks": 5,
+    "ansible_inventory_sources": [
+        "/home/a4p/inventory.yml"
+    ],
+    "ansible_playbook_python": "/home/a4p/bin/python3",
+    "ansible_run_tags": [
+        "all"
+    ],
+    "ansible_skip_tags": [],
+    "ansible_verbosity": 0,
+    "ansible_version": {
+        "full": "2.16.6",
+        "major": 2,
+        "minor": 16,
+        "revision": 6,
+        "string": "2.16.6"
+    },
+    "group_names": [
+        "managed_nodes"
+    ],
+    "groups": {
+        "all": [
+            "control_node",
+            "managed_node1",
+            "managed_node2"
+        ],
+        "control_nodes": [
+            "control_node"
+        ],
+        "managed_nodes": [
+            "managed_node1",
+            "managed_node2"
+        ],
+        "ungrouped": []
+    },
+    "inventory_dir": "/home/a4p",
+    "inventory_file": "/home/a4p/inventory.yml",
+    "inventory_hostname": "managed_node1",
+    "inventory_hostname_short": "managed_node1",
+    "playbook_dir": "/home/a4p"
+}
