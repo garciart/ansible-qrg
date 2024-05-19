@@ -22,6 +22,7 @@
         "string": "2.15.11"
     },
     "group_names": [
+        "dnf_nodes",
         "managed_nodes"
     ],
     "groups": {

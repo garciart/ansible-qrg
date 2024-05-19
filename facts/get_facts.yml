@@ -3,7 +3,7 @@
 # Usage: ansible-playbook get_facts.yml
 - name: Get facts
   hosts: managed_node1
-  gather_facts: true
+  gather_facts: false
   tasks:
     - name: Display facts gathered by default
       ansible.builtin.debug:

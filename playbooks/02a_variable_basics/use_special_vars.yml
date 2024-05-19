@@ -16,11 +16,12 @@
     - name: Scan the target node and gather facts
       ansible.builtin.setup:
 
-    - name: Show gathered magic variables and facts
+    - name: Show magic variables and gathered facts
+      # ansible_facts will only be populated for the target node
       ansible.builtin.debug:
         msg: "{{ hostvars }}"
 
-    - name: Show facts for the target node only
+    - name: Show gathered facts only
       ansible.builtin.debug:
         msg: "{{ ansible_facts }}"
 
@@ -34,15 +35,16 @@
   tasks:
     # Results should be the same as the last three tasks
     # of the previous play
-    - name: Show gathered magic variables and facts
+    - name: Show magic variables and gathered facts
+      # ansible_facts will only be populated for the target node
       ansible.builtin.debug:
         msg: "{{ hostvars }}"
 
-    - name: Show facts for the target node only
+    - name: Show gathered facts only
       ansible.builtin.debug:
         msg: "{{ ansible_facts }}"
 
-    - name: Show a fact about the target node
+    - name: Show a fact
       ansible.builtin.debug:
         msg: "{{ ansible_facts['os_family'] }}"
 ...

@@ -1606,6 +1606,7 @@
         "all"
     ],
     "group_names": [
+        "dnf_nodes",
         "managed_nodes"
     ],
     "groups": {
@@ -1616,6 +1617,11 @@
         ],
         "control_nodes": [
             "control_node"
+        ],
+        "dnf_nodes": [
+            "control_node",
+            "managed_node1",
+            "managed_node2"
         ],
         "managed_nodes": [
             "managed_node1",
