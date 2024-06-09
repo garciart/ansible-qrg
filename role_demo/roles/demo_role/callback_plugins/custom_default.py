@@ -508,8 +508,8 @@ class CallbackModule(CallbackBase):
         if the task is running in asynchronous mode.
 
         Customization Notes - In this method:
-        - You can access TaskResult class methods and attributes like result.is_changed()
-          and result.task_name
+        - You can access and use other TaskResult class attributes and methods like
+          result._task, result._task_fields, and result.task_name()
         - The ansible.executor.task_result.TaskResult class is defined in
           lib/ansible/executor/task_result.py
 
@@ -539,8 +539,8 @@ class CallbackModule(CallbackBase):
         ansible.cfg settings, if an asynchronous task passed on a target host.
 
         Customization Notes - In this method:
-        - You can access TaskResult class methods and attributes like result.is_changed()
-          and result.task_name
+        - You can access and use other TaskResult class attributes and methods like
+          result._task, result._task_fields, result.task_name(), and result.is_changed()
         - The ansible.executor.task_result.TaskResult class is defined in
           lib/ansible/executor/task_result.py
 
@@ -565,8 +565,8 @@ class CallbackModule(CallbackBase):
         ansible.cfg settings, if an asynchronous task failed on a target host.
 
         Customization Notes - In this method:
-        - You can access TaskResult class methods and attributes like result.is_changed()
-          and result.task_name
+        - You can access and use other TaskResult class attributes and methods like
+          result._task, result._task_fields, result.task_name(), and result.is_failed()
         - The ansible.executor.task_result.TaskResult class is defined in
           lib/ansible/executor/task_result.py
 
@@ -596,8 +596,8 @@ class CallbackModule(CallbackBase):
         if the --diff arg is passed.
 
         Customization Notes - In this method:
-        - You can access TaskResult class methods and attributes like result.is_changed()
-          and result.task_name
+        - You can access and use other TaskResult class attributes and methods like
+          result._task, result._task_fields, and result.task_name()
         - The ansible.executor.task_result.TaskResult class is defined in
           lib/ansible/executor/task_result.py
 
@@ -633,8 +633,8 @@ class CallbackModule(CallbackBase):
         ansible.cfg settings, if a task passed.
 
         Customization Notes - In this method:
-        - You can access TaskResult class methods and attributes like result.is_changed()
-          and result.task_name
+        - You can access and use other TaskResult class attributes and methods like
+          result._task, result._task_fields, result.task_name(), and result.is_changed()
         - The ansible.executor.task_result.TaskResult class is defined in
           lib/ansible/executor/task_result.py
 
@@ -687,8 +687,8 @@ class CallbackModule(CallbackBase):
         if a host is unreachable.
 
         Customization Notes - In this method:
-        - You can access TaskResult class methods and attributes like result.is_changed()
-          and result.task_name
+        - You can access and use other TaskResult class attributes and methods like
+          result._task, result._task_fields, result.task_name(), and result.is_unreachable()
         - The ansible.executor.task_result.TaskResult class is defined in
           lib/ansible/executor/task_result.py
 
@@ -720,8 +720,8 @@ class CallbackModule(CallbackBase):
         ansible.cfg settings, if a task failed.
 
         Customization notes - In this method:
-        - You can access TaskResult class methods and attributes like result.is_changed()
-          and result.task_name
+        - You can access and use other TaskResult class attributes and methods like
+          result._task, result._task_fields, result.task_name(), and result.is_failed()
         - The ansible.executor.task_result.TaskResult class is defined in
           lib/ansible/executor/task_result.py
 
@@ -772,8 +772,8 @@ class CallbackModule(CallbackBase):
         ansible.cfg settings, if a task is skipped.
 
         Customization Notes - In this method:
-        - You can access TaskResult class methods and attributes like result.is_changed()
-          and result.task_name
+        - You can access and use other TaskResult class attributes and methods like
+          result._task, result._task_fields, result.task_name(), and result.is_skipped()
         - The ansible.executor.task_result.TaskResult class is defined in
           lib/ansible/executor/task_result.py
 
@@ -834,8 +834,8 @@ class CallbackModule(CallbackBase):
         ansible.cfg settings, if a task passed using an item from a loop.
 
         Customization Notes - In this method:
-        - You can access TaskResult class methods and attributes like result.is_changed()
-          and result.task_name
+        - You can access and use other TaskResult class attributes and methods like
+          result._task, result._task_fields, result.task_name(), and result.is_changed()
         - The ansible.executor.task_result.TaskResult class is defined in
           lib/ansible/executor/task_result.py
 
@@ -881,8 +881,8 @@ class CallbackModule(CallbackBase):
         if a task failed using an item from a loop.
 
         Customization Notes - In this method:
-        - You can access TaskResult class methods and attributes like result.is_changed()
-          and result.task_name
+        - You can access and use other TaskResult class attributes and methods like
+          result._task, result._task_fields, result.task_name(), and result.is_failed()
         - The ansible.executor.task_result.TaskResult class is defined in
           lib/ansible/executor/task_result.py
 
@@ -919,8 +919,8 @@ class CallbackModule(CallbackBase):
         ansible.cfg settings, if a task is skipped using an item from a loop.
 
         Customization Notes - In this method:
-        - You can access TaskResult class methods and attributes like result.is_changed()
-          and result.task_name
+        - You can access and use other TaskResult class attributes and methods like
+          result._task, result._task_fields, result.task_name(), and result.is_skipped()
         - The ansible.executor.task_result.TaskResult class is defined in
           lib/ansible/executor/task_result.py
 
@@ -967,8 +967,8 @@ class CallbackModule(CallbackBase):
         """Inform the user that Ansible is retrying a task if retries has a value.
 
         Customization Notes - In this method:
-        - You can access TaskResult class methods and attributes like result.is_changed()
-          and result.task_name
+        - You can access and use other TaskResult class attributes and methods like
+          result._task, result._task_fields, and result.task_name()
         - The ansible.executor.task_result.TaskResult class is defined in
           lib/ansible/executor/task_result.py
 

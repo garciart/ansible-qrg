@@ -1,0 +1,37 @@
+---
+# Test if a string starts with, contains, or ends with value
+# https://jinja.palletsprojects.com/en/3.1.x/templates/#list-of-builtin-tests
+# Usage: ansible-playbook test_strings.yml
+- name: Test strings
+  hosts: managed_node1
+  gather_facts: false
+  vars:
+    ipv4_address: "192.168.1.10"
+  tasks:
+    - name: Test if an IPv4 address starts with '10'
+      ansible.builtin.debug:
+        msg: "192.168.1.10 starts with '10': {{ ipv4_address is regex('^10.+$') }}"
+
+    - name: Test if an IPv4 address starts with '192'
+      ansible.builtin.debug:
+        msg: "192.168.1.10 starts with '192': {{ ipv4_address is regex('^192.+$') }}"
+
+    - name: Test if an IPv4 address contains with '168'
+      ansible.builtin.debug:
+        msg: "192.168.1.10 contains with '168': {{ ipv4_address is regex('^.+168.+$') }}"
+
+    - name: Test if an IPv4 address contains with '169'
+      ansible.builtin.debug:
+        msg: "192.168.1.10 contains with '169': {{ ipv4_address is regex('^.+169.+$') }}"
+
+
+    - name: Test if an IPv4 address ends with '10'
+      ansible.builtin.debug:
+        msg: "192.168.1.10 ends with '10': {{ ipv4_address is regex('^.+10$') }}"
+
+    - name: Test if an IPv4 address ends with '192'
+      ansible.builtin.debug:
+        msg: "192.168.1.10 ends with '192': {{ ipv4_address is regex('^.+192$') }}"
+...
+# code: language=ansible
+# vi: set noai nu ts=2 sw=2 sts=2 sta et:

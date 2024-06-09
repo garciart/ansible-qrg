@@ -84,6 +84,7 @@ Link to [reserved keywords list](/reserved_keywords.md).
 - [use_conditionals.yml](/playbooks/03_conditions/use_conditionals.yml "Check for a condition in a task")
 - [combine_conditions.yml](/playbooks/03_conditions/combine_conditions.yml "Check for multiple conditions in a task")
 - [validate_vars.yml](/playbooks/03_conditions/validate_vars.yml "Check if a variable is undefined, null, or empty")
+- [test_strings.yml](/playbooks/03_conditions/test_strings.yml "Test if a string starts with, contains, or ends with value")
 
 ### Debugging
 
