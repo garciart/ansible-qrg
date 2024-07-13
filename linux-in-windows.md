@@ -2,11 +2,12 @@
 
 Here are instructions to create and run a Linux virtual machine in Windows, using the VMware Workstation Player for Windows and CentOS Stream 9. This setup will allow you to write and run the Ansible playbooks in the tutorial. Once again, this is one of many options available to run Linux in Windows.
 
-- [Download CentOS Stream](#download-centos-stream)
-- [Download and Install VMware Workstation Player for Windows](#download-and-install-vmware-workstation-player-for-windows)
-- [Create a Virtual Machine](#create-a-virtual-machine)
-- [Setup CentOS](#setup-centos)
-- [Login and Update the System](#login-and-update-the-system)
+- [Create a Linux Virtual Machine in Windows](#create-a-linux-virtual-machine-in-windows)
+  - [Download CentOS Stream](#download-centos-stream)
+  - [Download and Install VMware Workstation Player for Windows](#download-and-install-vmware-workstation-player-for-windows)
+  - [Create a Virtual Machine](#create-a-virtual-machine)
+  - [Setup CentOS](#setup-centos)
+  - [Login and Update the System](#login-and-update-the-system)
 
 > **WARNING** - This is a living document that I will edit and update it whenever the CentOS Project updates CentOS Stream or VMware updates Workstation Player for Windows.
 
@@ -272,7 +273,7 @@ The latest version of Workstation Player, version 17, is compatible with Windows
 
    ```bash
    sudo dnf install -y python3.11
-   sudo update-alternatives --install /usr/bin/python3 python3 /usr/bin/python3.11 1
+   sudo update-alternatives --install /usr/bin/python3 python3 /usr/bin/python3.11
    python3 --version
    ```
 

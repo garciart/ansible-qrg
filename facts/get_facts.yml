@@ -8,6 +8,11 @@
     - name: Get facts
       ansible.builtin.setup:
 
+    - name: Test
+      ansible.builtin.debug:
+        msg:
+          - "{{ ansible_skip_tags }}"
+
     - name: Display facts gathered by default
       ansible.builtin.debug:
         msg: "{{ ansible_facts['ansible_default_ipv4']['address'] }}"
@@ -15,7 +20,7 @@
         ansible_facts['ansible_default_ipv4'] is defined and
         '192.168.68' in ansible_facts['ansible_default_ipv4']['address']
 
-    - name: Display facts gathered by default
+    - name: Display a fact gathered by default
       ansible.builtin.debug:
         msg: "{{ ansible_facts['default_ipv4']['address'] }}"
       when: >-

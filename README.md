@@ -48,6 +48,7 @@ Link to [reserved keywords list](/reserved_keywords.md).
 - [cast_variables.yml](/playbooks/02b_variable_output/cast_variables.yml "Cast variables to other types")
 - [convert_data_strings.yml](/playbooks/02b_variable_output/convert_data_strings.yml "Convert data strings to structures")
 - [split_strings.yml](/playbooks/02b_variable_output/split_strings.yml "Split strings into lists of items")
+- [find_replace_text.yml](/playbooks/02b_variable_output/find_replace_text.yml "Find text and replace text")
 
 ### Working with Lists
 

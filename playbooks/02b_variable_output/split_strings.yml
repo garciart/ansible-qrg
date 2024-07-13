@@ -11,9 +11,14 @@
       ansible.builtin.debug:
         msg: "{{ sentence | split }}"
 
-    - name: Get the username from an email address
+    - name: Get the username and domain from an email address
+      vars:
+        email_address: "alice@example.com"
       ansible.builtin.debug:
-        msg: "{{ ('alice@example.com' | split('@'))[0] }}"
+        msg:
+          - "{{ email_address }}"
+          - "{{ (email_address | split('@'))[0] }}"
+          - "{{ (email_address | split('@'))[1] }}"
 ...
 # code: language=ansible
 # vi: set noai nu ts=2 sw=2 sts=2 sta et:

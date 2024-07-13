@@ -648,6 +648,13 @@ class CallbackModule(CallbackBase):
             # Validate inputs
             self._validate_input('result', result, TaskResult)
 
+        print('result', result, type(result))
+        print('result._host', result._host, type(result._host))
+        print('result._task', result._task, type(result._task))
+        print('result._result', result._result, type(result._result))
+        print('result._task_fields', result._task_fields, type(result._task_fields))
+        print(result._result['msg'])
+
         host_label = self.host_label(result)
 
         if isinstance(result._task, TaskInclude):
