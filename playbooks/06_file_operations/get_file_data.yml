@@ -1,0 +1,142 @@
+---
+# Read data from files into a YAML variable
+# Usage: ansible-playbook convert_file_data.yml
+- name: Get file data
+  hosts: localhost
+  tasks:
+    # - name: Read data from an XML file into a YAML variable
+    #   # Development note: You must install xmltodict in your virtual environment
+    #   # before reading XML files
+    #   block:
+    #     - name: Read and store the contents of a file
+    #       ansible.builtin.set_fact:
+    #         file_content: "{{ item }}"
+    #       with_file:
+    #         - data_files/planets_info.xml
+
+    #     - name: Convert XML string to YAML
+    #       ansible.builtin.set_fact:
+    #         xml_to_yaml: "{{ file_content | ansible.utils.from_xml | from_json }}"
+
+    #     - name: Show variable contents, type and single element
+    #       ansible.builtin.debug:
+    #         msg:
+    #           - "{{ xml_to_yaml }}"
+    #           - "{{ xml_to_yaml | type_debug }}"
+    #           - "{{ xml_to_yaml['planets']['planet'][0] }}"
+
+    # - name: Read data from an JSON file into a YAML variable
+    #   block:
+    #     - name: Read and store the contents of a file
+    #       ansible.builtin.set_fact:
+    #         file_content: "{{ item }}"
+    #       with_file:
+    #         - data_files/planets_info.json
+
+    #     - name: Show result
+    #       ansible.builtin.debug:
+    #         msg:
+    #           - "{{ file_content }}"
+    #           - "{{ file_content | type_debug }}"
+
+    #     - name: Convert JSON dict to YAML
+    #       ansible.builtin.set_fact:
+    #         # No conversion necessary
+    #         json_to_yaml: "{{ file_content }}"
+
+    #     - name: Show variable contents, type and single element
+    #       ansible.builtin.debug:
+    #         msg:
+    #           - "{{ json_to_yaml }}"
+    #           - "{{ json_to_yaml | type_debug }}"
+    #           - "{{ json_to_yaml['planets']['planet'][1] }}"
+
+    # - name: Read data from an CFG file into a YAML variable
+    #   block:
+    #     - name: Read and store the contents of a file
+    #       ansible.builtin.set_fact:
+    #         file_content: "{{ item }}"
+    #       with_file:
+    #         - data_files/planets_info.cfg
+
+    #     - name: Show result
+    #       ansible.builtin.debug:
+    #         msg:
+    #           - "{{ file_content }}"
+    #           - "{{ file_content | type_debug }}"
+
+    #     # - name: Convert CFG string to YAML
+    #     #   ansible.builtin.set_fact:
+    #     #     cfg_to_yaml: "{{ lookup('ansible.builtin.ini', file_content) }}"
+
+    #     - name: Convert CFG string to list of lines
+    #       ansible.builtin.set_fact:
+    #         file_content_lines: "{{ file_content.split('\n') }}"
+
+    #     - name: Initialize planets dictionary
+    #       ansible.builtin.set_fact:
+    #         cfg_to_yaml: {}
+
+    #     - name: Parse CFG lines into dictionary
+    #       ansible.builtin.set_fact:
+    #         cfg_to_yaml: >-
+    #           {{
+    #             cfg_to_yaml | combine({
+    #               item.split('=')[0].strip(): item.split('=')[1].strip().replace('"', '')
+    #             })
+    #           }}
+    #       when: item and not item.startswith(';') and '=' in item
+    #       loop: "{{ file_content_lines }}"
+
+    #     - name: Convert dictionary to YAML structure
+    #       ansible.builtin.set_fact:
+    #         my_planets: |
+    #           planets:
+    #             "@title": "{{ cfg_to_yaml['@title'] }}"
+    #             planet:
+    #               - diameter: "{{ cfg_to_yaml['diameter'] }}"
+    #                 hours_per_day: "{{ cfg_to_yaml['hours_per_day'] }}"
+    #                 name: "{{ cfg_to_yaml['name'] }}"
+    #                 rings: "{{ cfg_to_yaml['rings'] }}"
+    #                 moons: "{{ cfg_to_yaml.get('moons', '') }}"
+
+    #     - name: Show variable contents, type and single element
+    #       ansible.builtin.debug:
+    #         msg:
+    #           - "{{ cfg_to_yaml }}"
+    #           - "{{ cfg_to_yaml | type_debug }}"
+    #           - "{{ cfg_to_yaml['planets']['planet'][1] }}"
+
+    - name: Read data from a CSV file into a YAML variable
+      block:
+        - name: Read and store the contents of a file
+          ansible.builtin.set_fact:
+            file_content: "{{ item }}"
+          with_file:
+            - data_files/planets_info.csv
+
+        - name: Show result
+          ansible.builtin.debug:
+            msg:
+              - "{{ file_content }}"
+              - "{{ file_content | type_debug }}"
+
+        - name: Show result
+          ansible.builtin.debug:
+            msg:
+              - "{{ file_content }}"
+              - "{{ file_content | type_debug }}"
+
+        - name: Convert JSON dict to YAML
+          ansible.builtin.set_fact:
+            csv_to_yaml: "{{ file_content | from_yaml | from_csv }}"
+
+        - name: Show variable contents, type and single element
+          ansible.builtin.debug:
+            msg:
+              - "{{ json_to_yaml }}"
+              - "{{ json_to_yaml | type_debug }}"
+              # - "{{ json_to_yaml['planets']['planet'][1] }}"
+...
+# code: language=ansible
+# vi: set noai nu ts=2 sw=2 sts=2 sta et:
