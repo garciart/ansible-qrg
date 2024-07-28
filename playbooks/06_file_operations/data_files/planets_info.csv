@@ -1,9 +1,9 @@
 name,diameter,hours_per_day,rings,moons
-Mercury,4879,4222.6,false,
-Venus,12104,2802.0,false,
+Mercury,4879,4222.6,false,null
+Venus,12104,2802.0,false,null
 Earth,12756,24.0,false,Luna
-Mars,6792,24.7,false,"Phobos, Deimos"
-Jupiter,142984,9.9,true,"Ganymede, Callisto, Europa, Io"
-Saturn,120536,10.7,true,"Titan, Rhea, Iapetus, Dione, Tethys, Enceladus, Mimas"
-Uranus,51118,17.2,true,"Titania, Oberon, Umbriel, Ariel, Miranda"
+Mars,6792,24.7,false,Phobos
+Jupiter,142984,9.9,true,Ganymede
+Saturn,120536,10.7,true,Titan
+Uranus,51118,17.2,true,Titania
 Neptune,49528,16.1,true,Triton

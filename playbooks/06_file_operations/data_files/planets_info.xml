@@ -1,20 +1,20 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <planets title="This is a list of the major planets.">
-  <planet>
+  <mercury>
     <name>Mercury</name>
     <diameter>4879</diameter>
     <hours_per_day>4222.6</hours_per_day>
     <rings>false</rings>
     <moons></moons>
-  </planet>
-  <planet>
+  </mercury>
+  <venus>
     <name>Venus</name>
     <diameter>12104</diameter>
     <hours_per_day>2802.0</hours_per_day>
     <rings>false</rings>
     <moons></moons>
-  </planet>
-  <planet>
+  </venus>
+  <earth>
     <name>Earth</name>
     <diameter>12756</diameter>
     <hours_per_day>24.0</hours_per_day>
@@ -22,8 +22,8 @@
     <moons>
       <moon>Luna</moon>
     </moons>
-  </planet>
-  <planet>
+  </earth>
+  <mars>
     <name>Mars</name>
     <diameter>6792</diameter>
     <hours_per_day>24.7</hours_per_day>
@@ -32,8 +32,8 @@
       <moon>Phobos</moon>
       <moon>Deimos</moon>
     </moons>
-  </planet>
-  <planet>
+  </mars>
+  <jupiter>
     <name>Jupiter</name>
     <diameter>142984</diameter>
     <hours_per_day>9.9</hours_per_day>
@@ -44,8 +44,8 @@
       <moon>Europa</moon>
       <moon>Io</moon>
     </moons>
-  </planet>
-  <planet>
+  </jupiter>
+  <saturn>
     <name>Saturn</name>
     <diameter>120536</diameter>
     <hours_per_day>10.7</hours_per_day>
@@ -59,8 +59,8 @@
       <moon>Enceladus</moon>
       <moon>Mimas</moon>
     </moons>
-  </planet>
-  <planet>
+  </saturn>
+  <uranus>
     <name>Uranus</name>
     <diameter>51118</diameter>
     <hours_per_day>17.2</hours_per_day>
@@ -72,8 +72,8 @@
       <moon>Ariel</moon>
       <moon>Miranda</moon>
     </moons>
-  </planet>
-  <planet>
+  </uranus>
+  <neptune>
     <name>Neptune</name>
     <diameter>49528</diameter>
     <hours_per_day>16.1</hours_per_day>
@@ -81,5 +81,5 @@
     <moons>
       <moon>Triton</moon>
     </moons>
-  </planet>
+  </neptune>
 </planets>
