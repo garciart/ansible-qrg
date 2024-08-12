@@ -502,12 +502,16 @@ class CallbackModule(CallbackBase):
             self._display.display(" [started %s on %s]" %
                                   (task, host), color=C.COLOR_OK)
 
-    def v2_runner_on_async_poll(self, result):
-        # type: (TaskResult) -> None
+    def v2_runner_on_async_poll(self, result: TaskResult) -> None:
         """Inform the user that Ansible is polling a target host
         if the task is running in asynchronous mode.
 
-        Customization Notes - In this method:
+        Customization Notes: Ansible uses only one console stdout
+        callback at a time. However, you can override this method in a
+        separate callback to add output to stdout or forward details
+        to a log, etc.
+
+        In this method:
         - You can access and use other TaskResult class attributes and methods like
           result._task, result._task_fields, and result.task_name()
         - The ansible.executor.task_result.TaskResult class is defined in
@@ -515,6 +519,7 @@ class CallbackModule(CallbackBase):
 
         :param TaskResult result: The result and output of a task
         :return: None
+        :rtype: None
         """
         if self.DEV_MODE:
             self._display.display('>>> ' + sys._getframe().f_code.co_name,
@@ -523,6 +528,8 @@ class CallbackModule(CallbackBase):
             # Validate inputs
             self._validate_input('result', result, TaskResult)
 
+
+        print('Polling...')
         host = result._host.get_name()
         jid = result._result.get('ansible_job_id')
         started = result._result.get('started')
@@ -554,6 +561,7 @@ class CallbackModule(CallbackBase):
             # Validate inputs
             self._validate_input('result', result, TaskResult)
 
+        print('Yay!')
         host = result._host.get_name()
         jid = result._result.get('ansible_job_id')
         self._display.display("ASYNC OK on %s: jid=%s" %
@@ -648,12 +656,12 @@ class CallbackModule(CallbackBase):
             # Validate inputs
             self._validate_input('result', result, TaskResult)
 
-        print('result', result, type(result))
-        print('result._host', result._host, type(result._host))
-        print('result._task', result._task, type(result._task))
-        print('result._result', result._result, type(result._result))
-        print('result._task_fields', result._task_fields, type(result._task_fields))
-        print(result._result['msg'])
+        # print('result', result, type(result))
+        # print('result._host', result._host, type(result._host))
+        # print('result._task', result._task, type(result._task))
+        # print('result._result', result._result, type(result._result))
+        # print('result._task_fields', result._task_fields, type(result._task_fields))
+        # print(result._result['msg'])
 
         host_label = self.host_label(result)
 
