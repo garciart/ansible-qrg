@@ -89,7 +89,7 @@
 - name: Test async
   block:
     - name: Simulate long running op (15 sec), wait for up to 45 sec, poll every 5 sec
-      ansible.builtin.command: /bin/sleep 16
+      ansible.builtin.command: /bin/sleep 15
       async: 45
       poll: 5
       changed_when: false
