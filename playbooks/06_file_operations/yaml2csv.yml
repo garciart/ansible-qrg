@@ -1,0 +1,43 @@
+---
+# Read data from files into a YAML variable
+# Usage: ansible-playbook convert_file_data.yml
+- name: Get file data
+  hosts: control_node
+  vars:
+    systems:
+      - system: "foo.com"
+        system_cores: 16
+        system_online: true
+      - system: "bar.com"
+        system_cores: 24
+        system_online: true
+      - system: "baz.com"
+        system_cores: 32
+        system_online: false
+  tasks:
+    - name: Set CSV headers
+      vars:
+        csv_headers: "{{ systems[0].keys() | list }}"
+      ansible.builtin.set_fact:
+        csv_systems: "{{ csv_systems | default([], true) + [csv_headers] }}"
+
+    - name: Show CSV headers
+      ansible.builtin.debug:
+        msg:
+          - "{{ csv_systems }}"
+          - "{{ csv_systems | type debug }}"
+
+    - name: Add system values to CSV
+      ansible.builtin.set_fact:
+        csv_systems: "{{ csv_systems | default([], true) + [item.values() | list] }}"
+      loop: "{{ systems }}"
+
+    - name: Show CSV output
+      ansible.builtin.debug:
+        msg:
+          - "{{ csv_systems }}"
+          - "{{ csv_systems | to_nice_json }}"
+          - "{{ csv_systems | type_debug }}"
+...
+# code: language=ansible
+# vi: set noai nu ts=2 sw=2 sts=2 sta et:
