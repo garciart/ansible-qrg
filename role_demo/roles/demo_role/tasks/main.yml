@@ -86,13 +86,13 @@
 #         path: empty_file.txt
 #         state: absent
 
-# - name: Test async
-#   block:
-#     - name: Simulate long running op (15 sec), wait for up to 45 sec, poll every 5 sec
-#       ansible.builtin.command: /bin/sleep 9
-#       async: 27
-#       poll: 3
-#       changed_when: false
+- name: Test async
+  block:
+    - name: Simulate long running op (15 sec), wait for up to 45 sec, poll every 5 sec
+      ansible.builtin.command: /bin/sleep 15
+      async: 45
+      poll: 5
+      changed_when: false
 ...
 # code: language=ansible
 # vi: set noai nu ts=2 sw=2 sts=2 sta et:
