@@ -1,5 +1,9 @@
 # Ansible Quick Reference Guide (QRG)
 
+Brain dump of common tasks and settings that I use with Ansible.
+
+-----
+
 Link to instructions to [create a Linux Virtual Machine in Windows](/linux-in-windows.md).
 
 Link to [reserved keywords list](/reserved_keywords.md).
