@@ -5,6 +5,7 @@
 [Ll]ib64
 [Vv]env
 pyvenv.cfg
+.venv
 
 # Ignore scratch files and directories
 .scratch*

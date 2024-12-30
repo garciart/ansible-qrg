@@ -1,6 +1,4 @@
-# A4P
-
-Repository for a4p source code.
+# Ansible Quick Reference Guide (QRG)
 
 Link to instructions to [create a Linux Virtual Machine in Windows](/linux-in-windows.md).
 
@@ -38,7 +36,7 @@ Link to [reserved keywords list](/reserved_keywords.md).
 - [set_facts.yml](/playbooks/02a_variable_basics/set_facts.yml "Set a fact usable by the plays and tasks in a playbook")
 - [demo_var_precedence.yml](/playbooks/02a_variable_basics/demo_var_precedence.yml "Demonstrate variable precedence in a play")
 
-### Variable Output
+### Working with Variables
 
 - [format_variables.yml](/playbooks/02b_variable_output/format_variables.yml "Format output using filters")
 - [transform_variables.yml](/playbooks/02b_variable_output/transform_variables.yml "Transform variables using filters")

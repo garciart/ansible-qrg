@@ -1,29 +1,38 @@
 ---
 # Use variables from external files
-# Usage: ansible-playbook include_files.yml
+# Usage: ansible-playbook include_vars.yml
 - name: Include vars
   hosts: managed_node1
   gather_facts: false
   tasks:
     - name: Include a YAML file in a play
       ansible.builtin.include_vars:
-        file: planets_info.yml
+        dir: vars
+
+    - name: Show the contents of the YAML file
+      ansible.builtin.debug:
+        msg: "{{ planets }}"
 
     - name: Access data from the YAML file
       ansible.builtin.debug:
         msg:
-          - "Planet info: {{ planets[0] }}"
-          - "Planet name: {{ planets[0]['planet'] }}"
+          - "Name: {{ planets['earth']['name'] }}"
+          - "Moons: {{ planets['earth']['moons'] }}"
 
     - name: Include a JSON file in a play
       ansible.builtin.include_vars:
-        file: planets_info.json
+        file: files/planets_info.json
+        name: from_json
+
+    - name: Show the contents of the JSON file
+      ansible.builtin.debug:
+        msg: "{{ from_json }}"
 
     - name: Access data from the JSON file
       ansible.builtin.debug:
         msg:
-          - "Planet info: {{ planets[1] }}"
-          - "Planet name: {{ planets[1]['planet'] }}"
+          - "Name: {{ from_json.planets['mars']['name'] }}"
+          - "Moons: {{ from_json.planets['mars']['moons'] }}"
 ...
 # code: language=ansible
 # vi: set noai nu ts=2 sw=2 sts=2 sta et:

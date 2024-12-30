@@ -9,7 +9,7 @@
   tasks:
     - name: Run tasks from an external file
       ansible.builtin.include_tasks:
-        file: tasks.yml
+        file: tasks/tasks.yml
       loop:
         - "Mercury"
         - "Venus"

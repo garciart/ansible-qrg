@@ -1,10 +1,11 @@
 ---
 # Import and run another playbook
 # Usage: ansible-playbook import_playbook.yml
+# NOTE: The imported playbook will identify the target hosts
 - name: Import and run another playbook
   vars:
     shared_var: "World"
-  ansible.builtin.import_playbook: playbook.yml
+  ansible.builtin.import_playbook: tasks/playbook.yml
 ...
 # code: language=ansible
 # vi: set noai nu ts=2 sw=2 sts=2 sta et:

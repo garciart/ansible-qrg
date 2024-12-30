@@ -11,9 +11,9 @@ all:
     managed_nodes:
       hosts:
         managed_node1:
-          ansible_connection: local
         managed_node2:
-          ansible_connection: local
+      vars:
+        ansible_connection: local
 ...
 # code: language=yaml
 # vi: set noai nu ts=2 sw=2 sts=2 sta et:

@@ -1,6 +1,8 @@
 ---
 # Use templates to create formatted files
 # Usage: ansible-playbook use_template.yml
+# NOTE: Disregard interpreter discovery warnings
+# when using the ansible.builtin.template module
 - name: Use templates
   hosts: managed_node1
   gather_facts: false
@@ -17,6 +19,9 @@
   tasks:
     - name: Fill a template with data
       ansible.builtin.template:
-        src: planets_template.j2
-        dest: planets.html
+        src: files/planets_template.j2
+        dest: files/planets.html
         mode: '0644'
+...
+# code: language=ansible
+# vi: set noai nu ts=2 sw=2 sts=2 sta et:
