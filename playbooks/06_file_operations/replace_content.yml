@@ -11,7 +11,7 @@
     - name: Replace content in a file
       ansible.builtin.lineinfile:
         path: demo_dir/file_with_content.txt
-        regexp: '(^H|\nH)ow.*$'
+        regexp: '(^H│\nH)ow.*$'
         line: "How are you doing?"
 
     - name: Read and show the contents of a file

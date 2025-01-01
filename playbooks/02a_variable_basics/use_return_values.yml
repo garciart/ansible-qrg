@@ -16,7 +16,7 @@
 
     - name: Show the return value object type
       ansible.builtin.debug:
-        msg: "{{ result | type_debug }}"
+        msg: "{{ result │ type_debug }}"
 
     - name: Show a single return value
       ansible.builtin.debug:

@@ -16,31 +16,31 @@
   tasks:
     - name: Convert a structure to strings
       ansible.builtin.set_fact:
-        yaml_str: "{{ mars | to_yaml | string }}"
-        json_str: "{{ mars | to_json }}"
+        yaml_str: "{{ mars │ to_yaml │ string }}"
+        json_str: "{{ mars │ to_json }}"
 
     - name: Show the strings
       ansible.builtin.debug:
         msg:
           - "{{ yaml_str }}"
-          - "{{ yaml_str | type_debug }}"
+          - "{{ yaml_str │ type_debug }}"
           - "{{ json_str }}"
-          - "{{ json_str | type_debug }}"
+          - "{{ json_str │ type_debug }}"
 
     - name: Convert strings back to structures
       ansible.builtin.set_fact:
-        dict_from_yaml: "{{ yaml_str | from_yaml }}"
-        dict_from_json: "{{ json_str | from_json }}"
+        dict_from_yaml: "{{ yaml_str │ from_yaml }}"
+        dict_from_json: "{{ json_str │ from_json }}"
 
     - name: Show the structures
       ansible.builtin.debug:
         msg:
           - "{{ dict_from_json }}"
-          - "{{ dict_from_json | type_debug }}"
+          - "{{ dict_from_json │ type_debug }}"
           - "{{ dict_from_yaml }}"
-          - "{{ dict_from_yaml | type_debug }}"
+          - "{{ dict_from_yaml │ type_debug }}"
           - "{{ dict_from_yaml['moons'] }}"
-          - "{{ dict_from_yaml['moons'] | type_debug }}"
+          - "{{ dict_from_yaml['moons'] │ type_debug }}"
 ...
 # code: language=ansible
 # vi: set noai nu ts=2 sw=2 sts=2 sta et:

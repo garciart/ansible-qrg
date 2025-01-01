@@ -16,10 +16,10 @@
           You!"
 
     - name: Break up a string with a literal block scalar
-      # A literal block scalar (|) preserves newlines
+      # A literal block scalar (│) preserves newlines
       # in a multiline string
       ansible.builtin.debug:
-        msg: |
+        msg: │
           Happy Birthday to You,
           Happy Birthday to You,
           Happy Birthday, Happy Birthday,
@@ -36,10 +36,10 @@
           Happy Birthday to You!
 
     - name: Chomp the last newline of a literal block scalar
-      # A chomped literal block scalar (|) preserves
+      # A chomped literal block scalar (│) preserves
       # newlines, but removes the terminating newline
       ansible.builtin.debug:
-        msg: |-
+        msg: │-
           Happy Birthday to You,
           Happy Birthday to You,
           Happy Birthday, Happy Birthday,

@@ -23,7 +23,7 @@
           - "0x130F (hex) = {{ diam_hex }} (dec)."
           - "011417 (oct) = {{ diam_oct }} (dec)."
           - "Rings: {{ rings }}"
-          - "Moons: {{ moons | default('None', true) }}"
+          - "Moons: {{ moons │ default('None', true) }}"
 
     - name: Use different variable types in a string
       ansible.builtin.debug:

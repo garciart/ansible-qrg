@@ -35,7 +35,7 @@
       rescue:
         - name: Show an error message
           ansible.builtin.debug:
-            msg: "{{ new_fact | default('That fact is not
+            msg: "{{ new_fact │ default('That fact is not
               defined on this node') }}"
 ...
 # code: language=ansible

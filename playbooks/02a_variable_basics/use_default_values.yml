@@ -21,16 +21,16 @@
       rescue:
         - name: Use a default value
           ansible.builtin.debug:
-            msg: "{{ undefined_var |
+            msg: "{{ undefined_var │
               default('I am undefined.') }}"
 
     - name: Show an empty variable
       ansible.builtin.debug:
-        msg: "{{ empty_var | default('I am empty.') }}"
+        msg: "{{ empty_var │ default('I am empty.') }}"
 
     - name: Use a default value if a variable is empty
       ansible.builtin.debug:
-        msg: "{{ empty_var | default('I am empty.',
+        msg: "{{ empty_var │ default('I am empty.',
           true) }}"
 ...
 # code: language=ansible

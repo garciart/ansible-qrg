@@ -14,7 +14,7 @@
     - name: Loop using loop keyword
       ansible.builtin.debug:
         msg: "{{ item.key }}: {{ item.value }}"
-      loop: "{{ mars | dict2items }}"
+      loop: "{{ mars │ dict2items }}"
 
     - name: Loop using with_dict keyword
       ansible.builtin.debug:

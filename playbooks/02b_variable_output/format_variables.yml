@@ -22,8 +22,8 @@
         deg: 360
       ansible.builtin.debug:
         msg:
-          - "{{ pi }}: {{ '%0.2f' | format(pi) }}"
-          - "{{ deg }}: {{ '%x' | format(deg) }} (hex)"
+          - "{{ pi }}: {{ '%0.2f' │ format(pi) }}"
+          - "{{ deg }}: {{ '%x' │ format(deg) }} (hex)"
 
     - name: Use str.format() method
       vars:

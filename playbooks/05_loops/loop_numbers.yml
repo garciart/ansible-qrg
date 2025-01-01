@@ -7,13 +7,13 @@
   tasks:
     - name: Loop numbers using loop and range
       ansible.builtin.debug:
-        msg: "{{ 'T-minus ' ~ item if (item | int) > 0 else
+        msg: "{{ 'T-minus ' ~ item if (item │ int) > 0 else
           'Lift-Off!' }}"
       loop: "{{ range(5, -1, -1) }}"
 
     - name: Loop numbers using with_sequence
       ansible.builtin.debug:
-        msg: "{{ 'T-minus ' ~ item if (item | int) > 0 else
+        msg: "{{ 'T-minus ' ~ item if (item │ int) > 0 else
           'Lift-Off!' }}"
       with_sequence: start=5 end=-1 stride=-1
 ...

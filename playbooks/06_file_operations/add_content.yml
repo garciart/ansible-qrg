@@ -22,7 +22,7 @@
     - name: Add a block of text to a file
       ansible.builtin.lineinfile:
         path: demo_dir/file_with_content.txt
-        line: |
+        line: │
           I'm doing well.
           How yur duin?
         insertafter: "Welcome to Ansible."

@@ -2,15 +2,39 @@
 
 Brain dump of common tasks and settings that I use with Ansible.
 
+```bash
+sed -i -e $'$a\\\nexport PYTHONDONTWRITEBYTECODE=1' ~/.bashrc
+source ~/.bashrc
+```
+
 -----
 
-Link to instructions to [create a Linux Virtual Machine in Windows](/linux-in-windows.md).
+## Getting Started
 
-Link to [reserved keywords list](/reserved_keywords.md).
+Link to instructions to [create a Linux Virtual Machine in Windows](/linux-vm-in-windows.md).
+
+Creating the environment:
+
+```shell
+git clone https://github.com/garciart/ansible-qrg.git
+python3.12 -B -m venv .venv
+source .venv/bin/activate
+python -B -m pip install --upgrade pip
+python -B -m pip install ansible
+python -B -m pip install ansible-lint
+```
+
+Deactivating the environment:
+
+```shell
+deactivate
+```
 
 -----
 
 ## Playbooks
+
+Link to [reserved keywords list](/reserved-ansible-keywords.md).
 
 ### Playbook Basics
 

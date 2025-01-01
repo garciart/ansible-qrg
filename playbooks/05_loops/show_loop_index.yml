@@ -13,7 +13,7 @@
   tasks:
     - name: Show item index (Method 1)
       ansible.builtin.debug:
-        msg: "{{ (idx | int) + 1 }}: {{ item }}"
+        msg: "{{ (idx │ int) + 1 }}: {{ item }}"
       loop: "{{ idx }}"
       loop_control:
         index_var: idx
