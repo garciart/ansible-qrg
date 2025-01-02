@@ -3,7 +3,7 @@
 # https://cplusplus.com/reference/cstdio/printf/
 # Usage: ansible-playbook format_variables.yml
 - name: Format variables
-  hosts: managed_node1
+  hosts: managed_node_1
   gather_facts: false
   tasks:
     - name: Use printf style formatting
@@ -22,8 +22,8 @@
         deg: 360
       ansible.builtin.debug:
         msg:
-          - "{{ pi }}: {{ '%0.2f' │ format(pi) }}"
-          - "{{ deg }}: {{ '%x' │ format(deg) }} (hex)"
+          - "{{ pi }}: {{ '%0.2f' | format(pi) }}"
+          - "{{ deg }}: {{ '%x' | format(deg) }} (hex)"
 
     - name: Use str.format() method
       vars:

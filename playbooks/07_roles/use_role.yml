@@ -1,39 +1,17 @@
-%YAML 1.2
 ---
 # Use a role in a playbook
-# Usage: ansible-playbook use_roles.yml
+# Usage: ansible-playbook use_role.yml
 - name: Use roles
-  hosts: managed_node1
+  hosts: managed_node_1
   gather_facts: false
-  # vars_prompt:
-  #   - name: username
-  #     prompt: "What is your username?"
-  #     default: "Rob"
-
-  roles:
-    - demo_role
-
   tasks:
     - name: Say hello
       ansible.builtin.debug:
-        msg: "Hello, World!"
+        msg: "Hello from the play!"
 
-    # - name: Run demo_role/tasks/main.yml
-    #   ansible.builtin.import_role:
-    #     name: demo_role
-
-    # - name: Get the user name
-    #   ansible.builtin.pause:
-    #     prompt: "What is your name"
-    #   register: result
-
-    # - name: See the results
-    #   ansible.builtin.debug:
-    #     var: username
-
-    # - name: Run demo_role/tasks/main.yml
-    #   ansible.builtin.include_role:
-    #     name: demo_role
+    - name: Run roles/demo_role/tasks/main.yml
+      ansible.builtin.import_role:
+        name: demo_role
 ...
 # code: language=ansible
 # vi: set noai nu ts=2 sw=2 sts=2 sta et:

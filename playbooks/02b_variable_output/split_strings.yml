@@ -2,14 +2,14 @@
 # Split strings into lists of items
 # Usage: ansible-playbook split_strings.yml
 - name: Split strings
-  hosts: managed_node1
+  hosts: managed_node_1
   gather_facts: false
   vars:
     sentence: "The planet Earth is 12756 km in diameter."
   tasks:
     - name: Split a string into a list
       ansible.builtin.debug:
-        msg: "{{ sentence │ split }}"
+        msg: "{{ sentence | split }}"
 
     - name: Get the username and domain from an email address
       vars:
@@ -17,8 +17,8 @@
       ansible.builtin.debug:
         msg:
           - "{{ email_address }}"
-          - "{{ (email_address │ split('@'))[0] }}"
-          - "{{ (email_address │ split('@'))[1] }}"
+          - "{{ (email_address | split('@'))[0] }}"
+          - "{{ (email_address | split('@'))[1] }}"
 ...
 # code: language=ansible
 # vi: set noai nu ts=2 sw=2 sts=2 sta et:

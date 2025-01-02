@@ -5,14 +5,14 @@
   ansible.builtin.import_playbook: add_content.yml
 
 - name: Find content
-  hosts: managed_node1
+  hosts: managed_node_1
   gather_facts: false
   tasks:
     - name: Find and show content from a file
       vars:
         file_content: "{{ lookup('ansible.builtin.file',
-          'demo_dir/file_with_content.txt') │
-          regex_search('(^H│\nH)ow.*') }}"
+          'demo_dir/file_with_content.txt') |
+          regex_search('(^H|\nH)ow.*') }}"
       ansible.builtin.debug:  # noqa jinja[invalid]
         msg: "{{ file_content if file_content != '' else
           'String not found.' }}"

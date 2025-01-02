@@ -2,7 +2,7 @@
 # Check for multiple conditions in a task
 # Usage: ansible-playbook combine_conditions.yml
 - name: Combine conditions
-  hosts: managed_node1
+  hosts: managed_node_1
   gather_facts: false
   vars:
     planet: "Mars"

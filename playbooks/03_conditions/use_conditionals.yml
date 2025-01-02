@@ -2,7 +2,7 @@
 # Check for a condition in a task
 # Usage: ansible-playbook use_conditionals.yml
 - name: Use conditionals
-  hosts: managed_node1
+  hosts: managed_node_1
   gather_facts: false
   vars:
     planet: "Mars"
@@ -18,7 +18,7 @@
 
     - name: Show alternate message (ternary filter)
       ansible.builtin.debug:
-        msg: "{{ (planet == 'Mars') │ ternary('Welcome to
+        msg: "{{ (planet == 'Mars') | ternary('Welcome to
           Mars!', 'Welcome to Earth!') }}"
 
     - name: Perform a task if a condition is met (when)

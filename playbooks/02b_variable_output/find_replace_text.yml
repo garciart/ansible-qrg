@@ -2,32 +2,32 @@
 # Find text and replace text
 # Usage: ansible-playbook search_text.yml
 - name: Search text
-  hosts: managed_node1
+  hosts: managed_node_1
   gather_facts: false
   vars:
-    text_block: │-
+    text_block: |-
       Mars is the fourth planet from the Sun.
       The nickname of Mars is "the Red Planet."
   tasks:
     - name: Show the first item found
       ansible.builtin.debug:
-        msg: "{{ text_block │ regex_search('Mars│fourth│Blue') }}"
+        msg: "{{ text_block | regex_search('Mars|fourth|Blue') }}"
 
     - name: Show a list of all items found
       ansible.builtin.debug:
-        msg: "{{ text_block │ regex_findall('Mars│fourth│Blue') }}"
+        msg: "{{ text_block | regex_findall('Mars|fourth|Blue') }}"
 
     - name: Check text for content again
       ansible.builtin.debug:
-        msg: "{{ text_block │ regex_findall('mars│fourth│blue',
+        msg: "{{ text_block | regex_findall('mars|fourth|blue',
           ignorecase=True) }}"
 
     - name: Replace text temporarily
       ansible.builtin.debug:
         msg: >-
           {{
-             text_block │ regex_replace('Mars', 'Earth') │
-             regex_replace('fourth', 'third') │
+             text_block | regex_replace('Mars', 'Earth') |
+             regex_replace('fourth', 'third') |
              regex_replace('Red Planet', 'Blue Marble')
           }}
 ...

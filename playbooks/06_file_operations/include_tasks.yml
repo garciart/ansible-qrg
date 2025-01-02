@@ -2,7 +2,7 @@
 # Include and run tasks from external YAML files
 # Usage: ansible-playbook include_tasks.yml
 - name: Include tasks
-  hosts: managed_node1
+  hosts: managed_node_1
   gather_facts: false
   vars:
     shared_var: "World"

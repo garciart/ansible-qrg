@@ -10,10 +10,15 @@ all:
           ansible_connection: local
     managed_nodes:
       hosts:
-        managed_node1:
-        managed_node2:
+        managed_node_1:
+        managed_node_2:
       vars:
         ansible_connection: local
+    fake_nodes:
+      hosts:
+        fake_node:
+      vars:
+        ansible_host: 999.999.999.999
 ...
 # code: language=yaml
 # vi: set noai nu ts=2 sw=2 sts=2 sta et:

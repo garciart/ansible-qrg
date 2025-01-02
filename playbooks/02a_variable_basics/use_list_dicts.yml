@@ -2,7 +2,7 @@
 # Set and show a list of dictionaries
 # Usage: ansible-playbook use_list_dicts.yml
 - name: Use list of dictionaries
-  hosts: managed_node1
+  hosts: managed_node_1
   gather_facts: false
   tasks:
     - name: Set and show a dictionary

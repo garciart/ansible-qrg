@@ -2,14 +2,14 @@
 # Show variables and their types
 # Usage: ansible-playbook get_var_type.yml
 - name: Get variable types
-  hosts: managed_node1
+  hosts: managed_node_1
   gather_facts: false
   tasks:
     - name: Show the type of a variable
       vars:
         planet: "Mars"
       ansible.builtin.debug:
-        msg: "{{ planet │ type_debug }}"
+        msg: "{{ planet | type_debug }}"
 
     - name: Show the types of other variables
       vars:
@@ -25,15 +25,15 @@
           order_no: 3
       ansible.builtin.debug:
         msg:
-          - "'{{ planet }}' ({{ planet │ type_debug }})"
-          - "{{ diameter }} ({{ diameter │ type_debug }})"
-          - "{{ hours_per_day }} ({{ hours_per_day │
+          - "'{{ planet }}' ({{ planet | type_debug }})"
+          - "{{ diameter }} ({{ diameter | type_debug }})"
+          - "{{ hours_per_day }} ({{ hours_per_day |
             type_debug }})"
-          - "{{ rings }} ({{ rings │ type_debug }})"
-          - "{{ moons }} ({{ moons │ type_debug }})"
-          - "'{{ moons[0] }}' ({{ moons[0] │ type_debug }})"
-          - "{{ other }} ({{ other │ type_debug }})"
-          - "{{ other['au'] }} ({{ other['au'] │
+          - "{{ rings }} ({{ rings | type_debug }})"
+          - "{{ moons }} ({{ moons | type_debug }})"
+          - "'{{ moons[0] }}' ({{ moons[0] | type_debug }})"
+          - "{{ other }} ({{ other | type_debug }})"
+          - "{{ other['au'] }} ({{ other['au'] |
             type_debug }})"
 ...
 # code: language=ansible

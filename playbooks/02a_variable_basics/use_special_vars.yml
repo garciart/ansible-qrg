@@ -2,7 +2,7 @@
 # Get and show special variables and facts
 # Usage: ansible-playbook use_special_vars.yml
 - name: Use special variables
-  hosts: managed_node1
+  hosts: managed_node_1
   gather_facts: false
   tasks:
     - name: Show default magic variables
@@ -30,7 +30,7 @@
         msg: "{{ ansible_facts['os_family'] }}"
 
 - name: Gather facts by default
-  hosts: managed_node1
+  hosts: managed_node_1
   gather_facts: true
   tasks:
     # Results should be the same as the last three tasks

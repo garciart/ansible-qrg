@@ -2,7 +2,7 @@
 # Show parts of a variable using slicing
 # Usage: ansible-playbook slice_variables.yml
 - name: Slice variables
-  hosts: managed_node1
+  hosts: managed_node_1
   gather_facts: false
   vars:
     planet: "Saturn"
@@ -20,24 +20,24 @@
         msg:
           - "The planet name is {{ planet }}."
           - "First letter (index): {{ planet[0] }}"
-          - "First letter (filter): {{ planet │ first }}"
+          - "First letter (filter): {{ planet | first }}"
           - "First two letters: {{ planet[:2] }}"
           - "Remaining letters: {{ planet[2:] }}"
           - "Third and fourth letters: {{ planet[2:4] }}"
           - "Last letter (index): {{ planet[-1] }}"
-          - "Last letter (filter): {{ planet │ last }}"
+          - "Last letter (filter): {{ planet | last }}"
 
     - name: Show elements of a list using slicing
       ansible.builtin.debug:
         msg:
           - "The moons are {{ moons }}."
           - "First moon (index): {{ moons[0] }}"
-          - "First moon (filter): {{ moons │ first }}"
+          - "First moon (filter): {{ moons | first }}"
           - "First two moons: {{ moons[:2] }}"
           - "Remaining moons: {{ moons[2:] }}"
           - "Third and fourth moons: {{ moons[2:4] }}"
           - "Last moon (index): {{ moons[-1] }}"
-          - "Last moon (filter): {{ moons │ last }}"
+          - "Last moon (filter): {{ moons | last }}"
 ...
 # code: language=ansible
 # vi: set noai nu ts=2 sw=2 sts=2 sta et:

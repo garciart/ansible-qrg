@@ -1,8 +1,8 @@
 ---
 # Use this playbook to demo import_playbook
-# Usage: ansible.builtin.import_playbook: playbook.yml
-- name: Demo playbook
-  hosts: managed_node1
+# Usage: ansible.builtin.import_playbook: tasks/imported_playbook.yml
+- name: Imported playbook
+  hosts: managed_node_1
   gather_facts: false
   tasks:
     - name: Show a message

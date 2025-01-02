@@ -2,7 +2,7 @@
 # Loop until a condition is met (while loop)
 # Usage: ansible-playbook loop_until.yml
 - name: Loop using until
-  hosts: managed_node1
+  hosts: managed_node_1
   gather_facts: false
   tasks:
     - name: Get the current time
@@ -12,7 +12,7 @@
     - name: Show current time
       ansible.builtin.debug:
         msg:
-          - "The current time is {{ '%H:%M:%S' │
+          - "The current time is {{ '%H:%M:%S' |
             strftime(time_check) }}."
           - "Waiting for 8 seconds..."
 
@@ -21,14 +21,14 @@
         time_poll: "{{ now(false, '%s') }}"
       ansible.builtin.debug:
         var: time_poll
-      until: (time_poll │ int) >= (time_check │ int + 8)
+      until: (time_poll | int) >= (time_check | int + 8)
       retries: 60
       delay: 1
       register: new_time_check
 
     - name: Show a new time check
       ansible.builtin.debug:
-        msg: "The time is now {{ '%H:%M:%S' │
+        msg: "The time is now {{ '%H:%M:%S' |
           strftime(new_time_check.time_poll) }}."
 ...
 # code: language=ansible

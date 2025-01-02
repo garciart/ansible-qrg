@@ -2,16 +2,11 @@
 
 Brain dump of common tasks and settings that I use with Ansible.
 
-```bash
-sed -i -e $'$a\\\nexport PYTHONDONTWRITEBYTECODE=1' ~/.bashrc
-source ~/.bashrc
-```
-
 -----
 
 ## Getting Started
 
-Link to instructions to [create a Linux Virtual Machine in Windows](/linux-vm-in-windows.md).
+Link to instructions to [create a Linux Virtual Machine in Windows](/xtra/linux-vm-in-windows.md).
 
 Creating the environment:
 
@@ -30,11 +25,26 @@ Deactivating the environment:
 deactivate
 ```
 
+> **NOTE** - Python normally saves intermediate bytecode in `__pycache__` folders, which can take up space. To prevent this, use the `-B` option when running a Python module or modify your system:
+>
+> **Linux:**
+>
+> ```bash
+> sed -i -e $'$a\\\nexport PYTHONDONTWRITEBYTECODE=1' ~/.bashrc
+> source ~/.bashrc
+> ```
+>
+> **Windows:**
+>
+> ```bash
+> setx PYTHONDONTWRITEBYTECODE=1 /m
+> ```
+
 -----
 
 ## Playbooks
 
-Link to [reserved keywords list](/reserved-ansible-keywords.md).
+Link to [reserved keywords list](/xtra/reserved-ansible-keywords.md).
 
 ### Playbook Basics
 

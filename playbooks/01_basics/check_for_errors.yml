@@ -2,7 +2,7 @@
 # Check for errors and styling issues
 # Usage: ansible-lint check_for_errors.yml
 - name: run a bad play
-  hosts: managed_node1
+  hosts: managed_node_1
   gather_facts: maybe
   tasks:
     - debug:

@@ -2,7 +2,7 @@
 # Loop over nested lists
 # Usage: ansible-playbook loop_nested.yml
 - name: Loop over nested lists
-  hosts: managed_node1
+  hosts: managed_node_1
   gather_facts: false
   vars:
     shade:
@@ -14,12 +14,12 @@
   tasks:
     - name: Loop over a nested list using loop
       ansible.builtin.debug:
-        msg: "{{ item │ join('-') }}."
-      loop: "{{ shade │ product(color) │ list }}"
+        msg: "{{ item | join('-') }}."
+      loop: "{{ shade | product(color) | list }}"
 
     - name: Loop over a nested list using with_nested
       ansible.builtin.debug:
-        msg: "{{ item │ join('-') }}."
+        msg: "{{ item | join('-') }}."
       with_nested:
         - "{{ shade }}"
         - "{{ color }}"

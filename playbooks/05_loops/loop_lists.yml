@@ -2,7 +2,7 @@
 # Loop over a list of items
 # Usage: ansible-playbook loop_lists.yml
 - name: Loop over lists
-  hosts: managed_node1
+  hosts: managed_node_1
   gather_facts: false
   vars:
     moons:

@@ -5,13 +5,13 @@
   ansible.builtin.import_playbook: add_content.yml
 
 - name: Edit content
-  hosts: managed_node1
+  hosts: managed_node_1
   gather_facts: false
   tasks:
     - name: Replace content in a file
       ansible.builtin.lineinfile:
         path: demo_dir/file_with_content.txt
-        regexp: '(^H│\nH)ow.*$'
+        regexp: '(^H|\nH)ow.*$'
         line: "How are you doing?"
 
     - name: Read and show the contents of a file

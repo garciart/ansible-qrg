@@ -9,7 +9,7 @@
 #   ansible.posix.profile_tasks ansible-playbook \
 #   profile_tasks.yml
 - name: Profile tasks
-  hosts: managed_node1
+  hosts: managed_node_1
   gather_facts: false
   tasks:
     - name: Run a fast task

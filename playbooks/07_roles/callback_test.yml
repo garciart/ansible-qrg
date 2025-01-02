@@ -1,0 +1,116 @@
+---
+# Test tracer_callback methods
+# Usage: ansible-playbook callback_test.yml --diff
+- name: >-
+    Test __init__, v2_playbook_on_start, v2_playbook_on_vars_prompt,
+    v2_playbook_on_play_start, and v2_playbook_on_no_hosts_matched
+  hosts: foo
+  gather_facts: false
+  vars_prompt:
+    - name: username
+      prompt: "What is your username?"
+      default: "Admin"
+      private: false
+  roles:
+    - demo_role
+
+- name: Test v2_playbook_on_task_start, v2_runner_on_start, and v2_runner_on_ok
+  hosts: managed_node_1
+  gather_facts: false
+  tasks:
+    - name: Say hello
+      ansible.builtin.debug:
+        msg: "Hello from the play, {{ username | default('Admin', true) }}!"
+
+    - name: Fail a task  # noqa ignore-errors
+      ansible.builtin.debug:
+        msg: "This task fails."
+      failed_when: true
+      ignore_errors: true
+
+    - name: Skip a task
+      ansible.builtin.debug:
+        msg: "This task is skipped."
+      when: 1 != 1
+
+- name: Test v2_runner_on_unreachable
+  hosts: fake_node
+  gather_facts: false
+  tasks:
+    - name: Try to ping the fake node  # noqa ignore-errors
+      ansible.builtin.ping:
+      ignore_unreachable: true
+
+- name: Test v2_playbook_on_include
+  hosts: managed_node_1
+  gather_facts: false
+  tasks:
+    - name: Run tasks from an external file
+      ansible.builtin.include_tasks:
+        file: extra_tasks.yml
+
+- name: Test v2_runner_item_on_ok, v2_runner_item_on_failed, and v2_runner_item_on_skipped
+  hosts: managed_node_1
+  gather_facts: false
+  tasks:
+    - name: Loop over items  # noqa ignore-errors
+      ansible.builtin.assert:
+        that:
+          - item <= 2
+      with_items:
+        - 1
+        - 2
+        - 3
+      ignore_errors: true
+
+    - name: Skip an item
+      ansible.builtin.debug:
+        var: item
+      with_items:
+        - 1
+        - 2
+        - 3
+      when: item != 2
+
+- name: Test v2_runner_on_async_poll and v2_runner_on_async_ok
+  hosts: managed_node_1
+  gather_facts: false
+  tasks:
+    - name: Successful poll
+      ansible.builtin.command: /bin/sleep 3
+      async: 4
+      poll: 1
+      changed_when: false
+
+- name: Test v2_runner_on_async_failed
+  hosts: managed_node_1
+  gather_facts: false
+  tasks:
+    - name: Unsuccessful poll  # noqa ignore-errors
+      ansible.builtin.command: /bin/sleep 4
+      async: 3
+      poll: 1
+      changed_when: false
+      ignore_errors: true
+
+- name: Test v2_playbook_on_notify and v2_playbook_on_handler_task_start
+  hosts: all
+  gather_facts: false
+  tasks:
+    - name: Notify handler
+      ansible.builtin.debug:
+        msg: "Checking if I have to notify the handler..."
+      changed_when: inventory_hostname == "managed_node_1"
+      notify:
+        - "Test handler"
+
+  handlers:
+    - name: Run handler
+      ansible.builtin.debug:
+        msg: >-
+          Hello from the handler, {{ username | default('Admin', true) }},
+          on {{ inventory_hostname }}!
+      listen: "Test handler"
+...
+# code: language=ansible
+# vi: set noai nu ts=2 sw=2 sts=2 sta et:

@@ -2,7 +2,7 @@
 # Target multiple nodes nodes in a playbook
 # Usage: ansible-playbook target_multiple_nodes.yml
 - name: Target a single node
-  hosts: managed_node1
+  hosts: managed_node_1
   gather_facts: false
   tasks:
     - name: Say Hello
@@ -10,7 +10,7 @@
         msg: "Hello from a node!"
 
 - name: Target a list of nodes
-  hosts: control_node, managed_node1
+  hosts: control_node, managed_node_1
   gather_facts: false
   tasks:
     - name: Say Hello

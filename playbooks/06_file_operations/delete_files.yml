@@ -5,7 +5,7 @@
   ansible.builtin.import_playbook: copy_files.yml
 
 - name: Delete files
-  hosts: managed_node1
+  hosts: managed_node_1
   gather_facts: false
   tasks:
     - name: Delete files

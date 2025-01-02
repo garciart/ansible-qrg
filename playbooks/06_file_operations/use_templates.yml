@@ -4,7 +4,7 @@
 # NOTE: Disregard interpreter discovery warnings
 # when using the ansible.builtin.template module
 - name: Use templates
-  hosts: managed_node1
+  hosts: managed_node_1
   gather_facts: false
   vars:
     planets:

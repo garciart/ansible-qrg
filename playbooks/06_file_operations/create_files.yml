@@ -5,7 +5,7 @@
   ansible.builtin.import_playbook: create_directory.yml
 
 - name: Create files
-  hosts: managed_node1
+  hosts: managed_node_1
   gather_facts: false
   tasks:
     - name: Create an empty file

@@ -24,7 +24,7 @@ ansible --version
 
 > **NOTE** - If you are using the AWX project, the Red Hat Ansible Automation Platform (AAP), or Ansible Tower, get the version number of Ansible used by the execution environment instead.
 
-Using an editor of your choice, open `demo_role/meta/main.yml` and modify the following items:
+Using an editor of your choice, open `roles/demo_role/meta/main.yml` and modify the following items:
 
 - ***author:*** Enter your name
 - ***description:*** Enter a description of the role
@@ -32,7 +32,7 @@ Using an editor of your choice, open `demo_role/meta/main.yml` and modify the fo
 - ***license:*** Enter the type of license (GPL-2.0-or-later, MIT, etc)
 - ***min_ansible_version:*** Enter the Ansible version number you are using in quotes (e.g., "2.9", "2.16", etc.)
 
-Using an editor of your choice, open `demo_role/tasks/main.yml` and add the following code:
+Using an editor of your choice, open `roles/demo_role/tasks/main.yml` and add the following code:
 
 ```yaml
 ---
@@ -45,35 +45,65 @@ Using an editor of your choice, open `demo_role/tasks/main.yml` and add the foll
 # vi: set noai nu ts=2 sw=2 sts=2 sta et:
 ```
 
-Create a playbook named `use_roles.yml` in the parent directory of the role (i.e., not in the role itself) and, using an editor of your choice, add the following code:
+Create a playbook named `use_role.yml` in the parent directory of the role (i.e., not in the role itself) and, using an editor of your choice, add the following code:
 
 ```yaml
 ---
 # Use a role in a playbook
-# Usage: ansible-playbook use_roles.yml
+# Usage: ansible-playbook use_role.yml
 - name: Use roles
-  hosts: all
+  hosts: managed_node_1
   gather_facts: false
-  roles:
-    - demo_role
+  tasks:
+    - name: Say hello
+      ansible.builtin.debug:
+        msg: "Hello from the play!"
+
+    - name: Run roles/demo_role/tasks/main.yml
+      ansible.builtin.import_role:
+        name: demo_role
 ...
 # code: language=ansible
 # vi: set noai nu ts=2 sw=2 sts=2 sta et:
 ```
 
-> **NOTE** - There are several ways to activate a role
-
 Check the playbook and the role for any issues:
 
 ```bash
-ansible-lint
+ansible-lint use_role.yml
+ansible-lint roles/demo_role/tasks/main.yml
 ```
 
 Run the playbook:
 
 ```bash
-ansible-playbook use_roles.yml
+ansible-playbook use_role.yml
 ```
+
+**Output:**
+
+```text
+PLAY [Use roles] ******************************************************************
+
+TASK [Say hello] ******************************************************************
+ok: [managed_node_1] => {
+    "msg": "Hello from the play!"
+}
+
+TASK [demo_role : Show a greeting] ************************************************
+ok: [managed_node_1] => {
+    "msg": "Hello from the role!"
+}
+
+PLAY RECAP ************************************************************************
+managed_node_1 : ok=2 changed=0 unreachable=0 failed=0 skipped=0 rescued=0 ignored=0
+```
+
+> **NOTE** - There are several ways to activate a role:
+>
+> - If you use the `import_role` module, Ansible will load the role when the play starts, but it will only run the role when tasked in the play (as shown in the output). However, role facts, files, and tasks are accessible from the start of the play.
+> - If you use the `roles` keyword, Ansible will load and run the role before any running any tasks in the play. `TASK [demo_role : Show a greeting]` will appear before `TASK [Say hello]` in the output. Role facts, files, and tasks are accessible from the start of the play.
+> - If you use the `include_role` module, Ansible will dynamically load and run the role when tasked in the play. Role facts, files, and tasks are only accessible after loading.
 
 -----
 
@@ -94,31 +124,31 @@ cd roles/demo_role/callback_plugins
 `__init__.py` methods:
 
 ```python
-def __init__(self, display=None, options=None) -> None:
-def v2_playbook_on_start(self, playbook):
-def v2_playbook_on_vars_prompt(self, varname, private=True, prompt=None, encrypt=None, confirm=False, salt_size=None, salt=None, default=None, unsafe=None):
-def v2_playbook_on_play_start(self, play):
-def v2_playbook_on_no_hosts_matched(self):
-def v2_playbook_on_task_start(self, task, is_conditional):
-def v2_playbook_on_notify(self, handler, host):
-def v2_playbook_on_handler_task_start(self, task):
+xdef __init__(self, display=None, options=None) -> None:
+xdef v2_playbook_on_start(self, playbook):
+xdef v2_playbook_on_vars_prompt(self, varname, private=True, prompt=None, encrypt=None, confirm=False, salt_size=None, salt=None, default=None, unsafe=None):
+xdef v2_playbook_on_play_start(self, play):
+xdef v2_playbook_on_no_hosts_matched(self):
+xdef v2_playbook_on_task_start(self, task, is_conditional):
+xdef v2_playbook_on_notify(self, handler, host):
+xdef v2_playbook_on_handler_task_start(self, task):
 def v2_playbook_on_cleanup_task_start(self, task):
-def v2_runner_on_start(self, host, task):
-def v2_runner_on_async_poll(self, result: TaskResult) -> None:
-def v2_runner_on_async_ok(self, result):
-def v2_runner_on_async_failed(self, result):
-def v2_on_file_diff(self, result):
-def v2_runner_on_ok(self, result):
-def v2_runner_on_unreachable(self, result):
-def v2_runner_on_failed(self, result, ignore_errors=False):
-def v2_runner_on_skipped(self, result):
-def v2_playbook_on_include(self, included_file):
+xdef v2_runner_on_start(self, host, task):
+xdef v2_runner_on_async_poll(self, result: TaskResult) -> None:
+xdef v2_runner_on_async_ok(self, result):
+xdef v2_runner_on_async_failed(self, result):
+xdef v2_on_file_diff(self, result):
+xdef v2_runner_on_ok(self, result):
+xdef v2_runner_on_unreachable(self, result):
+xdef v2_runner_on_failed(self, result, ignore_errors=False):
+xdef v2_runner_on_skipped(self, result):
+xdef v2_playbook_on_include(self, included_file):
 def v2_playbook_on_no_hosts_remaining(self):
-def v2_runner_item_on_ok(self, result):
-def v2_runner_item_on_failed(self, result):
-def v2_runner_item_on_skipped(self, result):
+xdef v2_runner_item_on_ok(self, result):
+xdef v2_runner_item_on_failed(self, result):
+xdef v2_runner_item_on_skipped(self, result):
 def v2_runner_retry(self, result):
-def v2_playbook_on_stats(self, stats):
+xdef v2_playbook_on_stats(self, stats):
 ```
 
 `default.py` methods:

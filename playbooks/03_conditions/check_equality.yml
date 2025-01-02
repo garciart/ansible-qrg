@@ -2,7 +2,7 @@
 # Check if values are equal
 # Usage: ansible-playbook check_equality.yml
 - name: Check equality
-  hosts: managed_node1
+  hosts: managed_node_1
   vars:
     one: 1
   gather_facts: false

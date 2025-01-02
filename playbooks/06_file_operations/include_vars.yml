@@ -2,7 +2,7 @@
 # Use variables from external files
 # Usage: ansible-playbook include_vars.yml
 - name: Include vars
-  hosts: managed_node1
+  hosts: managed_node_1
   gather_facts: false
   tasks:
     - name: Include a YAML file in a play

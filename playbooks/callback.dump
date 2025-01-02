@@ -1,0 +1,195 @@
+[1;36m>>> Called __init__...[0m
+[1;36m>>> Called v2_playbook_on_start...[0m
+[1;36m>>> Called v2_playbook_on_vars_prompt...[0m
+What is your username? [Admin]: 
+PLAY [Test __init__, v2_playbook_on_start, v2_playbook_on_vars_prompt, v2_playbook_on_play_start, and v2_playbook_on_no_hosts_matched] ***
+[1;36m>>> Called v2_playbook_on_play_start...[0m
+skipping: no hosts matched
+[1;36m>>> Called v2_playbook_on_no_hosts_matched...[0m
+
+PLAY [Test v2_playbook_on_task_start, v2_runner_on_start, and v2_runner_on_ok] ***
+[1;36m>>> Called v2_playbook_on_play_start...[0m
+
+TASK [Say hello] ***************************************************************
+[1;36m>>> Called v2_playbook_on_task_start...[0m
+[1;36m>>> Called v2_runner_on_start...[0m
+ok: [managed_node_1] => {
+    "msg": "Hello from the play, Admin!"
+}
+[1;36m>>> Called v2_runner_on_ok...[0m
+
+TASK [Fail a task] *************************************************************
+[1;36m>>> Called v2_playbook_on_task_start...[0m
+[1;36m>>> Called v2_runner_on_start...[0m
+fatal: [managed_node_1]: FAILED! => {
+    "msg": "This task fails."
+}
+...ignoring
+[1;36m>>> Called v2_runner_on_failed...[0m
+
+TASK [Skip a task] *************************************************************
+[1;36m>>> Called v2_playbook_on_task_start...[0m
+[1;36m>>> Called v2_runner_on_start...[0m
+skipping: [managed_node_1]
+[1;36m>>> Called v2_runner_on_skipped...[0m
+
+PLAY [Test v2_runner_on_unreachable] *******************************************
+[1;36m>>> Called v2_playbook_on_play_start...[0m
+
+TASK [Try to ping the fake node] ***********************************************
+[1;36m>>> Called v2_playbook_on_task_start...[0m
+[1;36m>>> Called v2_runner_on_start...[0m
+fatal: [fake_node]: UNREACHABLE! => {"changed": false, "msg": "Failed to connect to the host via ssh: ssh: Could not resolve hostname 999.999.999.999: Name or service not known", "unreachable": true}
+...ignoring
+[1;36m>>> Called v2_runner_on_unreachable...[0m
+
+PLAY [Test v2_playbook_on_include] *********************************************
+[1;36m>>> Called v2_playbook_on_play_start...[0m
+
+TASK [Run tasks from an external file] *****************************************
+[1;36m>>> Called v2_playbook_on_task_start...[0m
+[1;36m>>> Called v2_runner_on_start...[0m
+[1;36m>>> Called v2_runner_on_ok...[0m
+included: /home/rgarcia/repos/ansible-qrg/playbooks/07_roles/extra_tasks.yml for managed_node_1
+[1;36m>>> Called v2_playbook_on_include...[0m
+
+TASK [Run an included task] ****************************************************
+[1;36m>>> Called v2_playbook_on_task_start...[0m
+[1;36m>>> Called v2_runner_on_start...[0m
+ok: [managed_node_1] => {
+    "msg": [
+        "I am an included task."
+    ]
+}
+[1;36m>>> Called v2_runner_on_ok...[0m
+
+PLAY [Test v2_runner_item_on_ok, v2_runner_item_on_failed, and v2_runner_item_on_skipped] ***
+[1;36m>>> Called v2_playbook_on_play_start...[0m
+
+TASK [Loop over items] *********************************************************
+[1;36m>>> Called v2_playbook_on_task_start...[0m
+[1;36m>>> Called v2_runner_on_start...[0m
+[1;36m>>> Called v2_on_file_diff...[0m
+ok: [managed_node_1] => (item=1) => {
+    "ansible_loop_var": "item",
+    "changed": false,
+    "item": 1,
+    "msg": "All assertions passed"
+}
+[1;36m>>> Called v2_runner_item_on_ok...[0m
+[1;36m>>> Called v2_on_file_diff...[0m
+ok: [managed_node_1] => (item=2) => {
+    "ansible_loop_var": "item",
+    "changed": false,
+    "item": 2,
+    "msg": "All assertions passed"
+}
+[1;36m>>> Called v2_runner_item_on_ok...[0m
+failed: [managed_node_1] (item=3) => {
+    "ansible_loop_var": "item",
+    "assertion": "item <= 2",
+    "changed": false,
+    "evaluated_to": false,
+    "item": 3,
+    "msg": "Assertion failed"
+}
+[1;36m>>> Called v2_runner_item_on_failed...[0m
+...ignoring
+[1;36m>>> Called v2_runner_on_failed...[0m
+
+TASK [Skip an item] ************************************************************
+[1;36m>>> Called v2_playbook_on_task_start...[0m
+[1;36m>>> Called v2_runner_on_start...[0m
+[1;36m>>> Called v2_on_file_diff...[0m
+ok: [managed_node_1] => (item=1) => {
+    "ansible_loop_var": "item",
+    "item": 1
+}
+[1;36m>>> Called v2_runner_item_on_ok...[0m
+skipping: [managed_node_1] => (item=2) 
+[1;36m>>> Called v2_runner_item_on_skipped...[0m
+[1;36m>>> Called v2_on_file_diff...[0m
+ok: [managed_node_1] => (item=3) => {
+    "ansible_loop_var": "item",
+    "item": 3
+}
+[1;36m>>> Called v2_runner_item_on_ok...[0m
+[1;36m>>> Called v2_runner_on_ok...[0m
+
+PLAY [Test v2_runner_on_async_poll and v2_runner_on_async_ok] ******************
+[1;36m>>> Called v2_playbook_on_play_start...[0m
+
+TASK [Successful poll] *********************************************************
+[1;36m>>> Called v2_playbook_on_task_start...[0m
+[1;36m>>> Called v2_runner_on_start...[0m
+ASYNC POLL on managed_node_1: jid=j274537817244.811016 started=1 finished=0
+[1;36m>>> Called v2_runner_on_async_poll...[0m
+ASYNC POLL on managed_node_1: jid=j274537817244.811016 started=1 finished=0
+[1;36m>>> Called v2_runner_on_async_poll...[0m
+ASYNC OK on managed_node_1: jid=j274537817244.811016
+[1;36m>>> Called v2_runner_on_async_ok...[0m
+ok: [managed_node_1]
+[1;36m>>> Called v2_runner_on_ok...[0m
+
+PLAY [Test v2_runner_on_async_failed] ******************************************
+[1;36m>>> Called v2_playbook_on_play_start...[0m
+
+TASK [Unsuccessful poll] *******************************************************
+[1;36m>>> Called v2_playbook_on_task_start...[0m
+[1;36m>>> Called v2_runner_on_start...[0m
+ASYNC POLL on managed_node_1: jid=j623947829485.811140 started=1 finished=0
+[1;36m>>> Called v2_runner_on_async_poll...[0m
+ASYNC POLL on managed_node_1: jid=j623947829485.811140 started=1 finished=0
+[1;36m>>> Called v2_runner_on_async_poll...[0m
+ASYNC POLL on managed_node_1: jid=j623947829485.811140 started=1 finished=0
+[1;36m>>> Called v2_runner_on_async_poll...[0m
+ASYNC FAILED on managed_node_1: jid=j623947829485.811140
+[1;36m>>> Called v2_runner_on_async_failed...[0m
+fatal: [managed_node_1]: FAILED! => {"async_result": {"ansible_job_id": "j623947829485.811140", "finished": 0, "invocation": {"module_args": {"_async_dir": "/home/rgarcia/.ansible_async", "jid": "j623947829485.811140", "mode": "status"}}, "results_file": "/home/rgarcia/.ansible_async/j623947829485.811140", "started": 1, "stderr": "", "stderr_lines": [], "stdout": "", "stdout_lines": []}, "changed": false, "msg": "async task did not complete within the requested time - 3s"}
+...ignoring
+[1;36m>>> Called v2_runner_on_failed...[0m
+
+PLAY [Test v2_playbook_on_notify and v2_playbook_on_handler_task_start] ********
+[1;36m>>> Called v2_playbook_on_play_start...[0m
+
+TASK [Notify handler] **********************************************************
+[1;36m>>> Called v2_playbook_on_task_start...[0m
+[1;36m>>> Called v2_runner_on_start...[0m
+[1;36m>>> Called v2_runner_on_start...[0m
+[1;36m>>> Called v2_runner_on_start...[0m
+[1;36m>>> Called v2_runner_on_start...[0m
+ok: [control_node] => {
+    "msg": "Checking if I have to notify the handler..."
+}
+[1;36m>>> Called v2_runner_on_ok...[0m
+changed: [managed_node_1] => {
+    "msg": "Checking if I have to notify the handler..."
+}
+[1;36m>>> Called v2_runner_on_ok...[0m
+ok: [managed_node_2] => {
+    "msg": "Checking if I have to notify the handler..."
+}
+[1;36m>>> Called v2_runner_on_ok...[0m
+ok: [fake_node] => {
+    "msg": "Checking if I have to notify the handler..."
+}
+[1;36m>>> Called v2_runner_on_ok...[0m
+[1;36m>>> Called v2_playbook_on_notify...[0m
+Handler notified for managed_node_1.
+
+RUNNING HANDLER [Run handler] **************************************************
+[1;36m>>> Called v2_playbook_on_handler_task_start...[0m
+Handler started.
+[1;36m>>> Called v2_runner_on_start...[0m
+ok: [managed_node_1] => {
+    "msg": "Hello from the handler, Admin, on managed_node_1!"
+}
+[1;36m>>> Called v2_runner_on_ok...[0m
+
+PLAY RECAP *********************************************************************
+control_node               : ok=1    changed=0    unreachable=0    failed=0    skipped=0    rescued=0    ignored=0   
+fake_node                  : ok=2    changed=0    unreachable=0    failed=0    skipped=0    rescued=0    ignored=1   
+managed_node_1             : ok=10   changed=1    unreachable=0    failed=0    skipped=1    rescued=0    ignored=3   
+managed_node_2             : ok=1    changed=0    unreachable=0    failed=0    skipped=0    rescued=0    ignored=0   
+
+[1;36m>>> Called v2_playbook_on_stats...[0m

@@ -4,7 +4,7 @@
 # ansible-playbook demo_var_scope.yml -e \
 #   "cmd_line_var='I am a command line variable.'"
 - name: Demonstrate variable scope
-  hosts: managed_node1
+  hosts: managed_node_1
   gather_facts: false
   vars:
     play_var: "I am a play variable."
@@ -42,14 +42,14 @@
 
         - name: Try to use a task variable outside its task
           ansible.builtin.debug:
-            msg: "{{ task_var │ default('Out of scope.') }}"
+            msg: "{{ task_var | default('Out of scope.') }}"
 
     - name: Try to use a block variable outside its block
       ansible.builtin.debug:
-        msg: "{{ block_var │ default('Out of scope.') }}"
+        msg: "{{ block_var | default('Out of scope.') }}"
 
 - name: Run a second play to demonstrate playbook scope
-  hosts: managed_node1
+  hosts: managed_node_1
   gather_facts: false
   tasks:
     - name: Show the command line variable
@@ -58,7 +58,7 @@
 
     - name: Try to use a play variable outside its play
       ansible.builtin.debug:
-        msg: "{{ play_var │ default('Out of scope.') }}"
+        msg: "{{ play_var | default('Out of scope.') }}"
 ...
 # code: language=ansible
 # vi: set noai nu ts=2 sw=2 sts=2 sta et:

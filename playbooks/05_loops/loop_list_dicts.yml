@@ -2,7 +2,7 @@
 # Loop over a list of dictionaries
 # Usage: ansible-playbook loop_list_dicts.yml
 - name: Loop over lists of dictionaries
-  hosts: managed_node1
+  hosts: managed_node_1
   gather_facts: false
   vars:
     planets:

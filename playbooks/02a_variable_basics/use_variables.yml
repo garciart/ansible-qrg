@@ -2,7 +2,7 @@
 # Set and show the value of a scalar variable
 # Usage: ansible-playbook use_variables.yml
 - name: Use variables
-  hosts: managed_node1
+  hosts: managed_node_1
   gather_facts: false
   tasks:
     - name: Set and show a string variable

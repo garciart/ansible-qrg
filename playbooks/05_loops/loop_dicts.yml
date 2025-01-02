@@ -2,7 +2,7 @@
 # Loop over a dictionary
 # Usage: ansible-playbook loop_dicts.yml
 - name: Loop over dictionaries
-  hosts: managed_node1
+  hosts: managed_node_1
   gather_facts: false
   vars:
     mars:
@@ -14,7 +14,7 @@
     - name: Loop using loop keyword
       ansible.builtin.debug:
         msg: "{{ item.key }}: {{ item.value }}"
-      loop: "{{ mars │ dict2items }}"
+      loop: "{{ mars | dict2items }}"
 
     - name: Loop using with_dict keyword
       ansible.builtin.debug:

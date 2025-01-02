@@ -2,7 +2,7 @@
 # Check if a variable is undefined, null, or empty
 # Usage: ansible-playbook validate_vars.yml
 - name: Validate variables
-  hosts: managed_node1
+  hosts: managed_node_1
   gather_facts: false
   vars:
     null_var: null
@@ -41,7 +41,7 @@
           ansible.builtin.assert:
             # Trim before checking and do not compare to an empty string
             # See https://ansible.readthedocs.io/projects/lint/rules/empty-string-compare/
-            that: "{{ empty_var │ trim │ length != 0 }}"
+            that: "{{ empty_var | trim | length != 0 }}"
             success_msg: "empty_var is not empty."
             fail_msg: "empty_var is empty."
       rescue:
@@ -54,12 +54,12 @@
         msg: "Hello, World!"
       # Always check if the variable is defined first
       when: undef_var is defined and undef_var != None
-        and undef_var │ trim │ length != 0
+        and undef_var | trim | length != 0
 
     - name: Show a default value if a var is undefined
       ansible.builtin.debug:
         msg: "This variable is undefined; using the
-          default value of {{ undef_var │ default(8) }}."
+          default value of {{ undef_var | default(8) }}."
 ...
 # code: language=ansible
 # vi: set noai nu ts=2 sw=2 sts=2 sta et:
