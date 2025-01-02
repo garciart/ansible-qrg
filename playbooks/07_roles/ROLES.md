@@ -118,54 +118,21 @@ Add a callback plugin directory:
 ```bash
 mkdir -p roles/demo_role/callback_plugins
 cd roles/demo_role/callback_plugins
-
 ```
 
-`__init__.py` methods:
+You can override or augment any of these `CallbackBase` methods:
 
 ```python
-xdef __init__(self, display=None, options=None) -> None:
-xdef v2_playbook_on_start(self, playbook):
-xdef v2_playbook_on_vars_prompt(self, varname, private=True, prompt=None, encrypt=None, confirm=False, salt_size=None, salt=None, default=None, unsafe=None):
-xdef v2_playbook_on_play_start(self, play):
-xdef v2_playbook_on_no_hosts_matched(self):
-xdef v2_playbook_on_task_start(self, task, is_conditional):
-xdef v2_playbook_on_notify(self, handler, host):
-xdef v2_playbook_on_handler_task_start(self, task):
-def v2_playbook_on_cleanup_task_start(self, task):
-xdef v2_runner_on_start(self, host, task):
-xdef v2_runner_on_async_poll(self, result: TaskResult) -> None:
-xdef v2_runner_on_async_ok(self, result):
-xdef v2_runner_on_async_failed(self, result):
-xdef v2_on_file_diff(self, result):
-xdef v2_runner_on_ok(self, result):
-xdef v2_runner_on_unreachable(self, result):
-xdef v2_runner_on_failed(self, result, ignore_errors=False):
-xdef v2_runner_on_skipped(self, result):
-xdef v2_playbook_on_include(self, included_file):
-def v2_playbook_on_no_hosts_remaining(self):
-xdef v2_runner_item_on_ok(self, result):
-xdef v2_runner_item_on_failed(self, result):
-xdef v2_runner_item_on_skipped(self, result):
-def v2_runner_retry(self, result):
-xdef v2_playbook_on_stats(self, stats):
-```
-
-`default.py` methods:
-
-```python
-def __init__(self):
+def __init__(self, display=None, options=None):
 def v2_playbook_on_start(self, playbook):
+def v2_playbook_on_vars_prompt(self, varname, private=True, prompt=None, encrypt=None, confirm=False, salt_size=None, salt=None, default=None, unsafe=None):
 def v2_playbook_on_play_start(self, play):
 def v2_playbook_on_no_hosts_matched(self):
 def v2_playbook_on_task_start(self, task, is_conditional):
 def v2_playbook_on_notify(self, handler, host):
 def v2_playbook_on_handler_task_start(self, task):
-def v2_playbook_on_cleanup_task_start(self, task):
-def _task_start(self, task, prefix=None):
-def _print_task_banner(self, task):
 def v2_runner_on_start(self, host, task):
-def v2_runner_on_async_poll(self, result: TaskResult) -> None:
+def v2_runner_on_async_poll(self, result: TaskResult):
 def v2_runner_on_async_ok(self, result):
 def v2_runner_on_async_failed(self, result):
 def v2_on_file_diff(self, result):

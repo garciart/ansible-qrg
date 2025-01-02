@@ -1,51 +1,65 @@
-"""This is an aggregate callback plugin that allows you to trace callback execution.
+"""This is a basic aggregate callback plugin that allows you to trace
+calls to the default STDOUT callback plugin's methods
+(located in `ansible/plugins/callback/default.py` in your Python
+executable's `site-packages` directory).
 
-It interfaces with Ansible's callback mechanism and provides a way to trace
-function and method calls by displaying their names during execution,
-which can assist with debugging and monitoring the plugin's behavior.
+The CALLBACK_TYPE of this plugin is `aggregate`, and it will not
+override STDOUT. It will add additional console output after the STDOUT
+callback output.
 
-This plugin inherits the same method signatures as the default callback interface,
-(located in `ansible/plugins/callback/default.py` in your Python executable's
-`site-packages` directory)
-allowing it to be used in conjunction with other callback plugins and to respond to
-callback events as specified in Ansible's execution flow.
+It contains the same attributes and methods that the default STDOUT
+callback plugin inherits from the CallbackBase class
+(located in `ansible/plugins/callback/__init__.py` in your Python
+executable's `site-packages` directory),
+and it uses a decorator to print the called methods to STDOUT.
 
-Customization options can be specified in the ansible.cfg file or through environment variables.
+The methods in this plugin are empty, so you can use it for debugging
+and/or as a template for other custom callback plugins.
 
-The CALLBACK_TYPE of this plugin is `aggregate`, and it will not override any plugins.
-
-Order of operations:
+Order of Operations:
 .
 ├── __init__
 ├── v2_playbook_on_start
-│   ├── v2_playbook_on_vars_prompt (if prompting for facts before running any plays)
+│   ├── v2_playbook_on_vars_prompt (if prompting for facts before
+│   │       running any plays)
 │   ├── v2_playbook_on_play_start
 │   │   ├── v2_playbook_on_no_hosts_matched (ends current play)
+│   │   ├── v2_playbook_on_no_hosts_remaining (ends current play if
+│   │   │       any_errors_fatal is true or max_fail_percentage is met)
 │   │   ├── v2_playbook_on_task_start
 │   │   │   └── v2_runner_on_start
-│   │   │       ├── v2_runner_on_async_poll (if running in asynchronous mode)
-│   │   │       │   ├── v2_runner_on_async_ok
-│   │   │       │   └── v2_runner_on_async_failed
-│   │   │       ├── v2_on_file_diff (if --diff arg is used)
-│   │   │       └── v2_runner_on_ok
-│   │   │           or v2_runner_on_unreachable
-│   │   │           or v2_runner_on_failed
-│   │   │           or v2_runner_on_skipped
-│   │   │           ├── v2_playbook_on_include (if a file is included)
-│   │   │           ├── v2_playbook_on_no_hosts_remaining (if any_errors_fatal is true
-│   │   │           │   or max_fail_percentage is met)
-│   │   │           ├── v2_runner_item_on_ok
-│   │   │           │   or v2_runner_item_on_failed
-│   │   │           │   or v2_runner_item_on_skipped (if running a loop)
-│   │   │           └── v2_runner_retry (if retries is set)
+│   │   │       ├── v2_runner_on_ok
+│   │   │       │   or v2_runner_on_skipped
+│   │   │       │   or v2_on_file_diff (if --diff arg is used)
+│   │   │       │   or v2_runner_retry (if retries is set)
+│   │   │       │   ├── v2_playbook_on_include (if a file is included)
+│   │   │       │   └── v2_runner_item_on_ok
+│   │   │       │       or v2_runner_item_on_failed
+│   │   │       │       or v2_runner_item_on_skipped (if running a loop)
+│   │   │       ├── v2_runner_on_async_poll (if running a task in
+│   │   │       │   │   asynchronous mode)
+│   │   │       │   └── v2_runner_on_async_ok
+│   │   │       │       or v2_runner_on_async_failed
+│   │   │       ├── v2_runner_on_unreachable
+│   │   │       └── v2_runner_on_failed
 │   │   ├── v2_playbook_on_notify
 │   │   │   └── v2_playbook_on_handler_task_start
 │   │   │       └── v2_runner_on_start
 │   │   │           └── ...
-│   │   ├── v2_playbook_on_cleanup_task_start
-│   │   └── (Repeat v2_playbook_on_task_start until all tasks in the play are completed)
-│   └── (Repeat v2_playbook_on_play_start until all plays in the playbook are completed)
+│   │   └── (Repeat v2_playbook_on_task_start until all tasks in the
+│   │           play are completed)
+│   └── (Repeat v2_playbook_on_play_start until all plays in the
+│          playbook are completed)
 └── v2_playbook_on_stats
+
+Not used or implemented by Ansible:
+- v2_playbook_on_cleanup_task_start(self, task)
+- v2_playbook_on_import_for_host(self, result, imported_file)
+- v2_playbook_on_not_import_for_host(self, result, missing_file)
+
+Protected methods in default.py not traced:
+- _task_start
+- _print_task_banner
 """
 
 from functools import wraps
@@ -62,13 +76,13 @@ from ansible.playbook.task import Task
 from ansible.plugins.callback import CallbackBase
 from ansible.utils.display import Display
 
+# Usage: ansible-doc tracer_callback --module-path $PWD/roles/tracer_role/callback_plugins
 DOCUMENTATION = '''
 name: tracer_callback
 callback_type: aggregate
-short_description: Show the name of the callback function or method after it has been called.
-description:
-    - This callback plugin allows for tracing of function calls within the Ansible execution environment.
-    - It prints out the names of functions or methods as they are invoked, assisting in debugging and understanding the flow of execution.
+short_description: Show the name of a callback method after it has been called
+description: This is a basic aggregate callback plugin that allows you to trace calls to the default STDOUT callback plugin's methods.
+author: Rob Garcia (@garciart)
 '''
 
 TRACE = True
@@ -105,18 +119,8 @@ def trace_decorator(f: Callable[..., Any]) -> Callable[..., Any]:
 
 class CallbackModule(CallbackBase):
     """
-    This is an aggregate callback plugin that interfaces with Ansible's
-    callback mechanism. It provides a way to trace function and method
-    calls by displaying their names during execution, which can assist
-    with debugging and monitoring the plugin's behavior.
-
-    This plugin inherits the same method signatures as the default
-    callback interface, allowing it to be used in conjunction with other
-    callback plugins and to respond to callback events as specified in
-    Ansible's execution flow.
-
-    Customization options can be specified in the ansible.cfg file or
-    through environment variables.
+    This is a basic aggregate callback plugin that allows you to trace
+    calls to the default STDOUT callback plugin's methods.
     """
 
     CALLBACK_VERSION = 2.0
@@ -333,6 +337,15 @@ class CallbackModule(CallbackBase):
 
     @trace_decorator
     def v2_playbook_on_no_hosts_remaining(self) -> None:
+        """Run when a task is complete, but failed on one or more hosts.
+
+        If any_errors_fatal is true or the max_fail_percentage is met,
+        Ansible will continue to run the current task on any remaining hosts,
+        but it will not perform any further tasks in the play.
+
+        :return: None
+        :rtype: None
+        """
         pass
 
     @trace_decorator
@@ -373,17 +386,6 @@ class CallbackModule(CallbackBase):
         :rtype: None
         """
         self._display.display('Handler started.', color='bright yellow')
-        pass
-
-    @trace_decorator
-    def v2_playbook_on_cleanup_task_start(self, task: Task) -> None:
-        """Not currently used by Ansible.
-
-        :param Task task: The current task instance
-
-        :return: None
-        :rtype: None
-        """
         pass
 
     @trace_decorator

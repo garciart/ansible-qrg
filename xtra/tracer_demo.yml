@@ -1,9 +1,9 @@
 ---
-# Test tracer_callback methods
-# Usage: ansible-playbook callback_test.yml --diff
+# Demonstrate tracer_callback methods
+# Usage: ansible-playbook tracer_demo.yml --diff
 - name: >-
     Test __init__, v2_playbook_on_start, v2_playbook_on_vars_prompt,
-    v2_playbook_on_play_start, and v2_playbook_on_no_hosts_matched
+    v2_playbook_on_play_start, and v2_playbook_on_no_hosts_matched methods
   hosts: foo
   gather_facts: false
   vars_prompt:
@@ -12,9 +12,9 @@
       default: "Admin"
       private: false
   roles:
-    - demo_role
+    - tracer_role
 
-- name: Test v2_playbook_on_task_start, v2_runner_on_start, and v2_runner_on_ok
+- name: Test v2_playbook_on_task_start, v2_runner_on_start, and v2_runner_on_ok methods
   hosts: managed_node_1
   gather_facts: false
   tasks:
@@ -33,23 +33,38 @@
         msg: "This task is skipped."
       when: 1 != 1
 
-- name: Test v2_runner_on_unreachable
-  hosts: fake_node
+- name: Test v2_runner_on_unreachable method
+  hosts: unreachable_node
   gather_facts: false
   tasks:
-    - name: Try to ping the fake node  # noqa ignore-errors
+    - name: Try to ping an unreachable_node  # noqa ignore-errors
       ansible.builtin.ping:
       ignore_unreachable: true
 
-- name: Test v2_playbook_on_include
+- name: Test v2_playbook_on_include method
   hosts: managed_node_1
   gather_facts: false
   tasks:
     - name: Run tasks from an external file
       ansible.builtin.include_tasks:
-        file: extra_tasks.yml
+        file: included_tasks.yml
 
-- name: Test v2_runner_item_on_ok, v2_runner_item_on_failed, and v2_runner_item_on_skipped
+- name: Test v2_runner_retry method
+  hosts: managed_node_1
+  gather_facts: false
+  tasks:
+    - name: Ping
+      ansible.builtin.ping:
+      register: result
+
+    - name: Fail on purpose  # noqa ignore-errors
+      ansible.builtin.debug:
+        var: result
+      until: result.ping == "foo"
+      retries: 1
+      ignore_errors: true
+
+- name: Test v2_runner_item_on_ok, v2_runner_item_on_failed, and v2_runner_item_on_skipped methods
   hosts: managed_node_1
   gather_facts: false
   tasks:
@@ -72,7 +87,7 @@
         - 3
       when: item != 2
 
-- name: Test v2_runner_on_async_poll and v2_runner_on_async_ok
+- name: Test v2_runner_on_async_poll and v2_runner_on_async_ok methods
   hosts: managed_node_1
   gather_facts: false
   tasks:
@@ -82,7 +97,7 @@
       poll: 1
       changed_when: false
 
-- name: Test v2_runner_on_async_failed
+- name: Test v2_runner_on_async_failed method
   hosts: managed_node_1
   gather_facts: false
   tasks:
@@ -93,7 +108,7 @@
       changed_when: false
       ignore_errors: true
 
-- name: Test v2_playbook_on_notify and v2_playbook_on_handler_task_start
+- name: Test v2_playbook_on_notify and v2_playbook_on_handler_task_start methods
   hosts: all
   gather_facts: false
   tasks:
@@ -111,6 +126,20 @@
           Hello from the handler, {{ username | default('Admin', true) }},
           on {{ inventory_hostname }}!
       listen: "Test handler"
+
+- name: Test v2_playbook_on_no_hosts_remaining
+  hosts: all
+  gather_facts: false
+  max_fail_percentage: 0
+  tasks:
+    - name: This task will run
+      ansible.builtin.debug:
+        msg: "Running the first play..."
+      failed_when: inventory_hostname == "managed_node_1"
+
+    - name: This task will not run
+      ansible.builtin.debug:
+        msg: "Running the second play..."
 ...
 # code: language=ansible
 # vi: set noai nu ts=2 sw=2 sts=2 sta et:
