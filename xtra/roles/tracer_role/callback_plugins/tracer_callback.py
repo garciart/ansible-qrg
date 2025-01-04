@@ -89,7 +89,7 @@ TRACE = True
 
 
 def trace_decorator(f: Callable[..., Any]) -> Callable[..., Any]:
-    """Show the name of the called function or method for tracing and debugging.
+    """Show the name of the called function for tracing and debugging.
 
     :param Callable[..., Any] f: The function to be wrapped for tracing.
 
@@ -170,11 +170,11 @@ class CallbackModule(CallbackBase):
                                    unsafe: Union[bool, None] = None) -> None:
         """Runs when a vars_prompt occurs.
 
-        This method allows you to perform additional processing when a \
+        This method allows you to perform additional actions when a \
         vars_prompt occurs, like displaying custom messages. However:
 
         - You cannot alter the vars_prompt or the play using this method.
-        - You cannot access or alter input or facts using this method.
+        - You cannot access or alter input using this method.
 
         :param str varname: The name of the fact to be populated
         :param bool private: Do not echo input, defaults to True
@@ -191,6 +191,10 @@ class CallbackModule(CallbackBase):
             defaults to None
         :param Union[bool, None] unsafe: Escape input to prevent Jinja \
             injections, defaults to None
+
+
+        :return: None
+        :rtype: None
         """
         pass
 
@@ -207,7 +211,7 @@ class CallbackModule(CallbackBase):
 
     @trace_decorator
     def v2_playbook_on_no_hosts_matched(self) -> None:
-        """Runs if no nodes targeted by a play are in the inventory.
+        """Runs if the nodes targeted by a play are not in the inventory.
 
         :return: None
         :rtype: None
