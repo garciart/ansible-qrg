@@ -73,6 +73,7 @@ Link to [reserved keywords list](/xtra/reserved-ansible-keywords.md).
 - [demo_var_scope.yml](/playbooks/02a_variable_basics/demo_var_scope.yml "Demonstrate variable scope in a playbook")
 - [set_facts.yml](/playbooks/02a_variable_basics/set_facts.yml "Set a fact usable by the plays and tasks in a playbook")
 - [demo_var_precedence.yml](/playbooks/02a_variable_basics/demo_var_precedence.yml "Demonstrate variable precedence in a play")
+- [get_usernames.yml](/playbooks/02a_variable_basics/get_usernames.yml "Use different variables to get the name of the Ansible user")
 
 ### Working with Variables
 

@@ -1,15 +1,15 @@
 ---
-# Use different methods to get the name of the Ansible user
+# Use different variables to get the name of the Ansible user
 #
 # Remember, the user running Ansible on the control node may be different
 # than the user running the Python or PowerShell scripts on the remote node
 #
 # Usages:
-# - ansible-playbook get_user.yml
-# - ansible-playbook get_user.yml -Kk
-# - ansible-playbook get_user.yml -u john.doe
+# - ansible-playbook get_usernames.yml
+# - ansible-playbook get_usernames.yml -Kk
+# - ansible-playbook get_usernames.yml -u john.doe
 - name: Get usernames
-  hosts: managed_node1
+  hosts: managed_node_1
   gather_facts: true
   tasks:
     - name: Show the values of different username variables
