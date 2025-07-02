@@ -2,7 +2,7 @@
 # Demonstrate the order of operations
 # Usage: ansible-playbook demo_order_of_ops.yml
 - name: Demonstrate the order of operations
-  hosts: managed_node1
+  hosts: managed_node_1
   gather_facts: false
   tasks:
     - name: Show results of calculations

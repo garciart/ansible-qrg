@@ -2,7 +2,7 @@
 # Loop over a range of numbers in reverse
 # Usage: ansible-playbook loop_numbers.yml
 - name: Loop over numbers
-  hosts: managed_node1
+  hosts: managed_node_1
   gather_facts: false
   tasks:
     - name: Loop numbers using loop and range

@@ -3,10 +3,9 @@
 # Note: Set 'display_skipped_hosts=False' in ansible.cfg or
 #   run 'export ANSIBLE_DISPLAY_SKIPPED_HOSTS=False' first.
 #   Run 'export -n ANSIBLE_DISPLAY_SKIPPED_HOSTS' to unset.
-# Usage: ANSIBLE_DISPLAY_SKIPPED_HOSTS=False \
-#   ansible-playbook fizzbuzz.yml
+# Usage: ANSIBLE_DISPLAY_SKIPPED_HOSTS=False ansible-playbook fizzbuzz.yml
 - name: FizzBuzz
-  hosts: managed_node1
+  hosts: managed_node_1
   gather_facts: false
   tasks:
     - name: Loop over FizzBuzz tasks

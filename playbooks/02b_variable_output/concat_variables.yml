@@ -2,7 +2,7 @@
 # Concatenate different types of variables
 # Usage: ansible-playbook concat_variables.yml
 - name: Concatenate variables
-  hosts: managed_node1
+  hosts: managed_node_1
   gather_facts: false
   tasks:
     - name: Concatenate intergers

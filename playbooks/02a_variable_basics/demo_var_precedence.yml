@@ -3,7 +3,7 @@
 # Note: You cannot override command line vars
 # Usage: ansible-playbook demo_var_precedence.yml
 - name: Demonstrate variable precedence
-  hosts: managed_node1
+  hosts: managed_node_1
   gather_facts: false
   vars:
     play_var: "I am a play level variable."

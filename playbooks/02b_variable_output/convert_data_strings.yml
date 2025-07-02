@@ -2,7 +2,7 @@
 # Convert data strings to structures
 # Usage: ansible-playbook convert_data_strings.yml
 - name: Convert data strings
-  hosts: managed_node1
+  hosts: managed_node_1
   gather_facts: false
   vars:
     mars:

@@ -2,7 +2,7 @@
 # Find text and replace text
 # Usage: ansible-playbook search_text.yml
 - name: Search text
-  hosts: managed_node1
+  hosts: managed_node_1
   gather_facts: false
   vars:
     text_block: |-

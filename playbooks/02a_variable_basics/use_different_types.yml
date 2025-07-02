@@ -2,7 +2,7 @@
 # Set and show different types of scalar variables
 # Usage: ansible-playbook use_multiple_vars.yml
 - name: Use multiple variables
-  hosts: managed_node1
+  hosts: managed_node_1
   gather_facts: false
   vars:
     planet: "Mercury"

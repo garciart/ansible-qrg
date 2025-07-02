@@ -2,7 +2,7 @@
 # Use reserved and special characters
 # Usage: ansible-playbook use_special_chars.yml
 - name: Use reserved and special characters
-  hosts: managed_node1
+  hosts: managed_node_1
   gather_facts: false
   tasks:
     - name: Use anchors, aliases, tags, and block mapping

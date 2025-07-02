@@ -2,21 +2,21 @@
 # Get and show user input
 # Usage: ansible-playbook get_user_input.yml
 - name: Get user input
-  hosts: managed_node1
+  hosts: managed_node_1
   gather_facts: false
   tasks:
     - name: Get the user name
       ansible.builtin.pause:
         prompt: "What is your name"
-      register: user_name
+      register: result
 
     - name: See the results
       ansible.builtin.debug:
-        var: user_name
+        var: result
 
     - name: Say hello
       ansible.builtin.debug:
-        msg: "Hello, {{ user_name['user_input'] }}!"
+        msg: "Hello, {{ result['user_input'] }}!"
 
     - name: Get a secret
       ansible.builtin.pause:

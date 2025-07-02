@@ -4,7 +4,7 @@
 # ansible-playbook demo_var_scope.yml -e \
 #   "cmd_line_var='I am a command line variable.'"
 - name: Demonstrate variable scope
-  hosts: managed_node1
+  hosts: managed_node_1
   gather_facts: false
   vars:
     play_var: "I am a play variable."
@@ -49,7 +49,7 @@
         msg: "{{ block_var | default('Out of scope.') }}"
 
 - name: Run a second play to demonstrate playbook scope
-  hosts: managed_node1
+  hosts: managed_node_1
   gather_facts: false
   tasks:
     - name: Show the command line variable

@@ -2,7 +2,7 @@
 # Show loop index with loop_control
 # Usage: ansible-playbook control_loops.yml
 - name: Show loop index
-  hosts: managed_node1
+  hosts: managed_node_1
   gather_facts: false
   vars:
     planets:

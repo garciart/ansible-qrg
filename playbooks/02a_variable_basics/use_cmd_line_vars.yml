@@ -4,7 +4,7 @@
 # ansible-playbook use_cmd_line_vars.yml \
 #   --extra-vars="planet='Mars' diameter=6792"
 - name: Use command line variables
-  hosts: managed_node1
+  hosts: managed_node_1
   gather_facts: false
   tasks:
     - name: Show command line variables values and types

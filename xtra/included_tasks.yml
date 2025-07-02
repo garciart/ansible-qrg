@@ -1,0 +1,8 @@
+---
+- name: Run an included task
+  ansible.builtin.debug:
+    msg:
+      - "I am an included task."
+...
+# code: language=ansible
+# vi: set noai nu ts=2 sw=2 sts=2 sta et:

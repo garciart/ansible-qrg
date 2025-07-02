@@ -2,7 +2,7 @@
 # Get and show the return values of a task
 # Usage: ansible-playbook use_return_values.yml
 - name: Use return values
-  hosts: managed_node1
+  hosts: managed_node_1
   gather_facts: false
   tasks:
     - name: Say Hello

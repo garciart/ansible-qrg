@@ -1,0 +1,24 @@
+---
+# Ansible inventory using YAML format
+# To view groups and nodes, use
+# ansible-inventory --inventory inventory.yml --graph
+all:
+  children:
+    control_nodes:
+      hosts:
+        control_node:
+          ansible_connection: local
+    managed_nodes:
+      hosts:
+        managed_node_1:
+        managed_node_2:
+      vars:
+        ansible_connection: local
+    fake_nodes:
+      hosts:
+        fake_node:
+      vars:
+        ansible_host: 999.999.999.999
+...
+# code: language=yaml
+# vi: set noai nu ts=2 sw=2 sts=2 sta et:

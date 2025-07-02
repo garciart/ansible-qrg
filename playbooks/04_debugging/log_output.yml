@@ -8,7 +8,7 @@
 # ANSIBLE_LOG_PATH=a4p.log ansible-playbook \
 #   log_output.yml -v
 - name: Log output
-  hosts: managed_node1
+  hosts: managed_node_1
   gather_facts: false
   tasks:
     - name: Run the first task

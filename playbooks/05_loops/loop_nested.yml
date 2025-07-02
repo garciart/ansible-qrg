@@ -1,8 +1,8 @@
 ---
 # Loop over nested lists
-# Usage: ansible-playbook loop_nested
+# Usage: ansible-playbook loop_nested.yml
 - name: Loop over nested lists
-  hosts: managed_node1
+  hosts: managed_node_1
   gather_facts: false
   vars:
     shade:

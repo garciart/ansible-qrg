@@ -3,7 +3,7 @@
 # https://jinja.palletsprojects.com/en/3.1.x/templates/#list-of-builtin-tests
 # Usage: ansible-playbook test_variables.yml
 - name: Test variables
-  hosts: managed_node1
+  hosts: managed_node_1
   gather_facts: false
   vars:
     planet: "Mars"

@@ -1,14 +1,50 @@
-# A4P
+# Ansible Quick Reference Guide (QRG)
 
-Repository for a4p source code.
+Brain dump of common tasks and settings that I use with Ansible.
 
-Link to instructions to [create a Linux Virtual Machine in Windows](/linux-in-windows.md).
+-----
 
-Link to [reserved keywords list](/reserved_keywords.md).
+## Getting Started
+
+Link to instructions to [create a Linux Virtual Machine in Windows](/xtra/linux-vm-in-windows.md).
+
+Creating the environment:
+
+```shell
+git clone https://github.com/garciart/ansible-qrg.git
+python3.12 -B -m venv .venv
+source .venv/bin/activate
+python -B -m pip install --upgrade pip
+python -B -m pip install ansible
+python -B -m pip install ansible-lint
+```
+
+Deactivating the environment:
+
+```shell
+deactivate
+```
+
+> **NOTE** - Python normally saves intermediate bytecode in `__pycache__` folders, which can take up space. To prevent this, use the `-B` option when running a Python module or modify your system:
+>
+> **Linux:**
+>
+> ```bash
+> sed -i -e $'$a\\\nexport PYTHONDONTWRITEBYTECODE=1' ~/.bashrc
+> source ~/.bashrc
+> ```
+>
+> **Windows:**
+>
+> ```bash
+> setx PYTHONDONTWRITEBYTECODE=1 /m
+> ```
 
 -----
 
 ## Playbooks
+
+Link to [reserved keywords list](/xtra/reserved-ansible-keywords.md).
 
 ### Playbook Basics
 
@@ -38,7 +74,7 @@ Link to [reserved keywords list](/reserved_keywords.md).
 - [set_facts.yml](/playbooks/02a_variable_basics/set_facts.yml "Set a fact usable by the plays and tasks in a playbook")
 - [demo_var_precedence.yml](/playbooks/02a_variable_basics/demo_var_precedence.yml "Demonstrate variable precedence in a play")
 
-### Variable Output
+### Working with Variables
 
 - [format_variables.yml](/playbooks/02b_variable_output/format_variables.yml "Format output using filters")
 - [transform_variables.yml](/playbooks/02b_variable_output/transform_variables.yml "Transform variables using filters")

@@ -2,7 +2,7 @@
 # Set a fact usable by the plays and tasks in a playbook
 # Usage: ansible-playbook set_facts.yml
 - name: Set facts
-  hosts: managed_node1
+  hosts: managed_node_1
   gather_facts: false
   tasks:
     - name: Set a fact
@@ -14,7 +14,7 @@
         msg: "{{ new_fact }}"
 
 - name: Show a fact set in a previous play on the same node
-  hosts: managed_node1
+  hosts: managed_node_1
   gather_facts: false
   tasks:
     - name: Show the fact
@@ -23,7 +23,7 @@
 
 - name: "Try to show a fact set in a previous play on a
     different node"
-  hosts: managed_node2
+  hosts: managed_node_2
   gather_facts: false
   tasks:
     - name: Attempt to show a fact

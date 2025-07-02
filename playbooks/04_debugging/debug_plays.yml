@@ -2,7 +2,7 @@
 # Debug a play using the Ansible debugger
 # Usage: ansible-playbook debug_plays.yml
 - name: Debug plays
-  hosts: managed_node1
+  hosts: managed_node_1
   gather_facts: false
   debugger: always
   tasks:

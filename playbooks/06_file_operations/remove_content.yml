@@ -5,7 +5,7 @@
   ansible.builtin.import_playbook: add_content.yml
 
 - name: Remove content
-  hosts: managed_node1
+  hosts: managed_node_1
   gather_facts: false
   tasks:
     - name: Remove content from a file

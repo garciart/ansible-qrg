@@ -2,7 +2,7 @@
 # Show parts of a variable using slicing
 # Usage: ansible-playbook slice_variables.yml
 - name: Slice variables
-  hosts: managed_node1
+  hosts: managed_node_1
   gather_facts: false
   vars:
     planet: "Saturn"

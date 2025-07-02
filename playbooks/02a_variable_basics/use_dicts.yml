@@ -2,7 +2,7 @@
 # Set and show dictionaries of variables
 # Usage: ansible-playbook use_dicts.yml
 - name: Use dictionaries
-  hosts: managed_node1
+  hosts: managed_node_1
   gather_facts: false
   tasks:
     - name: Set and show a dictionary

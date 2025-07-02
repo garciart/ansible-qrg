@@ -1,0 +1,15 @@
+---
+# Use this playbook to demo import_playbook
+# Usage: ansible.builtin.import_playbook: tasks/imported_playbook.yml
+- name: Imported playbook
+  hosts: managed_node_1
+  gather_facts: false
+  tasks:
+    - name: Show a message
+      ansible.builtin.debug:
+        msg:
+          - "Hello, {{ shared_var }}!"
+          - "I am an external playbook."
+...
+# code: language=ansible
+# vi: set noai nu ts=2 sw=2 sts=2 sta et:

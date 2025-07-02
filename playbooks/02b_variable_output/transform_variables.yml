@@ -3,7 +3,7 @@
 # https://jinja.palletsprojects.com/en/3.1.x/templates/#list-of-builtin-filters
 # Usage: ansible-playbook transform_variables.yml
 - name: Transform variables
-  hosts: managed_node1
+  hosts: managed_node_1
   gather_facts: false
   tasks:
     - name: Transform variables

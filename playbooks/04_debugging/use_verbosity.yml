@@ -6,7 +6,7 @@
 # ansible-playbook use_verbosity.yml -vv
 # ansible-playbook use_verbosity.yml -vvv
 - name: Use verbosity
-  hosts: managed_node1
+  hosts: managed_node_1
   gather_facts: false
   tasks:
     - name: Say Hello

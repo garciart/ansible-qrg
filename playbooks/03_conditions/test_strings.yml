@@ -3,7 +3,7 @@
 # https://jinja.palletsprojects.com/en/3.1.x/templates/#list-of-builtin-tests
 # Usage: ansible-playbook test_strings.yml
 - name: Test strings
-  hosts: managed_node1
+  hosts: managed_node_1
   gather_facts: false
   vars:
     ipv4_address: "192.168.1.10"

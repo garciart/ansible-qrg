@@ -2,7 +2,7 @@
 # Loop until a condition is met (while loop)
 # Usage: ansible-playbook loop_until.yml
 - name: Loop using until
-  hosts: managed_node1
+  hosts: managed_node_1
   gather_facts: false
   tasks:
     - name: Get the current time

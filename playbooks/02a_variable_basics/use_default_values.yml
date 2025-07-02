@@ -2,7 +2,7 @@
 # Use default values if variables are undefined or empty
 # Usage: ansible-playbook use_default_values.yml
 - name: Use default values
-  hosts: managed_node1
+  hosts: managed_node_1
   gather_facts: false
   vars:
     defined_var: "I am defined."

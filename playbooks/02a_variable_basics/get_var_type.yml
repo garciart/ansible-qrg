@@ -2,7 +2,7 @@
 # Show variables and their types
 # Usage: ansible-playbook get_var_type.yml
 - name: Get variable types
-  hosts: managed_node1
+  hosts: managed_node_1
   gather_facts: false
   tasks:
     - name: Show the type of a variable

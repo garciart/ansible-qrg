@@ -2,7 +2,7 @@
 # Split strings into lists of items
 # Usage: ansible-playbook split_strings.yml
 - name: Split strings
-  hosts: managed_node1
+  hosts: managed_node_1
   gather_facts: false
   vars:
     sentence: "The planet Earth is 12756 km in diameter."

@@ -2,7 +2,7 @@
 # Group tasks using blocks
 # Usage: ansible-playbook group_tasks.yml
 - name: Group tasks
-  hosts: managed_node1
+  hosts: managed_node_1
   gather_facts: false
   tasks:
     - name: Run a block of foo tasks

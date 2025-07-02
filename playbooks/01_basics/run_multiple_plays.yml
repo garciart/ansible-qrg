@@ -2,7 +2,7 @@
 # Run multiple plays in a playbook
 # Usage: ansible-playbook run_multiple_plays.yml
 - name: Run a play
-  hosts: managed_node1
+  hosts: managed_node_1
   gather_facts: false
   tasks:
     - name: Show a message in the first play
@@ -10,7 +10,7 @@
         msg: "This is the first play."
 
 - name: Run another play
-  hosts: managed_node1
+  hosts: managed_node_1
   gather_facts: false
   tasks:
     - name: Show a message in the second play

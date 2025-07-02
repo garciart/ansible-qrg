@@ -3,7 +3,7 @@
 # Show a greeting using the debug module
 # Usage: ansible-playbook say_hello.yml
 - name: Say Hello
-  hosts: managed_node1
+  hosts: all
   gather_facts: false
   tasks:
     - name: Show a greeting

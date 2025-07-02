@@ -2,7 +2,7 @@
 # Check if a variable is undefined, null, or empty
 # Usage: ansible-playbook validate_vars.yml
 - name: Validate variables
-  hosts: managed_node1
+  hosts: managed_node_1
   gather_facts: false
   vars:
     null_var: null

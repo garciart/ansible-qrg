@@ -2,7 +2,7 @@
 # Break up long strings to improve readability
 # Usage: ansible-playbook continue_lines.yml
 - name: Continue lines
-  hosts: managed_node1
+  hosts: managed_node_1
   gather_facts: false
   tasks:
     - name: Show a string using default flow

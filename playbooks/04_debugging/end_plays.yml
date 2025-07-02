@@ -2,7 +2,7 @@
 # End a play is a condition is met
 # Usage: ansible-playbook end_plays.yml
 - name: End plays
-  hosts: managed_node1
+  hosts: managed_node_1
   gather_facts: false
   tasks:
     - name: Say Hello

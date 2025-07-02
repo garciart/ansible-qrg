@@ -1,0 +1,17 @@
+---
+# Use a role in a playbook
+# Usage: ansible-playbook use_role.yml
+- name: Use roles
+  hosts: managed_node_1
+  gather_facts: false
+  tasks:
+    - name: Say hello
+      ansible.builtin.debug:
+        msg: "Hello from the play!"
+
+    - name: Run roles/demo_role/tasks/main.yml
+      ansible.builtin.import_role:
+        name: demo_role
+...
+# code: language=ansible
+# vi: set noai nu ts=2 sw=2 sts=2 sta et:

@@ -5,7 +5,7 @@
   ansible.builtin.import_playbook: delete_files.yml
 
 - name: Delete directory
-  hosts: managed_node1
+  hosts: managed_node_1
   gather_facts: false
   tasks:
     - name: Delete a directory
