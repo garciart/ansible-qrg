@@ -17,17 +17,29 @@
         msg:
           # Get the name of the user running the Ansible executable on the control node
           - "lookup('env', 'LOGNAME') = {{ lookup('env', 'LOGNAME') | default('undefined', true) }}"
-          # Get the name of the remote user running the Ansible scripts
+          # Get the name of the user running the Ansible scripts on the remote node 
           # You must set 'gather_facts' to a truthy value or omit it (its default value is true)
           # Note - the user will be 'root' if 'become' is a truthy value
           - "ansible_env.USER = {{ ansible_env.USER | default('undefined', true) }}"
           - "ansible_user_id = {{ ansible_user_id | default('undefined', true) }}"
           - "ansible_user_uid = {{ ansible_user_id | default('undefined', true) }}"
-          # Get the user defined through the CLI (-u option) or in the inventory or play
+          # Get the user defined in the CLI (-u option), the inventory, or the play
           # Note - 'ansible_user' (preferred) and 'ansible_ssh_user' point to the same value
           - "ansible_user = {{ ansible_user | default('undefined', true) }}"
           - "ansible_ssh_user = {{ ansible_ssh_user | default('undefined', true) }}"
           # FYI, the password is stored in the 'ansible_password' variable
+
+    - name: Double check the name of the remote node user (always works)
+      ansible.builtin.shell:
+        cmd: whoami; id -un
+      changed_when: false
+      # Returns a list in STDOUT
+      register: result
+
+    - name: Show the name of the remote node user
+      ansible.builtin.debug:
+        msg:
+          - "Hello, {{ result.stdout_lines | default('undefined', true) }}!"
 ...
 # code: language=ansible
 # vi: set noai nu ts=2 sw=2 sts=2 sta et:
