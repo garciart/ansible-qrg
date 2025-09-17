@@ -13,7 +13,7 @@
         bool_value: false
       ansible.builtin.debug:
         msg:
-          - "string ('{{ str_value }}') temporarily beomes
+          - "string ('{{ str_value }}') temporarily becomes
             integer ({{ str_value | int }}),
             float ({{ str_value | float }}),
             or boolean ({{ str_value | bool }})."
